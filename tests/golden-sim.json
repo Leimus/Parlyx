@@ -1,0 +1,16 @@
+{
+  "n": 10000,
+  "dist": {
+    "remando": 2440,
+    "grande": 2855,
+    "quiebra": 2307,
+    "pyme": 1566,
+    "unicornio": 258,
+    "ipo_caida": 304,
+    "ipo": 270
+  },
+  "emergTot": 11592,
+  "rescTot": 9285,
+  "ovrPeakTot": 725692,
+  "rondasTot": 26153
+}

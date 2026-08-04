@@ -1,0 +1,260 @@
+[
+  {
+    "year": 1993,
+    "nombre": "Burbuja punto-com",
+    "clima": 1,
+    "mult": 6,
+    "capital": "abundante"
+  },
+  {
+    "year": 1994,
+    "nombre": "Burbuja punto-com",
+    "clima": 1,
+    "mult": 8,
+    "capital": "abundante"
+  },
+  {
+    "year": 1995,
+    "nombre": "Burbuja punto-com",
+    "clima": 1,
+    "mult": 10,
+    "capital": "abundante"
+  },
+  {
+    "year": 1996,
+    "nombre": "Burbuja punto-com",
+    "clima": 1,
+    "mult": 12,
+    "capital": "abundante"
+  },
+  {
+    "year": 1997,
+    "nombre": "Burbuja punto-com",
+    "clima": 1,
+    "mult": 14,
+    "capital": "euforico"
+  },
+  {
+    "year": 1998,
+    "nombre": "Burbuja punto-com",
+    "clima": 2,
+    "mult": 16,
+    "capital": "euforico"
+  },
+  {
+    "year": 1999,
+    "nombre": "Burbuja punto-com",
+    "clima": 2,
+    "mult": 18,
+    "capital": "euforico"
+  },
+  {
+    "year": 2000,
+    "nombre": "Invierno nuclear",
+    "clima": -2,
+    "mult": 2.5,
+    "capital": "cerrado"
+  },
+  {
+    "year": 2001,
+    "nombre": "Invierno nuclear",
+    "clima": -2,
+    "mult": 2.5,
+    "capital": "cerrado"
+  },
+  {
+    "year": 2002,
+    "nombre": "Invierno nuclear",
+    "clima": -2,
+    "mult": 2.5,
+    "capital": "cerrado"
+  },
+  {
+    "year": 2003,
+    "nombre": "Recuperación web 2.0",
+    "clima": 0,
+    "mult": 5.5,
+    "capital": "selectivo"
+  },
+  {
+    "year": 2004,
+    "nombre": "Recuperación web 2.0",
+    "clima": 0,
+    "mult": 5.5,
+    "capital": "selectivo"
+  },
+  {
+    "year": 2005,
+    "nombre": "Recuperación web 2.0",
+    "clima": 0,
+    "mult": 5.5,
+    "capital": "selectivo"
+  },
+  {
+    "year": 2006,
+    "nombre": "Recuperación web 2.0",
+    "clima": 0,
+    "mult": 5.5,
+    "capital": "selectivo"
+  },
+  {
+    "year": 2007,
+    "nombre": "Recuperación web 2.0",
+    "clima": 0,
+    "mult": 5.5,
+    "capital": "selectivo"
+  },
+  {
+    "year": 2008,
+    "nombre": "Crisis global",
+    "clima": -2,
+    "mult": 3,
+    "capital": "cerrado"
+  },
+  {
+    "year": 2009,
+    "nombre": "Crisis global",
+    "clima": -2,
+    "mult": 3,
+    "capital": "cerrado"
+  },
+  {
+    "year": 2010,
+    "nombre": "Boom mobile y SaaS",
+    "clima": 1,
+    "mult": 8,
+    "capital": "abundante"
+  },
+  {
+    "year": 2011,
+    "nombre": "Boom mobile y SaaS",
+    "clima": 1,
+    "mult": 8,
+    "capital": "abundante"
+  },
+  {
+    "year": 2012,
+    "nombre": "Boom mobile y SaaS",
+    "clima": 1,
+    "mult": 8,
+    "capital": "abundante"
+  },
+  {
+    "year": 2013,
+    "nombre": "Boom mobile y SaaS",
+    "clima": 1,
+    "mult": 8,
+    "capital": "abundante"
+  },
+  {
+    "year": 2014,
+    "nombre": "Boom mobile y SaaS",
+    "clima": 1,
+    "mult": 8,
+    "capital": "abundante"
+  },
+  {
+    "year": 2015,
+    "nombre": "Boom mobile y SaaS",
+    "clima": 1,
+    "mult": 8,
+    "capital": "abundante"
+  },
+  {
+    "year": 2016,
+    "nombre": "Sustito",
+    "clima": -1,
+    "mult": 7,
+    "capital": "selectivo"
+  },
+  {
+    "year": 2017,
+    "nombre": "Abundancia",
+    "clima": 1,
+    "mult": 11,
+    "capital": "abundante"
+  },
+  {
+    "year": 2018,
+    "nombre": "Abundancia",
+    "clima": 1,
+    "mult": 11,
+    "capital": "abundante"
+  },
+  {
+    "year": 2019,
+    "nombre": "Abundancia",
+    "clima": 1,
+    "mult": 11,
+    "capital": "abundante"
+  },
+  {
+    "year": 2020,
+    "nombre": "Shock y fiesta",
+    "clima": -2,
+    "mult": 12,
+    "capital": "cerrado"
+  },
+  {
+    "year": 2021,
+    "nombre": "La plata era gratis",
+    "clima": 2,
+    "mult": 25,
+    "capital": "euforico"
+  },
+  {
+    "year": 2022,
+    "nombre": "Ajuste de tasas",
+    "clima": -2,
+    "mult": 6,
+    "capital": "cerrado"
+  },
+  {
+    "year": 2023,
+    "nombre": "Era AI",
+    "clima": 0,
+    "mult": 7,
+    "capital": "selectivo",
+    "ai": {
+      "clima": 1,
+      "mult": 19,
+      "capital": "euforico"
+    }
+  },
+  {
+    "year": 2024,
+    "nombre": "Era AI",
+    "clima": 0,
+    "mult": 7,
+    "capital": "selectivo",
+    "ai": {
+      "clima": 1,
+      "mult": 19,
+      "capital": "euforico"
+    }
+  },
+  {
+    "year": 2025,
+    "nombre": "Era AI",
+    "clima": 0,
+    "mult": 7,
+    "capital": "selectivo",
+    "ai": {
+      "clima": 1,
+      "mult": 19,
+      "capital": "euforico"
+    }
+  },
+  {
+    "year": 2026,
+    "nombre": "Era AI",
+    "clima": 0,
+    "mult": 7,
+    "capital": "selectivo",
+    "ai": {
+      "clima": 1,
+      "mult": 19,
+      "capital": "euforico"
+    }
+  }
+]

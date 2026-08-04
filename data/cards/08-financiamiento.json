@@ -1,0 +1,178 @@
+{
+  "bloque": "financiamiento",
+  "fuente": "docs/deck-lote-2.md › BLOQUE 8 — FINANCIAMIENTO AVANZADO Y ENDGAME (5)",
+  "cartas": [
+    {
+      "id": "F-01",
+      "bloque": "financiamiento",
+      "titulo": "La campana",
+      "flavor": "Los bancos de inversión te llaman por tu nombre de pila. Salir a bolsa: la meta de todos, el infierno de varios.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": ["founder"],
+        "condicion": "valuación ≥ USD 800M · ARR ≥ 80M · era ⛅/☀️"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Tocar la campana",
+          "raw": "final \"Tocaste la campana\" 🔔 · valuación final = pico × factor de era (en ☀️ ×1.2, en ⛅ ×0.9) · PAT según EQ",
+          "efectos": { "special": "ipo", "hito": "🔔" },
+          "notas": "El factor de era sobre la valuación final (☀️ ×1.2 / ⛅ ×0.9) y el PAT según EQ no están mecanizados: quedan en raw."
+        },
+        {
+          "id": "B",
+          "label": "Una ronda privada más",
+          "raw": "EQ -8% · valuación +20% · 40%: la ventana de IPO se cierra (era cambia), TEND -1",
+          "efectos": { "eq": -8, "valMul": 1.2 },
+          "apuesta": {
+            "p": 0.6,
+            "gana": { "texto": "sin efecto" },
+            "pierde": { "texto": "la ventana de IPO se cierra (era cambia), TEND -1", "efectos": { "tend": -1 } }
+          },
+          "notas": "Apuesta de riesgo puro: el .md solo da la rama mala (40%); p = 0.6 es la rama buena. \"La ventana se cierra\" (era cambia) no está mecanizado más allá del TEND -1."
+        },
+        {
+          "id": "C",
+          "label": "Vender a un estratégico en vez de IPO",
+          "raw": "final Exit grande · ×1.1 sin el riesgo del mercado",
+          "efectos": { "special": "sellStrategic" },
+          "notas": "Venta al ×1.1 de la valuación, sin riesgo de mercado: special sellStrategic (mismo nombre que usa el prototipo de referencia)."
+        }
+      ]
+    },
+    {
+      "id": "F-02",
+      "bloque": "financiamiento",
+      "titulo": "El board te quiere afuera",
+      "flavor": "\"Estamos pensando que la empresa necesita un CEO con experiencia en esta etapa.\" Lo dicen mirándote.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": ["founder"],
+        "etapaMin": 3,
+        "trigger": "TEND ≤ -2 o 2 trienios malos"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pelear tu silla (aliados + plan)",
+          "raw": "50%: te quedás, OVR +2, TEND +2 / 50%: te van igual, y peor",
+          "apuesta": {
+            "p": 0.5,
+            "gana": { "texto": "te quedás, OVR +2, TEND +2", "efectos": { "ovr": 2, "tend": 2 } },
+            "pierde": { "texto": "te van igual, y peor" }
+          },
+          "notas": "\"Te van igual, y peor\" no está cuantificado en el .md: queda como texto (la salida del founder no está mecanizada)."
+        },
+        {
+          "id": "B",
+          "label": "Aceptar ser 'founder & CTO' con CEO contratado",
+          "raw": "OVR -1 · TEND +1 (la empresa mejora sin vos al mando, trágico y real)",
+          "efectos": { "ovr": -1, "tend": 1 }
+        },
+        {
+          "id": "C",
+          "label": "Irte con tu equity y tu orgullo",
+          "raw": "conservás EQ · habilita comeback o playa · flavor: la empresa puede volar sin vos y lo vas a ver por el diario",
+          "efectos": { "special": "salidaConEquity" },
+          "notas": "Salís de la empresa conservando el equity; habilita comeback o modo playa. No mecanizado más allá del special."
+        }
+      ]
+    },
+    {
+      "id": "F-03",
+      "bloque": "financiamiento",
+      "titulo": "El CFO adulto",
+      "flavor": "Tu Excel ya no alcanza. Los fondos piden \"alguien con experiencia en la posición\".",
+      "tipo": "T1",
+      "elegibilidad": { "modos": ["founder"], "etapaMin": 3 },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Contratar al CFO de un gigante",
+          "raw": "RW -4m · TEND +1 · requisito para F-01 y F-04",
+          "efectos": { "rw": -4, "tend": 1 },
+          "notas": "\"Requisito para F-01 y F-04\" es una relación entre cartas aún no mecanizada: queda en raw."
+        },
+        {
+          "id": "B",
+          "label": "Ascender a tu contador de siempre",
+          "raw": "RW -1m · 45%: crece con el puesto / 55%: F-04 duele el doble",
+          "efectos": { "rw": -1 },
+          "apuesta": {
+            "p": 0.45,
+            "gana": { "texto": "crece con el puesto" },
+            "pierde": { "texto": "F-04 duele el doble" }
+          },
+          "notas": "Ambas ramas son efectos cruzados con otras cartas (no cuantificados acá): quedan como texto."
+        },
+        {
+          "id": "C",
+          "label": "Seguir con el Excel",
+          "raw": "bloquea F-01 · en due diligence: efectos ×1.5",
+          "notas": "Ambos efectos son cruzados con otras cartas (bloquea F-01; multiplica los efectos de F-04): no mecanizados, quedan en raw."
+        }
+      ]
+    },
+    {
+      "id": "F-04",
+      "bloque": "financiamiento",
+      "titulo": "La due diligence",
+      "flavor": "Un ejército de analistas revisa tu empresa con lupa. Todos los ⚑ que juntaste están por cobrar peaje.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": ["founder"],
+        "trigger": "antes de rondas Serie B+ o exit"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Abrir todo, sin sorpresas",
+          "raw": "si no hay flags negativos: TEND +1, cierre rápido · si hay (balde_agujereado, deuda_técnica, margen_negativo): valuación -15% por flag",
+          "notas": "Todo el efecto es condicional a los flags acumulados: no va en efectos, queda en raw hasta que el motor lo mecanice."
+        },
+        {
+          "id": "B",
+          "label": "Maquillar lo justo",
+          "raw": "45%: cuela / 55%: encuentran todo, la ronda se cae, OVR -2",
+          "apuesta": {
+            "p": 0.45,
+            "gana": { "texto": "cuela" },
+            "pierde": { "texto": "encuentran todo, la ronda se cae, OVR -2", "efectos": { "ovr": -2 } }
+          },
+          "notas": "\"La ronda se cae\" no está mecanizado más allá del OVR -2."
+        }
+      ],
+      "notas": "Esta carta es el cobrador del karma: hace que los flags de todo el deck importen."
+    },
+    {
+      "id": "F-05",
+      "bloque": "financiamiento",
+      "titulo": "El atajo a la bolsa",
+      "flavor": "Un cheque en blanco cotizante te ofrece fusionarte y salir a bolsa por la ventana. Sin roadshow, sin preguntas.",
+      "tipo": "T3",
+      "elegibilidad": { "modos": ["founder"], "ventana": [2020, 2021], "etapaMin": 3 },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Tomar el atajo",
+          "raw": "final IPO técnico · valuación pico ×1.3 en el papel · 70%: la acción cae 60% en el trienio siguiente y la tarjeta lo muestra (\"Tocaste la campana*\" con asterisco) / 30%: aguanta",
+          "efectos": { "special": "ipoTecnico" },
+          "apuesta": {
+            "p": 0.3,
+            "gana": { "texto": "aguanta" },
+            "pierde": { "texto": "la acción cae 60% en el trienio siguiente y la tarjeta lo muestra (\"Tocaste la campana*\" con asterisco)" }
+          },
+          "notas": "IPO técnico (SPAC) con valuación pico ×1.3 en el papel; la caída del 60% posterior y el asterisco en la tarjeta no están mecanizados: quedan en raw."
+        },
+        {
+          "id": "B",
+          "label": "Pasar",
+          "raw": "OVR +1 cuando pase la moda",
+          "notas": "El OVR +1 es diferido (\"cuando pase la moda\"): no va en efectos, queda en raw."
+        }
+      ],
+      "notas": "El asterisco en la tarjeta es un chiste que el ecosistema va a entender al toque."
+    }
+  ]
+}

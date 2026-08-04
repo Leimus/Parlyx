@@ -1,0 +1,165 @@
+{
+  "bloque": "color",
+  "fuente": "docs/deck-lote-2.md › BLOQUE 10 — COLOR ADICIONAL (5)",
+  "cartas": [
+    {
+      "id": "C-01",
+      "bloque": "color",
+      "titulo": "El podcast",
+      "flavor": "Todo founder tiene un podcast. Vos todavía no. El micrófono ya lo compraste.",
+      "tipo": "T5",
+      "elegibilidad": { "modos": ["founder"], "etapaMin": 2 },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Lanzarlo",
+          "raw": "RW -1m · 45%: OVR +1, canal de marca / 55%: 4 episodios y abandono, flavor eterno",
+          "efectos": { "rw": -1 },
+          "apuesta": {
+            "p": 0.45,
+            "gana": { "texto": "OVR +1, canal de marca", "efectos": { "ovr": 1 } },
+            "pierde": { "texto": "4 episodios y abandono, flavor eterno" }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Ir de invitado a los de otros",
+          "raw": "OVR +1 · cero costo (la jugada correcta y el juego lo premia)",
+          "efectos": { "ovr": 1 }
+        },
+        {
+          "id": "C",
+          "label": "Ni loco",
+          "raw": "sin cambios"
+        }
+      ]
+    },
+    {
+      "id": "C-02",
+      "bloque": "color",
+      "titulo": "La rutina del gurú",
+      "flavor": "Baños helados, ayuno, despertarse 4:30. Un founder que admirás jura que ahí está el secreto.",
+      "tipo": "T5",
+      "elegibilidad": { "modos": ["founder"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Adoptar la rutina completa",
+          "raw": "40%: TEND +1 (energía real) / 60%: OVR -1 (dormido en el board)",
+          "apuesta": {
+            "p": 0.4,
+            "gana": { "texto": "TEND +1 (energía real)", "efectos": { "tend": 1 } },
+            "pierde": { "texto": "OVR -1 (dormido en el board)", "efectos": { "ovr": -1 } }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Robarle solo lo que sirve (dormir bien)",
+          "raw": "TEND +1 · sin drama",
+          "efectos": { "tend": 1 }
+        },
+        {
+          "id": "C",
+          "label": "Tuitear en contra de los gurúes",
+          "raw": "va a G-18 (\"El tweet\") automáticamente",
+          "goto": "G-18"
+        }
+      ]
+    },
+    {
+      "id": "C-03",
+      "bloque": "color",
+      "titulo": "El coach",
+      "flavor": "Tu inversor principal te \"sugiere\" un coach ejecutivo. La sugerencia vino con el contacto agendado.",
+      "tipo": "T5",
+      "elegibilidad": { "modos": ["founder"], "condicion": "Serie B+ o TEND ≤ -1" },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Ir con la mente abierta",
+          "raw": "65%: TEND +1, OVR +1 / 35%: son 200 dólares la hora de frases de LinkedIn",
+          "apuesta": {
+            "p": 0.65,
+            "gana": { "texto": "TEND +1, OVR +1", "efectos": { "tend": 1, "ovr": 1 } },
+            "pierde": { "texto": "son 200 dólares la hora de frases de LinkedIn" }
+          },
+          "notas": "La rama mala no tiene efecto mecánico (perdiste la plata de las sesiones, ya contada en el chiste): queda como texto."
+        },
+        {
+          "id": "B",
+          "label": "Ir para que el inversor se calle",
+          "raw": "sin efectos · el coach se da cuenta"
+        },
+        {
+          "id": "C",
+          "label": "\"Yo no necesito eso\"",
+          "raw": "TEND -1 con el board",
+          "efectos": { "tend": -1 },
+          "notas": "\"Con el board\" es el matiz narrativo del TEND -1."
+        }
+      ]
+    },
+    {
+      "id": "C-04",
+      "bloque": "color",
+      "titulo": "La nota promesa",
+      "flavor": "Un medio grande te elige \"startup promesa del año\". La nota va a envejecer como envejecen esas notas.",
+      "tipo": "T5",
+      "elegibilidad": { "modos": ["founder"], "etapaMin": 1, "etapaMax": 2 },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptar y difundir a full",
+          "raw": "OVR +1 ya · 50%: si quebrás después, la nota resucita en los replies",
+          "efectos": { "ovr": 1 },
+          "notas": "El 50% es un riesgo condicional futuro (si quebrás) sin efecto numérico: no se modela como apuesta, queda en raw."
+        },
+        {
+          "id": "B",
+          "label": "Aceptar con perfil bajo",
+          "raw": "OVR +1 · sin riesgo",
+          "efectos": { "ovr": 1 }
+        },
+        {
+          "id": "C",
+          "label": "Pedir que saquen a otro",
+          "raw": "⚑ favor_debido de un competidor agradecido",
+          "efectos": { "flags": ["favor_debido"] },
+          "notas": "El favor lo debe un competidor (matiz narrativo del mismo flag de la cadena favor_debido)."
+        }
+      ]
+    },
+    {
+      "id": "C-05",
+      "bloque": "color",
+      "titulo": "El pitch en el casamiento",
+      "flavor": "Un pariente lejano te encara en la fiesta: tiene \"la idea del siglo\" y solo necesita \"alguien técnico\".",
+      "tipo": "T5",
+      "elegibilidad": { "modos": ["founder"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Escucharlo 5 minutos por respeto",
+          "raw": "sin efectos · flavor: la idea era una app de asados"
+        },
+        {
+          "id": "B",
+          "label": "Darle un consejo real",
+          "raw": "OVR +1 (buena gente) · 10%: la idea era buena en serio, ⚑ oportunidad_familiar",
+          "efectos": { "ovr": 1 },
+          "apuesta": {
+            "p": 0.1,
+            "gana": { "texto": "la idea era buena en serio, ⚑ oportunidad_familiar", "efectos": { "flags": ["oportunidad_familiar"] } },
+            "pierde": { "texto": "sin efecto" }
+          },
+          "notas": "Apuesta invertida: la rama rara (10%) es la buena; la rama frecuente no tiene efecto (texto agregado)."
+        },
+        {
+          "id": "C",
+          "label": "Esconderte en la barra",
+          "raw": "sin efectos · todos te vimos"
+        }
+      ]
+    }
+  ]
+}

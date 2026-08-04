@@ -1,0 +1,280 @@
+{
+  "bloque": "playa",
+  "fuente": "docs/deck-lote-2.md › BLOQUE 9 — MODO PLAYA (8)",
+  "cartas": [
+    {
+      "id": "P-01",
+      "bloque": "playa",
+      "titulo": "La casa frente al mar",
+      "flavor": "La casa que mirabas en Zillow a las 3 AM cuando la empresa se caía. Ahora podés.",
+      "tipo": "T1",
+      "elegibilidad": { "modos": ["playa"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Comprarla",
+          "raw": "PAT -30% · OVR estable (sos feliz) · flavor en tarjeta: 🏖",
+          "efectos": { "patPct": -0.3 },
+          "notas": "\"OVR estable (sos feliz)\" es narrativo; el 🏖 es flavor de tarjeta, no un logro mecanizado."
+        },
+        {
+          "id": "B",
+          "label": "Alquilarla por temporada",
+          "raw": "PAT -5% · la sensatez no hace buenas historias",
+          "efectos": { "patPct": -0.05 }
+        },
+        {
+          "id": "C",
+          "label": "Comprarla y también el barco",
+          "raw": "PAT -50% · ⚑ tren_de_vida (cada trienio: PAT -15% extra)",
+          "efectos": { "patPct": -0.5, "flags": ["tren_de_vida"] },
+          "notas": "El drenaje recurrente del flag (PAT -15% extra por trienio) lo aplica el motor cuando mecanice tren_de_vida."
+        }
+      ]
+    },
+    {
+      "id": "P-02",
+      "bloque": "playa",
+      "titulo": "El restaurante",
+      "flavor": "Todos tus amigos exitosos pusieron uno. Ninguno recuperó la plata. El tuyo va a ser distinto, obvio.",
+      "tipo": "T2",
+      "elegibilidad": { "modos": ["playa"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Abrir el restaurante",
+          "raw": "PAT -20% · 25%: da ganancia y sos feliz / 75%: pierde plata elegantemente, PAT -10% extra por trienio hasta que lo cierres",
+          "efectos": { "patPct": -0.2 },
+          "apuesta": {
+            "p": 0.25,
+            "gana": { "texto": "da ganancia y sos feliz" },
+            "pierde": { "texto": "pierde plata elegantemente, PAT -10% extra por trienio hasta que lo cierres" }
+          },
+          "notas": "La rama mala es recurrente (PAT -10% por trienio hasta cerrarlo): no mecanizada, queda en raw."
+        },
+        {
+          "id": "B",
+          "label": "Invertir en el de un chef en serio",
+          "raw": "PAT -8% · 50%: recuperás ×2 / 50%: cero",
+          "efectos": { "patPct": -0.08 },
+          "apuesta": {
+            "p": 0.5,
+            "gana": { "texto": "recuperás ×2" },
+            "pierde": { "texto": "cero" }
+          },
+          "notas": "\"Recuperás ×2\" refiere al monto invertido (el 8%), no al PAT total: no mecanizable con patMul, queda como texto."
+        },
+        {
+          "id": "C",
+          "label": "Ir a comer a los de otros",
+          "raw": "PAT -1% · sabiduría",
+          "efectos": { "patPct": -0.01 }
+        }
+      ]
+    },
+    {
+      "id": "P-03",
+      "bloque": "playa",
+      "titulo": "Ángel de día",
+      "flavor": "Todos los founders jóvenes quieren tu cheque. Y tu WhatsApp. Sobre todo tu WhatsApp.",
+      "tipo": "T2",
+      "elegibilidad": { "modos": ["playa", "ejecutivo"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Portfolio de 10 apuestas chicas",
+          "raw": "PAT -15% · 60%: una paga todo, PAT +40% / 40%: aprendizaje carísimo",
+          "efectos": { "patPct": -0.15 },
+          "apuesta": {
+            "p": 0.6,
+            "gana": { "texto": "una paga todo, PAT +40%", "efectos": { "patPct": 0.4 } },
+            "pierde": { "texto": "aprendizaje carísimo" }
+          },
+          "notas": "\"Aprendizaje carísimo\" no suma pérdida extra a la ya aplicada (-15%): queda como texto."
+        },
+        {
+          "id": "B",
+          "label": "Un solo cheque grande al que más te cierra",
+          "raw": "PAT -20% · 35%: PAT ×2.5 / 65%: PAT -20% y un amigo menos",
+          "efectos": { "patPct": -0.2 },
+          "apuesta": {
+            "p": 0.35,
+            "gana": { "texto": "PAT ×2.5", "efectos": { "patMul": 2.5 } },
+            "pierde": { "texto": "PAT -20% y un amigo menos", "efectos": { "patPct": -0.2 } }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Solo consejos, cero cheques",
+          "raw": "OVR +1 (mentor querido) · ⚑ red_de_founders (mejora el comeback)",
+          "efectos": { "ovr": 1, "flags": ["red_de_founders"] }
+        }
+      ]
+    },
+    {
+      "id": "P-04",
+      "bloque": "playa",
+      "titulo": "El fondo de tu amigo",
+      "flavor": "Tu excompañero de la facultad armó un fondo. \"Entrá de LP, es plata dormida\", dice.",
+      "tipo": "T2",
+      "elegibilidad": { "modos": ["playa"], "patMin": 5000000 },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Entrar como LP",
+          "raw": "PAT -25% bloqueado 2 trienios · 55%: PAT ×1.6 al final / 45%: \"el mercado estuvo difícil\"",
+          "efectos": { "patPct": -0.25 },
+          "apuesta": {
+            "p": 0.55,
+            "gana": { "texto": "PAT ×1.6 al final" },
+            "pierde": { "texto": "\"el mercado estuvo difícil\"" }
+          },
+          "notas": "El bloqueo por 2 trienios y el retorno diferido (\"×1.6 al final\") no están mecanizados: quedan en raw."
+        },
+        {
+          "id": "B",
+          "label": "Entrar como socio activo",
+          "raw": "sale de modo playa a \"modo inversor\" (flavor de cartas cambia) · TEND +1",
+          "efectos": { "tend": 1, "special": "modoInversor" },
+          "notas": "El \"modo inversor\" es solo un cambio de flavor de cartas, no un modo mecánico nuevo."
+        },
+        {
+          "id": "C",
+          "label": "\"Te banco desde afuera\"",
+          "raw": "sin cambios"
+        }
+      ],
+      "notas": "Errata del .md corregida en la conversión: la carta figura como \"F-04\" en el Bloque 9, colisionando con F-04 \"La due diligence\" del Bloque 8. Acá es P-04 (ver docs/conversion-cartas.md)."
+    },
+    {
+      "id": "P-05",
+      "bloque": "playa",
+      "titulo": "Cripto personal",
+      "flavor": "Aburrido, con plata y con internet. La combinación más peligrosa del mundo.",
+      "tipo": "T2",
+      "elegibilidad": { "modos": ["playa"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Meter el 10% 'para jugar'",
+          "raw": "50%: PAT +15% / 50%: PAT -10%",
+          "apuesta": {
+            "p": 0.5,
+            "gana": { "texto": "PAT +15%", "efectos": { "patPct": 0.15 } },
+            "pierde": { "texto": "PAT -10%", "efectos": { "patPct": -0.1 } }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Meter el 50% porque 'esta vez es distinto'",
+          "raw": "25%: PAT ×1.8 / 75%: PAT -35% · flavor: nunca es distinto",
+          "apuesta": {
+            "p": 0.25,
+            "gana": { "texto": "PAT ×1.8", "efectos": { "patMul": 1.8 } },
+            "pierde": { "texto": "PAT -35%", "efectos": { "patPct": -0.35 } }
+          },
+          "notas": "El flavor (\"nunca es distinto\") queda en raw."
+        },
+        {
+          "id": "C",
+          "label": "No tocar nada",
+          "raw": "PAT estable · dormís bien"
+        }
+      ]
+    },
+    {
+      "id": "P-06",
+      "bloque": "playa",
+      "titulo": "El año sabático de verdad",
+      "flavor": "Un año entero sin agenda. Los primeros dos meses son un sueño. El tercero aparece el vacío.",
+      "tipo": "T1",
+      "elegibilidad": { "modos": ["playa"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Viajar hasta que se pase",
+          "raw": "PAT -8% · OVR -1 (te desconectás del juego)",
+          "efectos": { "patPct": -0.08, "ovr": -1 }
+        },
+        {
+          "id": "B",
+          "label": "Escribir, entrenar, estar",
+          "raw": "OVR +1 · TEND +1 si hay comeback (volvés entero)",
+          "efectos": { "ovr": 1 },
+          "notas": "\"TEND +1 si hay comeback\" es condicional: no va en efectos, queda en raw."
+        },
+        {
+          "id": "C",
+          "label": "Volverte loco y mirar dashboards ajenos",
+          "raw": "acelera la carta EJ-09/\"Te pica el bichito\"",
+          "notas": "Acelera la aparición de EJ-09 (disponibilidad, no encadenamiento forzado): no es goto, queda en raw."
+        }
+      ]
+    },
+    {
+      "id": "P-07",
+      "bloque": "playa",
+      "titulo": "El circuito de charlas",
+      "flavor": "Universidades, conferencias, un TEDx del conurbano. Todos quieren la historia del exit.",
+      "tipo": "T5",
+      "elegibilidad": { "modos": ["playa"], "condicion": "o post-exit" },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptar todo",
+          "raw": "PAT +3% · OVR estable (seguís vigente) · ⚑ red_de_founders",
+          "efectos": { "patPct": 0.03, "flags": ["red_de_founders"] },
+          "notas": "\"OVR estable (seguís vigente)\" es narrativo."
+        },
+        {
+          "id": "B",
+          "label": "Solo las que pagan bien",
+          "raw": "PAT +5% · OVR -1 (te ven menos)",
+          "efectos": { "patPct": 0.05, "ovr": -1 }
+        },
+        {
+          "id": "C",
+          "label": "Ninguna, perfil fantasma",
+          "raw": "el misterio también es marca: 50%: OVR +1 / 50%: te olvidan",
+          "apuesta": {
+            "p": 0.5,
+            "gana": { "texto": "OVR +1", "efectos": { "ovr": 1 } },
+            "pierde": { "texto": "te olvidan" }
+          },
+          "notas": "\"Te olvidan\" no está cuantificado: queda como texto."
+        }
+      ]
+    },
+    {
+      "id": "P-08",
+      "bloque": "playa",
+      "titulo": "El libro",
+      "flavor": "Una editorial quiere tus memorias: \"Cómo lo hice\". Vos sabés cuánto fue suerte. ¿Lo escribís igual?",
+      "tipo": "T2",
+      "elegibilidad": { "modos": ["playa"], "condicion": "trienio 2+ de retiro" },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Escribirlo honesto (con la suerte incluida)",
+          "raw": "OVR +2 · ⚑ reputación_intacta",
+          "efectos": { "ovr": 2, "flags": ["reputación_intacta"] }
+        },
+        {
+          "id": "B",
+          "label": "Escribirlo épico (sin la suerte)",
+          "raw": "55%: bestseller de aeropuerto, PAT +5%, OVR +1 / 45%: el ecosistema se ríe, OVR -2",
+          "apuesta": {
+            "p": 0.55,
+            "gana": { "texto": "bestseller de aeropuerto, PAT +5%, OVR +1", "efectos": { "patPct": 0.05, "ovr": 1 } },
+            "pierde": { "texto": "el ecosistema se ríe, OVR -2", "efectos": { "ovr": -2 } }
+          }
+        },
+        {
+          "id": "C",
+          "label": "No escribirlo",
+          "raw": "sin cambios"
+        }
+      ]
+    }
+  ]
+}

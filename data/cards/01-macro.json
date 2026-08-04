@@ -1,0 +1,504 @@
+{
+  "bloque": "macro",
+  "fuente": "docs/deck-lote-1.md › BLOQUE 1 — CARTAS MACRO (15)",
+  "cartas": [
+    {
+      "id": "M-01",
+      "bloque": "macro",
+      "titulo": "La fiesta de fin de milenio",
+      "flavor": "Cualquier cosa que termine en punto-com levanta plata. La tuya también.",
+      "tipo": "T4",
+      "tePaso": { "todos": true },
+      "elegibilidad": { "modos": ["founder"], "ventana": [1996, 1999] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Levantar todo lo que den",
+          "raw": "RW +30m · EQ -20% · ⚑ sobrecapitalizado (si cae M-02: efectos negativos ×1.5)",
+          "efectos": { "rw": 30, "eq": -20, "flags": ["sobrecapitalizado"] },
+          "notas": "Condicional en raw (no mecanizado): si cae M-02, efectos negativos ×1.5."
+        },
+        {
+          "id": "B",
+          "label": "Levantar lo justo",
+          "raw": "RW +14m · EQ -10%",
+          "efectos": { "rw": 14, "eq": -10 }
+        },
+        {
+          "id": "C",
+          "label": "Guardar la ropa",
+          "raw": "OVR +1 (disciplina) · TEND +1 si sobrevivís el trienio",
+          "efectos": { "ovr": 1 },
+          "notas": "Condicional en raw (no mecanizado): TEND +1 si sobrevivís el trienio."
+        }
+      ]
+    },
+    {
+      "id": "M-02",
+      "bloque": "macro",
+      "titulo": "Se pinchó",
+      "flavor": "El índice tech perdió la mitad en meses. Tus mails a inversores rebotan solos.",
+      "tipo": "T4",
+      "tePaso": { "todos": true },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2000, 2002] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Hibernar",
+          "raw": "RW +6m (recortás todo) · OVR -1 · TEND -1",
+          "efectos": { "rw": 6, "ovr": -1, "tend": -1 }
+        },
+        {
+          "id": "B",
+          "label": "Comprar competidores muertos",
+          "raw": "RW -8m · 55%: ARR +40%, TEND +2 / 45%: OVR -2",
+          "efectos": { "rw": -8 },
+          "apuesta": {
+            "p": 0.55,
+            "gana": { "texto": "ARR +40%, TEND +2", "efectos": { "arrMul": 1.4, "tend": 2 } },
+            "pierde": { "texto": "OVR -2", "efectos": { "ovr": -2 } }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Seguir como si nada",
+          "raw": "30%: zafás, OVR +2 / 70%: ✝ casi-muerte, RW -12m",
+          "apuesta": {
+            "p": 0.3,
+            "gana": { "texto": "zafás, OVR +2", "efectos": { "ovr": 2 } },
+            "pierde": { "texto": "✝ casi-muerte, RW -12m", "efectos": { "rw": -12, "marker": "✝" } }
+          }
+        }
+      ]
+    },
+    {
+      "id": "M-03",
+      "bloque": "macro",
+      "titulo": "El país se cae a pedazos",
+      "flavor": "Corralito, cinco presidentes, la calle prendida fuego. Tus clientes locales no pueden ni pagarte.",
+      "tipo": "T4",
+      "tePaso": { "hqs": ["ba"] },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2000, 2002] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Facturar afuera ya",
+          "raw": "RW -4m · TEND +2 · ⚑ dolarizado",
+          "efectos": { "rw": -4, "tend": 2, "flags": ["dolarizado"] }
+        },
+        {
+          "id": "B",
+          "label": "Aguantar con los clientes de siempre",
+          "raw": "ARR -30% · OVR +1 (lealtad, se acuerdan)",
+          "efectos": { "arrMul": 0.7, "ovr": 1 }
+        },
+        {
+          "id": "C",
+          "label": "Mudar el HQ a Miami",
+          "raw": "RW -6m · EQ -2% (gastos) · cambia HQ · TEND +1",
+          "efectos": { "rw": -6, "eq": -2, "tend": 1, "special": "cambiaHQ" },
+          "notas": "cambiaHQ: mudanza del HQ a Miami (mia)."
+        }
+      ]
+    },
+    {
+      "id": "M-04",
+      "bloque": "macro",
+      "titulo": "Un teléfono sin teclas",
+      "flavor": "Lo presentó un tipo de jean y polera negra. Tu producto quedó viejo en 40 minutos.",
+      "tipo": "T4",
+      "tePaso": { "verticales": ["gaming"] },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2005, 2008] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Apostar todo a mobile",
+          "raw": "RW -6m · 60%: TEND +2, ARR +30% / 40%: OVR -1",
+          "efectos": { "rw": -6 },
+          "apuesta": {
+            "p": 0.6,
+            "gana": { "texto": "TEND +2, ARR +30%", "efectos": { "tend": 2, "arrMul": 1.3 } },
+            "pierde": { "texto": "OVR -1", "efectos": { "ovr": -1 } }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Esperar a ver si prende",
+          "raw": "sin cambios · si tu vertical es consumer: TEND -1",
+          "notas": "Condicional en raw (no mecanizado): si tu vertical es consumer (gaming), TEND -1."
+        },
+        {
+          "id": "C",
+          "label": "\"Es una moda\"",
+          "raw": "OVR -2 · TEND -1 (la frase te persigue)",
+          "efectos": { "ovr": -2, "tend": -1 }
+        }
+      ]
+    },
+    {
+      "id": "M-05",
+      "bloque": "macro",
+      "titulo": "Cayó un banco de 160 años",
+      "flavor": "Crisis financiera global. La palabra \"riesgo\" volvió a estar mal vista.",
+      "tipo": "T4",
+      "tePaso": { "verticales": ["fintech"] },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2008, 2009] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Recortar y aguantar",
+          "raw": "RW +5m · OVR -1",
+          "efectos": { "rw": 5, "ovr": -1 }
+        },
+        {
+          "id": "B",
+          "label": "Salir a vender confianza",
+          "raw": "RW -3m · 55%: ARR +25%, OVR +1 / 45%: sin efecto",
+          "efectos": { "rw": -3 },
+          "apuesta": {
+            "p": 0.55,
+            "gana": { "texto": "ARR +25%, OVR +1", "efectos": { "arrMul": 1.25, "ovr": 1 } },
+            "pierde": { "texto": "sin efecto" }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Levantar en la mala",
+          "raw": "EQ -22% · RW +18m · TEND +1",
+          "efectos": { "eq": -22, "rw": 18, "tend": 1 },
+          "condicion": "solo aparece si OVR ≥ 75"
+        }
+      ]
+    },
+    {
+      "id": "M-06",
+      "bloque": "macro",
+      "titulo": "Una computadora en cada bolsillo",
+      "flavor": "Todo el mundo mira para abajo en el bondi. Ahí está tu mercado.",
+      "tipo": "T4",
+      "tePaso": { "verticales": ["gaming", "marketplace"] },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2011, 2014] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "App first, todo de vuelta",
+          "raw": "RW -5m · TEND +2",
+          "efectos": { "rw": -5, "tend": 2 }
+        },
+        {
+          "id": "B",
+          "label": "Versión mobile \"para cumplir\"",
+          "raw": "ARR +10% · TEND -1 (deuda técnica)",
+          "efectos": { "arrMul": 1.1, "tend": -1 },
+          "notas": "\"(deuda técnica)\" es paréntesis explicativo, no ⚑: no prende el flag deuda_técnica."
+        },
+        {
+          "id": "C",
+          "label": "Seguir en la web",
+          "raw": "sin cambios · si consumer: ARR -20%",
+          "notas": "Condicional en raw (no mecanizado): si consumer (gaming), ARR -20%."
+        }
+      ]
+    },
+    {
+      "id": "M-07",
+      "bloque": "macro",
+      "titulo": "La palabra de los mil millones",
+      "flavor": "Inventaron un nombre para las startups que valen mil millones. Ahora todos quieren ser eso.",
+      "tipo": "T4",
+      "tePaso": { "todos": true },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2014, 2017] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Subirse al relato unicornio",
+          "raw": "EQ -18% · RW +20m · TEND +1 · ⚑ presión_growth",
+          "efectos": { "eq": -18, "rw": 20, "tend": 1, "flags": ["presión_growth"] }
+        },
+        {
+          "id": "B",
+          "label": "\"Nosotros vamos a rentabilidad\"",
+          "raw": "OVR +1 · múltiplo -20% este trienio",
+          "efectos": { "ovr": 1, "multMul": 0.8 }
+        },
+        {
+          "id": "C",
+          "label": "Ni idea, seguir laburando",
+          "raw": "sin cambios"
+        }
+      ]
+    },
+    {
+      "id": "M-08",
+      "bloque": "macro",
+      "titulo": "La región se despierta",
+      "flavor": "Los diarios de afuera descubrieron que acá también se fundan empresas. Llegan fondos de turismo.",
+      "tipo": "T4",
+      "tePaso": { "hqs": ["ba", "cdmx", "sp", "bog", "scl"] },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2014, 2017] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Girar el pitch a 'la oportunidad LATAM'",
+          "raw": "EQ -15% · RW +16m",
+          "efectos": { "eq": -15, "rw": 16 }
+        },
+        {
+          "id": "B",
+          "label": "Aliarte con el unicornio criollo",
+          "raw": "ARR +25% · ⚑ aliado_gigante (habilita EJ-02 con mejores términos)",
+          "efectos": { "arrMul": 1.25, "flags": ["aliado_gigante"] },
+          "notas": "⚑ aliado_gigante habilita EJ-02 con mejores términos."
+        },
+        {
+          "id": "C",
+          "label": "Seguir en la tuya",
+          "raw": "sin cambios"
+        }
+      ]
+    },
+    {
+      "id": "M-09",
+      "bloque": "macro",
+      "titulo": "Monedas mágicas de internet",
+      "flavor": "Tu primo duplicó la plata en tres meses. Tu directorio pregunta si \"tenemos estrategia blockchain\".",
+      "tipo": "T4",
+      "tePaso": { "verticales": ["crypto"], "nota": "crypto (bendición) / resto (tentación)" },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2017, 2020] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pivotear el pitch a crypto",
+          "raw": "40%: valuación ×2 este trienio, TEND +1 / 60%: OVR -2, ⚑ manchado_crypto",
+          "apuesta": {
+            "p": 0.4,
+            "gana": { "texto": "valuación ×2 este trienio, TEND +1", "efectos": { "valMul": 2, "tend": 1 } },
+            "pierde": { "texto": "OVR -2, ⚑ manchado_crypto", "efectos": { "ovr": -2, "flags": ["manchado_crypto"] } }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Tomar pago en cripto \"por si acaso\"",
+          "raw": "50%: PAT +500K / 50%: PAT 0 (si no hay PAT, sin efecto)",
+          "apuesta": {
+            "p": 0.5,
+            "gana": { "texto": "PAT +500K", "efectos": { "pat": 500000 } },
+            "pierde": { "texto": "PAT 0 (si no hay PAT, sin efecto)", "efectos": { "patPct": -1 } }
+          },
+          "notas": "\"PAT 0\" mecanizado como patPct -1 (perdés todo el patrimonio; si no hay PAT, no cambia nada)."
+        },
+        {
+          "id": "C",
+          "label": "Ni loco",
+          "raw": "OVR +1 si después cae M-10 en la partida",
+          "notas": "Condicional en raw (no mecanizado): OVR +1 solo si después cae M-10 en la partida."
+        }
+      ]
+    },
+    {
+      "id": "M-10",
+      "bloque": "macro",
+      "titulo": "Invierno cripto",
+      "flavor": "Todo lo que subía bajó. Los gurúes borran tuits.",
+      "tipo": "T4",
+      "tePaso": { "verticales": ["crypto"] },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2018, 2020] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Sobrevivir el invierno",
+          "raw": "RW -8m · TEND +2 si sobrevivís (los que quedan se llevan todo)",
+          "efectos": { "rw": -8 },
+          "condicion": "solo crypto",
+          "notas": "Condicional en raw (no mecanizado): TEND +2 si sobrevivís."
+        },
+        {
+          "id": "B",
+          "label": "Pivotear a \"web3 enterprise\"",
+          "raw": "45%: ARR +30% / 55%: OVR -2",
+          "apuesta": {
+            "p": 0.45,
+            "gana": { "texto": "ARR +30%", "efectos": { "arrMul": 1.3 } },
+            "pierde": { "texto": "OVR -2", "efectos": { "ovr": -2 } }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Cerrar el experimento cripto",
+          "raw": "OVR +1 (foco) · TEND +1",
+          "efectos": { "ovr": 1, "tend": 1 }
+        }
+      ]
+    },
+    {
+      "id": "M-11",
+      "bloque": "macro",
+      "titulo": "El fondo japonés",
+      "flavor": "Un fondo gigante desembarcó en la región con la billetera abierta. Reparte cheques de nueve cifras.",
+      "tipo": "T4",
+      "tePaso": { "hqs": ["ba", "cdmx", "sp", "bog", "scl"] },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2017, 2020] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Tomar el cheque grande",
+          "raw": "RW +30m · EQ -25% · ⚑ presión_growth · TEND +1",
+          "efectos": { "rw": 30, "eq": -25, "tend": 1, "flags": ["presión_growth"] }
+        },
+        {
+          "id": "B",
+          "label": "Usar la oferta para mejorar otra",
+          "raw": "EQ -15% · RW +18m",
+          "efectos": { "eq": -15, "rw": 18 }
+        },
+        {
+          "id": "C",
+          "label": "Rechazar (y tuitearlo)",
+          "raw": "OVR +2 (personaje) · 30%: TEND -1 (te la guardan)",
+          "efectos": { "ovr": 2 },
+          "apuesta": {
+            "p": 0.7,
+            "gana": { "texto": "sin efecto" },
+            "pierde": { "texto": "TEND -1 (te la guardan)", "efectos": { "tend": -1 } }
+          },
+          "notas": "Apuesta de riesgo puro: en el .md solo figura la rama mala (30%: TEND -1); p = 0.7 es la probabilidad de la rama buena (sin efecto)."
+        }
+      ]
+    },
+    {
+      "id": "M-12",
+      "bloque": "macro",
+      "titulo": "El mundo se encierra",
+      "flavor": "Marzo: se cae todo. Septiembre: tu categoría explota. El mismo año.",
+      "tipo": "T4",
+      "tePaso": { "verticales": ["ecom"] },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2020, 2020] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Recortar en marzo, contratar en agosto",
+          "raw": "OVR +2 · TEND +2 (timing perfecto)",
+          "efectos": { "ovr": 2, "tend": 2 }
+        },
+        {
+          "id": "B",
+          "label": "Pánico y layoffs profundos",
+          "raw": "↓ · RW +8m · TEND -1 (después no llegás a la demanda)",
+          "efectos": { "marker": "↓", "rw": 8, "tend": -1 }
+        },
+        {
+          "id": "C",
+          "label": "Aguantar sin tocar nada",
+          "raw": "60%: ARR +50% / 40%: RW -10m",
+          "apuesta": {
+            "p": 0.6,
+            "gana": { "texto": "ARR +50%", "efectos": { "arrMul": 1.5 } },
+            "pierde": { "texto": "RW -10m", "efectos": { "rw": -10 } }
+          }
+        }
+      ]
+    },
+    {
+      "id": "M-13",
+      "bloque": "macro",
+      "titulo": "La plata era gratis",
+      "flavor": "Rondas a 100x ARR, term sheets en 48 horas, todos contratan a todos. Nada de esto es normal.",
+      "tipo": "T4",
+      "tePaso": { "todos": true },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2020, 2023] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Levantar a valuación absurda",
+          "raw": "RW +36m · EQ -12% (dilución baja: el múltiplo te protege) · ⚑ valuación_inflada (si cae M-14: down round forzado)",
+          "efectos": { "rw": 36, "eq": -12, "flags": ["valuación_inflada"] },
+          "notas": "Condicional en raw (no mecanizado): si cae M-14, down round forzado."
+        },
+        {
+          "id": "B",
+          "label": "Levantar razonable",
+          "raw": "RW +18m · EQ -12%",
+          "efectos": { "rw": 18, "eq": -12 }
+        },
+        {
+          "id": "C",
+          "label": "Vender la empresa en el pico",
+          "raw": "habilita final Exit con múltiplo ×1.5 (la salida del sabio)",
+          "efectos": { "special": "sellPeak" },
+          "notas": "sellPeak: habilita el final Exit con múltiplo ×1.5 (la salida del sabio)."
+        }
+      ]
+    },
+    {
+      "id": "M-14",
+      "bloque": "macro",
+      "titulo": "Subieron las tasas",
+      "flavor": "La plata dejó de ser gratis de un día para el otro. El growth pasó de moda; ahora la moda es \"eficiencia\".",
+      "tipo": "T4",
+      "tePaso": { "todos": true },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2022, 2023] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Layoffs quirúrgicos ya",
+          "raw": "↓ · RW +10m · OVR -1",
+          "efectos": { "marker": "↓", "rw": 10, "ovr": -1 }
+        },
+        {
+          "id": "B",
+          "label": "Down round y a seguir",
+          "raw": "↓ · EQ -15% · RW +14m · si ⚑ valuación_inflada: EQ -22%",
+          "efectos": { "marker": "↓", "eq": -15, "rw": 14 },
+          "notas": "Condicional en raw (no mecanizado): si ⚑ valuación_inflada, EQ -22% (en lugar del -15%)."
+        },
+        {
+          "id": "C",
+          "label": "Cortar todo menos el producto",
+          "raw": "ARR -15% · TEND +2 (salís más fuerte)",
+          "efectos": { "arrMul": 0.85, "tend": 2 }
+        }
+      ]
+    },
+    {
+      "id": "M-15",
+      "bloque": "macro",
+      "titulo": "Un chatbot que escribe solo",
+      "flavor": "Salió a fin de año y en dos meses lo usa todo el mundo. Tu producto ahora es \"pre-AI\".",
+      "tipo": "T4",
+      "tePaso": { "verticales": ["ai"], "nota": "AI (bendición) / resto (amenaza)" },
+      "elegibilidad": { "modos": ["founder"], "ventana": [2023, 2026] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Reconstruir el producto sobre AI",
+          "raw": "RW -8m · 65%: múltiplo AI (×2.5), TEND +2 / 35%: OVR -2 (demo que no anda)",
+          "efectos": { "rw": -8 },
+          "apuesta": {
+            "p": 0.65,
+            "gana": { "texto": "múltiplo AI (×2.5), TEND +2", "efectos": { "multMul": 2.5, "tend": 2 } },
+            "pierde": { "texto": "OVR -2 (demo que no anda)", "efectos": { "ovr": -2 } }
+          },
+          "notas": "\"múltiplo AI (×2.5)\" mecanizado como multMul 2.5 (múltiplo del trienio)."
+        },
+        {
+          "id": "B",
+          "label": "Chapa de \"AI-powered\" y a vender",
+          "raw": "ARR +20% · 40%: OVR -2 si te descubren",
+          "efectos": { "arrMul": 1.2 },
+          "apuesta": {
+            "p": 0.6,
+            "gana": { "texto": "sin efecto" },
+            "pierde": { "texto": "OVR -2 si te descubren", "efectos": { "ovr": -2 } }
+          },
+          "notas": "Apuesta de riesgo puro: en el .md solo figura la rama mala (40%: OVR -2 si te descubren); p = 0.6 es la probabilidad de la rama buena (sin efecto)."
+        },
+        {
+          "id": "C",
+          "label": "\"Lo nuestro es distinto\"",
+          "raw": "si vertical ≠ AI: TEND -2 · múltiplo -30%",
+          "notas": "Todo el efecto es condicional (si vertical ≠ AI): queda en raw, sin efectos incondicionales."
+        }
+      ]
+    }
+  ]
+}

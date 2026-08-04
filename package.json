@@ -1,0 +1,28 @@
+{
+  "name": "tu-carrera-emprendedora",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tu Carrera Emprendedora · por Parlyx AI — minijuego web viral de carrera founder 1993→2026",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "sim": "node scripts/sim.mjs",
+    "sim:golden": "node scripts/sim.mjs 10000 --update-golden",
+    "validate:cards": "node scripts/validate-cards.mjs",
+    "test": "node scripts/validate-cards.mjs && node scripts/sim.mjs 10000 --check"
+  },
+  "dependencies": {
+    "next": "^15.4.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "typescript": "^5.7.0"
+  }
+}
