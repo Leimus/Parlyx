@@ -1,0 +1,278 @@
+{
+  "bloque": "hq",
+  "fuente": "docs/deck-lote-2.md › BLOQUE 6 — CONDICIONALES POR HQ (8)",
+  "cartas": [
+    {
+      "id": "H-01",
+      "bloque": "hq",
+      "titulo": "El asado con el inversor",
+      "flavor": "Un fondo local te invita a un asado \"para conocerse\". Acá los term sheets se cocinan a las brasas.",
+      "tipo": "T5",
+      "elegibilidad": { "modos": ["founder"], "hqs": ["ba"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Ir y hablar de negocios",
+          "raw": "50%: term sheet el lunes, RW +12m, EQ -12% / 50%: era solo un asado",
+          "apuesta": {
+            "p": 0.5,
+            "gana": { "texto": "term sheet el lunes, RW +12m, EQ -12%", "efectos": { "rw": 12, "eq": -12 } },
+            "pierde": { "texto": "era solo un asado" }
+          },
+          "notas": "La rama que pierde no tiene efecto mecánico: era solo un asado."
+        },
+        {
+          "id": "B",
+          "label": "Ir y NO hablar de negocios",
+          "raw": "TEND +1 (leyeron el juego) · ⚑ favor_debido",
+          "efectos": { "tend": 1, "flags": ["favor_debido"] }
+        },
+        {
+          "id": "C",
+          "label": "\"Estoy a full, otro día\"",
+          "raw": "los fondos locales te bajan el pulgar un trienio",
+          "notas": "Efecto narrativo/temporal no mecanizado (malus con los fondos locales durante un trienio): queda en raw."
+        }
+      ]
+    },
+    {
+      "id": "H-02",
+      "bloque": "hq",
+      "titulo": "El dólar y vos",
+      "flavor": "Facturás en pesos, gastás en dólares. O al revés. Nunca los dos bien a la vez.",
+      "tipo": "T1",
+      "elegibilidad": { "modos": ["founder"], "hqs": ["ba"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Dolarizar ingresos (exportar servicios)",
+          "raw": "RW -3m · TEND +2 · ⚑ dolarizado",
+          "efectos": { "rw": -3, "tend": 2, "flags": ["dolarizado"] }
+        },
+        {
+          "id": "B",
+          "label": "Cobertura financiera criolla",
+          "raw": "RW -1m · 60%: te salva en la próxima devaluación / 40%: costo hundido",
+          "efectos": { "rw": -1 },
+          "apuesta": {
+            "p": 0.6,
+            "gana": { "texto": "te salva en la próxima devaluación" },
+            "pierde": { "texto": "costo hundido" }
+          },
+          "notas": "Ninguna rama tiene efecto mecánico inmediato: \"te salva en la próxima devaluación\" es condicional a una devaluación futura y \"costo hundido\" ya está pagado con el RW -1m."
+        },
+        {
+          "id": "C",
+          "label": "Que sea lo que Dios quiera",
+          "raw": "50%: la devaluación te licúa costos, RW +6m / 50%: te licúa ingresos, RW -6m",
+          "apuesta": {
+            "p": 0.5,
+            "gana": { "texto": "la devaluación te licúa costos, RW +6m", "efectos": { "rw": 6 } },
+            "pierde": { "texto": "te licúa ingresos, RW -6m", "efectos": { "rw": -6 } }
+          }
+        }
+      ]
+    },
+    {
+      "id": "H-03",
+      "bloque": "hq",
+      "titulo": "El corporativo te copia",
+      "flavor": "El conglomerado más grande del país lanzó tu producto. Con peor diseño y el triple de presupuesto.",
+      "tipo": "T3",
+      "elegibilidad": { "modos": ["founder"], "hqs": ["cdmx"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aliarte con su competidor histórico",
+          "raw": "ARR +30% · TEND +1 · te casaste con un bando",
+          "efectos": { "arrMul": 1.3, "tend": 1 },
+          "notas": "\"te casaste con un bando\" es narrativo, sin efecto mecánico: queda en raw."
+        },
+        {
+          "id": "B",
+          "label": "Ganarles en velocidad",
+          "raw": "TEND +2 · RW -4m",
+          "efectos": { "tend": 2, "rw": -4 }
+        },
+        {
+          "id": "C",
+          "label": "Venderles la empresa",
+          "raw": "40%: exit decente / 60%: \"mejor lo hacemos nosotros\" (ya lo hicieron)",
+          "apuesta": {
+            "p": 0.4,
+            "gana": { "texto": "exit decente", "efectos": { "special": "exitDecente" } },
+            "pierde": { "texto": "\"mejor lo hacemos nosotros\" (ya lo hicieron)" }
+          },
+          "notas": "\"exit decente\" es narrativo (te compran, sin monto cuantificado): special exitDecente, mismo criterio que en el bloque vertical. La rama que pierde no tiene efecto mecánico."
+        }
+      ]
+    },
+    {
+      "id": "H-04",
+      "bloque": "hq",
+      "titulo": "São Paulo es otro planeta",
+      "flavor": "El mercado más grande de la región habla otro idioma, usa otros medios de pago y no te conoce.",
+      "tipo": "T8",
+      "elegibilidad": {
+        "modos": ["founder"],
+        "hqs": ["sp"],
+        "condicion": "HQ São Paulo o expandiendo a Brasil"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Equipo 100% local con jefe local",
+          "raw": "RW -6m · 70%: TEND +2 / 30%: perdés el control de la cultura",
+          "efectos": { "rw": -6 },
+          "apuesta": {
+            "p": 0.7,
+            "gana": { "texto": "TEND +2", "efectos": { "tend": 2 } },
+            "pierde": { "texto": "perdés el control de la cultura" }
+          },
+          "notas": "\"perdés el control de la cultura\" no está cuantificado: queda como texto."
+        },
+        {
+          "id": "B",
+          "label": "Mandar a tu mejor gente desde el HQ",
+          "raw": "RW -4m · 40%: funciona / 60%: rebote total en un año",
+          "efectos": { "rw": -4 },
+          "apuesta": {
+            "p": 0.4,
+            "gana": { "texto": "funciona" },
+            "pierde": { "texto": "rebote total en un año" }
+          },
+          "notas": "Ninguna rama está cuantificada en el .md: \"funciona\" y \"rebote total en un año\" quedan como texto."
+        },
+        {
+          "id": "C",
+          "label": "Entrar por adquisición de un player chico",
+          "raw": "RW -10m · EQ -5% · TEND +1",
+          "efectos": { "rw": -10, "eq": -5, "tend": 1 }
+        }
+      ]
+    },
+    {
+      "id": "H-05",
+      "bloque": "hq",
+      "titulo": "La rosca bogotana",
+      "flavor": "En este ecosistema todos se conocen. Te invitan al grupo de WhatsApp donde pasan las cosas.",
+      "tipo": "T5",
+      "elegibilidad": { "modos": ["founder"], "hqs": ["bog"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Entrar y jugar la rosca",
+          "raw": "TEND +1 · ⚑ favor_debido · 25%: un quilombo ajeno te salpica",
+          "efectos": { "tend": 1, "flags": ["favor_debido"] },
+          "apuesta": {
+            "p": 0.75,
+            "gana": { "texto": "sin efecto" },
+            "pierde": { "texto": "un quilombo ajeno te salpica" }
+          },
+          "notas": "Apuesta de riesgo puro: el .md solo da la rama mala (25%); p = 0.75 es la rama buena (sin efecto). \"Un quilombo ajeno te salpica\" no está cuantificado: queda como texto."
+        },
+        {
+          "id": "B",
+          "label": "Mantenerte al margen",
+          "raw": "OVR +1 (fama de derecho) · te enterás tarde de todo",
+          "efectos": { "ovr": 1 },
+          "notas": "\"te enterás tarde de todo\" es narrativo, sin efecto mecánico: queda en raw."
+        }
+      ]
+    },
+    {
+      "id": "H-06",
+      "bloque": "hq",
+      "titulo": "Santiago ordenado",
+      "flavor": "Mercado chico, estable y formal. Se escala poco, se quiebra menos.",
+      "tipo": "T1",
+      "elegibilidad": { "modos": ["founder"], "hqs": ["scl"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Usarlo de laboratorio y salir rápido a la región",
+          "raw": "RW -4m · TEND +2",
+          "efectos": { "rw": -4, "tend": 2 }
+        },
+        {
+          "id": "B",
+          "label": "Dominar el mercado local primero",
+          "raw": "ARR +20% · techo de OVR -3 mientras no salgas",
+          "efectos": { "arrMul": 1.2, "techoDelta": -3 },
+          "notas": "El techo -3 aplica de inmediato; la reversión \"mientras no salgas\" (recuperarlo al salir a la región) no está mecanizada y queda en raw."
+        }
+      ],
+      "notas": "Refleja el trade-off real de los mercados chicos: piso alto, techo corto."
+    },
+    {
+      "id": "H-07",
+      "bloque": "hq",
+      "titulo": "Miami: ni gringo ni latino",
+      "flavor": "Para el Valle sos 'LATAM'. Para LATAM sos 'el que se fue'. Para el banco sos un cheque en dólares.",
+      "tipo": "T1",
+      "elegibilidad": { "modos": ["founder"], "hqs": ["mia"] },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Jugarla de puente (capital allá, operación acá)",
+          "raw": "TEND +2 · RW +4m (levantar en USD rinde)",
+          "efectos": { "tend": 2, "rw": 4 }
+        },
+        {
+          "id": "B",
+          "label": "Ir full mercado US",
+          "raw": "40%: multiplico todo, múltiplo +30% / 60%: competís con nativos, TEND -1",
+          "apuesta": {
+            "p": 0.4,
+            "gana": { "texto": "multiplico todo, múltiplo +30%", "efectos": { "multMul": 1.3 } },
+            "pierde": { "texto": "competís con nativos, TEND -1", "efectos": { "tend": -1 } }
+          },
+          "notas": "\"multiplico todo\" es narrativo; se estructura solo el múltiplo +30% (multMul 1.3)."
+        },
+        {
+          "id": "C",
+          "label": "Volverte al pago",
+          "raw": "cambia HQ · OVR +1 (la vuelta del hijo pródigo vende)",
+          "efectos": { "special": "cambiaHQ", "ovr": 1 },
+          "notas": "cambia HQ → special cambiaHQ; el HQ de destino no está especificado en el .md."
+        }
+      ]
+    },
+    {
+      "id": "H-08",
+      "bloque": "hq",
+      "titulo": "La visa",
+      "flavor": "Tu ronda depende de una reunión en San Francisco. Tu visa depende de un turno que no aparece.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": ["founder"],
+        "hqs": ["ba", "cdmx", "sp", "bog", "scl"],
+        "condicion": "expandiendo a US"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Abogado migratorio premium",
+          "raw": "RW -2m · 80%: llegás a la reunión / 20%: no sale, la ronda espera",
+          "efectos": { "rw": -2 },
+          "apuesta": {
+            "p": 0.8,
+            "gana": { "texto": "llegás a la reunión" },
+            "pierde": { "texto": "no sale, la ronda espera" }
+          },
+          "notas": "Ninguna rama tiene efecto mecánico cuantificado en el .md: \"llegás a la reunión\" y \"la ronda espera\" quedan como texto."
+        },
+        {
+          "id": "B",
+          "label": "Reunión por videollamada",
+          "raw": "55%: cierra igual / 45%: \"queremos conocerte en persona\" (la ronda se enfría, TEND -1)",
+          "apuesta": {
+            "p": 0.55,
+            "gana": { "texto": "cierra igual" },
+            "pierde": { "texto": "\"queremos conocerte en persona\" (la ronda se enfría, TEND -1)", "efectos": { "tend": -1 } }
+          }
+        }
+      ]
+    }
+  ]
+}

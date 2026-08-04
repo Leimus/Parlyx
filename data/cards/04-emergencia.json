@@ -1,0 +1,215 @@
+{
+  "bloque": "emergencia",
+  "fuente": "docs/deck-lote-2.md › BLOQUE 4 — EMERGENCIA RUNWAY 0 (5)",
+  "cartas": [
+    {
+      "id": "E-01",
+      "bloque": "emergencia",
+      "titulo": "Se acabó la plata",
+      "flavor": "Quedan dos sueldos en la cuenta. Nadie más lo sabe. Todavía.",
+      "tipo": "T4",
+      "forzada": true,
+      "elegibilidad": { "modos": ["founder"], "trigger": "RW = 0" },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Llamar a tus inversores",
+          "raw": "va a E-02",
+          "goto": "E-02"
+        },
+        {
+          "id": "B",
+          "label": "Llamar a los que te quisieron comprar",
+          "raw": "va a E-04",
+          "goto": "E-04"
+        },
+        {
+          "id": "C",
+          "label": "Apostar la caja a un último tiro",
+          "raw": "25%: cliente milagro, RW +6m, TEND +2, ✝ en la fila / 75%: va a E-05",
+          "apuesta": {
+            "p": 0.25,
+            "gana": {
+              "texto": "cliente milagro, RW +6m, TEND +2, ✝ en la fila",
+              "efectos": { "rw": 6, "tend": 2, "marker": "✝" }
+            },
+            "pierde": {
+              "texto": "va a E-05",
+              "goto": "E-05"
+            }
+          }
+        }
+      ],
+      "notas": "Carta master: sus opciones llevan a E-02/E-04/E-05."
+    },
+    {
+      "id": "E-02",
+      "bloque": "emergencia",
+      "titulo": "El inside round",
+      "flavor": "Tus propios fondos te rescatan. La letra chica muerde: ellos también están asustados.",
+      "tipo": "T7",
+      "forzada": true,
+      "elegibilidad": { "modos": ["founder"], "trigger": "desde E-01, con inversores previos" },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptar los términos duros",
+          "raw": "RW +12m · EQ -20% · ↓ en la fila · TEND -1",
+          "efectos": { "rw": 12, "eq": -20, "marker": "↓", "tend": -1 }
+        },
+        {
+          "id": "B",
+          "label": "Negociar mostrando el pipeline",
+          "raw": "45%: EQ -12% en vez de -20% / 55%: se enojan, EQ -25%",
+          "apuesta": {
+            "p": 0.45,
+            "gana": {
+              "texto": "EQ -12% en vez de -20%",
+              "efectos": { "eq": -12 }
+            },
+            "pierde": {
+              "texto": "se enojan, EQ -25%",
+              "efectos": { "eq": -25 }
+            }
+          },
+          "notas": "El .md no explicita si el round negociado incluye el RW +12m de la opción A; se estructura solo el EQ de cada rama, tal como está escrito."
+        },
+        {
+          "id": "C",
+          "label": "Rechazar y cerrar",
+          "raw": "va a E-05 con OVR +1 (dignidad)",
+          "efectos": { "ovr": 1 },
+          "goto": "E-05"
+        }
+      ]
+    },
+    {
+      "id": "E-03",
+      "bloque": "emergencia",
+      "titulo": "Vender los muebles",
+      "flavor": "No hay fondos a quien llamar. Hay un auto, unos ahorros y una decisión.",
+      "tipo": "T7",
+      "forzada": true,
+      "elegibilidad": {
+        "modos": ["founder"],
+        "trigger": "RW = 0 sin inversores (bootstrap)",
+        "condicion": "PAT > 0"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Poner tu plata",
+          "raw": "PAT -todo · RW +8m · OVR +1 · flavor épico si después la sacás adelante",
+          "efectos": { "special": "patTodo", "rw": 8, "ovr": 1 },
+          "notas": "PAT -todo → special patTodo (todo el patrimonio entra a la empresa). El flavor épico si después la sacás adelante es narrativo/condicional: queda en raw."
+        },
+        {
+          "id": "B",
+          "label": "Sueldos a la mitad, incluido el tuyo",
+          "raw": "RW +6m · 55%: el equipo banca, TEND +1 / 45%: se van los mejores, TEND -2",
+          "efectos": { "rw": 6 },
+          "apuesta": {
+            "p": 0.55,
+            "gana": {
+              "texto": "el equipo banca, TEND +1",
+              "efectos": { "tend": 1 }
+            },
+            "pierde": {
+              "texto": "se van los mejores, TEND -2",
+              "efectos": { "tend": -2 }
+            }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Cerrar antes de endeudarte",
+          "raw": "va a E-05",
+          "goto": "E-05"
+        }
+      ]
+    },
+    {
+      "id": "E-04",
+      "bloque": "emergencia",
+      "titulo": "El acqui-hire",
+      "flavor": "No compran tu producto. Te compran a vos y a los tres que programan. El comunicado va a decir otra cosa.",
+      "tipo": "T3",
+      "forzada": true,
+      "elegibilidad": { "modos": ["founder"], "trigger": "desde E-01" },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptar",
+          "raw": "final \"Te compraron por el equipo\" · PAT +300K-1M según OVR · habilita EJ-03 (seguís adentro del gigante)",
+          "efectos": { "special": "finalTeCompraronPorElEquipo" },
+          "notas": "special = final \"Te compraron por el equipo\". El PAT +300K-1M según OVR es variable (no cuantificado): queda en raw. Habilita EJ-03 es un habilitador narrativo, no un encadenamiento forzado, por eso no lleva goto."
+        },
+        {
+          "id": "B",
+          "label": "Pedir que absorban a TODO el equipo",
+          "raw": "50%: aceptan, OVR +2 (leyenda) / 50%: se cae todo, va a E-05",
+          "apuesta": {
+            "p": 0.5,
+            "gana": {
+              "texto": "aceptan, OVR +2 (leyenda)",
+              "efectos": { "ovr": 2 }
+            },
+            "pierde": {
+              "texto": "se cae todo, va a E-05",
+              "goto": "E-05"
+            }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Rechazar por orgullo",
+          "raw": "va a E-05 · TEND -1 del final",
+          "efectos": { "tend": -1 },
+          "goto": "E-05",
+          "notas": "\"TEND -1 del final\": llegás a E-05 con TEND -1; se estructura como tend inmediato antes del goto."
+        }
+      ]
+    },
+    {
+      "id": "E-05",
+      "bloque": "emergencia",
+      "titulo": "Cerrar bien",
+      "flavor": "Se terminó. Lo único que queda por decidir es cómo te van a recordar.",
+      "tipo": "T1",
+      "forzada": true,
+      "elegibilidad": { "modos": ["founder"], "trigger": "quiebra confirmada" },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pagar sueldos hasta el final, devolver lo que quede",
+          "raw": "final \"La cerraste bien\" ✝ · OVR se conserva para comeback · ⚑ reputación_intacta (mejores term sheets si volvés)",
+          "efectos": { "special": "finalCerrasteBien", "marker": "✝", "flags": ["reputación_intacta"] },
+          "notas": "special = final \"La cerraste bien\". El OVR se conserva para comeback y los mejores term sheets si volvés son condicionales al comeback: quedan en raw."
+        },
+        {
+          "id": "B",
+          "label": "Desaparecer del mapa",
+          "raw": "final \"La cerraste bien\" pero OVR -3 para comeback",
+          "efectos": { "special": "finalCerrasteBien" },
+          "notas": "El OVR -3 aplica solo al comeback (condicional a volver): queda en raw, no en efectos."
+        },
+        {
+          "id": "C",
+          "label": "Comunicado épico + post mortem público",
+          "raw": "60%: OVR +2, el post se hace viral / 40%: quedás como chanta, ⚑ manchado_redes",
+          "apuesta": {
+            "p": 0.6,
+            "gana": {
+              "texto": "OVR +2, el post se hace viral",
+              "efectos": { "ovr": 2 }
+            },
+            "pierde": {
+              "texto": "quedás como chanta, ⚑ manchado_redes",
+              "efectos": { "flags": ["manchado_redes"] }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

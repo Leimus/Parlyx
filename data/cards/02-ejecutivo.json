@@ -1,0 +1,495 @@
+{
+  "bloque": "ejecutivo",
+  "fuente": "docs/deck-lote-1.md › BLOQUE 2 — MODO EJECUTIVO (12)",
+  "cartas": [
+    {
+      "id": "EJ-01",
+      "bloque": "ejecutivo",
+      "titulo": "Te vienen a buscar",
+      "flavor": "El gigante del e-commerce regional quiere que armes su nueva unidad. Número fuerte, oficina con vista.",
+      "tipo": "T9",
+      "reactiva": true,
+      "elegibilidad": {
+        "modos": ["founder"],
+        "ovrMin": 80
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Fichar como VP",
+          "raw": "entra modo ejecutivo · Cargo #5 · PAT +800K/trienio · tu startup queda con CEO contratado (ARR -20%, seguís con tu equity)",
+          "efectos": { "special": "entraEjecutivo", "arrMul": 0.8 },
+          "notas": "Entrás al modo ejecutivo en Cargo #5. El PAT +800K/trienio es recurrente (no inmediato): queda en raw. La startup sigue con CEO contratado y conservás tu equity."
+        },
+        {
+          "id": "B",
+          "label": "Usar la oferta para negociar con tu directorio",
+          "raw": "PAT +300K (te suben el sueldo) · TEND +1",
+          "efectos": { "pat": 300000, "tend": 1 }
+        },
+        {
+          "id": "C",
+          "label": "Rechazar en silencio",
+          "raw": "sin cambios"
+        }
+      ]
+    },
+    {
+      "id": "EJ-02",
+      "bloque": "ejecutivo",
+      "titulo": "Te compran y te quedás",
+      "flavor": "Firmaste el exit. Parte del precio es que te quedes dos años \"de transición\". Todos saben cómo termina eso.",
+      "tipo": "T9",
+      "elegibilidad": {
+        "modos": ["founder"],
+        "trigger": "aceptaste una adquisición"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Quedarte y jugarla en serio",
+          "raw": "entra modo ejecutivo · Cargo #4 · PAT según exit · ⚑ earnout (si te vas antes: PAT -30%)",
+          "efectos": { "special": "entraEjecutivo", "flags": ["earnout"] },
+          "notas": "Entrás al modo ejecutivo en Cargo #4. \"PAT según exit\" no está cuantificado. El PAT -30% es condicional (si te vas antes): queda en raw."
+        },
+        {
+          "id": "B",
+          "label": "Cumplir la transición mirando el reloj",
+          "raw": "modo ejecutivo · TEND -1 · salida garantizada en 1 trienio",
+          "efectos": { "special": "entraEjecutivo", "tend": -1 },
+          "notas": "Salida del modo ejecutivo garantizada en 1 trienio (narrativo)."
+        },
+        {
+          "id": "C",
+          "label": "Negociar irte ya",
+          "raw": "PAT -20% del exit · volvés a modo founder libre",
+          "efectos": { "patPct": -0.2 },
+          "notas": "El -20% es sobre el monto del exit (el .md no lo define sobre el PAT total). No entrás al modo ejecutivo: volvés a modo founder libre."
+        }
+      ]
+    },
+    {
+      "id": "EJ-03",
+      "bloque": "ejecutivo",
+      "titulo": "El rescate",
+      "flavor": "Tu empresa no llegó. Pero el buscador vio cómo la peleaste y te ofrece dirigir producto en la región.",
+      "tipo": "T9",
+      "elegibilidad": {
+        "modos": ["founder"],
+        "trigger": "quiebra digna"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptar y reconstruirte",
+          "raw": "entra modo ejecutivo · Cargo #6 · PAT +500K/trienio · OVR se conserva",
+          "efectos": { "special": "entraEjecutivo" },
+          "notas": "Entrás al modo ejecutivo en Cargo #6. El PAT +500K/trienio es recurrente: queda en raw. El OVR se conserva."
+        },
+        {
+          "id": "B",
+          "label": "Tomarte un trienio sabático",
+          "raw": "OVR -2 · próxima carta: G-02 de comeback disponible",
+          "efectos": { "ovr": -2 },
+          "notas": "Habilita G-02 (comeback) como próxima carta disponible; no es un encadenamiento forzado, por eso no lleva goto."
+        },
+        {
+          "id": "C",
+          "label": "Fundar de nuevo ya mismo",
+          "raw": "comeback inmediato sin ventajas (sin red de la salida ejecutiva)",
+          "efectos": { "special": "comeback" },
+          "notas": "Comeback inmediato sin ventajas: sin la red de la salida ejecutiva."
+        }
+      ]
+    },
+    {
+      "id": "EJ-04",
+      "bloque": "ejecutivo",
+      "titulo": "El ascenso",
+      "flavor": "Se abrió la silla de arriba. Sos candidato, pero no el único.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": ["ejecutivo"],
+        "cargoMin": 4,
+        "cargoMax": 6
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Ir con todo",
+          "raw": "55%: Cargo -1 (subís), PAT ×1.5, OVR +2 / 45%: te lo dan a otro, TEND -1",
+          "apuesta": {
+            "p": 0.55,
+            "gana": {
+              "texto": "Cargo -1 (subís), PAT ×1.5, OVR +2",
+              "efectos": { "cargo": -1, "patMul": 1.5, "ovr": 2 }
+            },
+            "pierde": {
+              "texto": "te lo dan a otro, TEND -1",
+              "efectos": { "tend": -1 }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Apoyar al otro candidato",
+          "raw": "TEND +1 (aliado poderoso) · ⚑ favor_debido",
+          "efectos": { "tend": 1, "flags": ["favor_debido"] }
+        },
+        {
+          "id": "C",
+          "label": "No jugar ese juego",
+          "raw": "sin cambios · si pasan 2 trienios sin ascender: TEND -1",
+          "notas": "El TEND -1 es condicional (2 trienios sin ascender): queda en raw, no en efectos."
+        }
+      ]
+    },
+    {
+      "id": "EJ-05",
+      "bloque": "ejecutivo",
+      "titulo": "Recorte en el gigante",
+      "flavor": "Llegó el mail de \"reestructuración\". Tu área está en la lista.",
+      "tipo": "T4",
+      "elegibilidad": {
+        "modos": ["ejecutivo"],
+        "condicion": "eras ⛈/🌧"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Defender a tu equipo con números",
+          "raw": "60%: zafan todos, OVR +2 / 40%: cortan igual y quedás marcado, TEND -1",
+          "apuesta": {
+            "p": 0.6,
+            "gana": {
+              "texto": "zafan todos, OVR +2",
+              "efectos": { "ovr": 2 }
+            },
+            "pierde": {
+              "texto": "cortan igual y quedás marcado, TEND -1",
+              "efectos": { "tend": -1 }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Ejecutar el recorte prolijo",
+          "raw": "OVR -1 · PAT +200K (te lo reconocen) · TEND +1 con la cúpula",
+          "efectos": { "ovr": -1, "pat": 200000, "tend": 1 }
+        },
+        {
+          "id": "C",
+          "label": "Renunciar en protesta",
+          "raw": "OVR +1 (leyenda interna) · salís del modo ejecutivo",
+          "efectos": { "ovr": 1, "special": "saleEjecutivo" }
+        }
+      ]
+    },
+    {
+      "id": "EJ-06",
+      "bloque": "ejecutivo",
+      "titulo": "El proyecto del CEO",
+      "flavor": "El CEO tuvo una idea en un vuelo. Es mala. Te la dieron a vos.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": ["ejecutivo"]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Decirle que es mala (con datos)",
+          "raw": "50%: OVR +2, TEND +1 (te respeta) / 50%: ⚑ enemigo_arriba",
+          "apuesta": {
+            "p": 0.5,
+            "gana": {
+              "texto": "OVR +2, TEND +1 (te respeta)",
+              "efectos": { "ovr": 2, "tend": 1 }
+            },
+            "pierde": {
+              "texto": "⚑ enemigo_arriba",
+              "efectos": { "flags": ["enemigo_arriba"] }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Ejecutarla rápido y barato",
+          "raw": "35%: sale bien de casualidad, Cargo -1 / 65%: fracasa, pero no es culpa tuya",
+          "apuesta": {
+            "p": 0.35,
+            "gana": {
+              "texto": "sale bien de casualidad, Cargo -1",
+              "efectos": { "cargo": -1 }
+            },
+            "pierde": {
+              "texto": "fracasa, pero no es culpa tuya"
+            }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Pasársela a otro VP",
+          "raw": "TEND -1 (se nota)",
+          "efectos": { "tend": -1 }
+        }
+      ]
+    },
+    {
+      "id": "EJ-07",
+      "bloque": "ejecutivo",
+      "titulo": "La jaula de oro",
+      "flavor": "Sueldazo, stock, banda ancha corporativa. Hace dos años que no sentís nada.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": ["ejecutivo"],
+        "condicion": "2+ trienios en el mismo cargo"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pedir un desafío imposible adentro",
+          "raw": "TEND +1 · 50%: Cargo -1",
+          "efectos": { "tend": 1 },
+          "apuesta": {
+            "p": 0.5,
+            "gana": {
+              "texto": "Cargo -1",
+              "efectos": { "cargo": -1 }
+            },
+            "pierde": {
+              "texto": "sin cambios"
+            }
+          },
+          "notas": "El .md solo da la rama buena (50%: Cargo -1); la rama que pierde no tiene efectos."
+        },
+        {
+          "id": "B",
+          "label": "Quedarte cómodo",
+          "raw": "PAT +400K · OVR -1 por trienio que sigas · TEND -1",
+          "efectos": { "pat": 400000, "tend": -1 },
+          "notas": "El OVR -1 por trienio que sigas es recurrente/condicional: queda en raw, no en efectos."
+        },
+        {
+          "id": "C",
+          "label": "Empezar a mirar la puerta",
+          "raw": "habilita EJ-09 el próximo turno",
+          "notas": "Habilitador narrativo: EJ-09 queda disponible el próximo turno. No es un goto (no es encadenamiento inmediato)."
+        }
+      ]
+    },
+    {
+      "id": "EJ-08",
+      "bloque": "ejecutivo",
+      "titulo": "Te quiere la competencia",
+      "flavor": "El neobanco morado te ofrece lo mismo, pero con el doble de stock y el título que querías.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": ["ejecutivo"]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Saltar de camiseta",
+          "raw": "cambia gigante · Cargo -1 · PAT ×1.4 · TEND +1 · ⚑ earnout se pierde si existía",
+          "efectos": { "special": "cambiaGigante", "cargo": -1, "patMul": 1.4, "tend": 1, "quitaFlags": ["earnout"] },
+          "notas": "Cambiás de gigante empleador. quitaFlags earnout equivale a \"se pierde si existía\" (no-op si el flag no está prendido)."
+        },
+        {
+          "id": "B",
+          "label": "Mostrar la oferta adentro",
+          "raw": "60%: PAT ×1.2, te igualan / 40%: quedás marcado, TEND -1",
+          "apuesta": {
+            "p": 0.6,
+            "gana": {
+              "texto": "PAT ×1.2, te igualan",
+              "efectos": { "patMul": 1.2 }
+            },
+            "pierde": {
+              "texto": "quedás marcado, TEND -1",
+              "efectos": { "tend": -1 }
+            }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Quedarte por lealtad",
+          "raw": "OVR +1 · ⚑ favor_debido de la cúpula",
+          "efectos": { "ovr": 1, "flags": ["favor_debido"] }
+        }
+      ]
+    },
+    {
+      "id": "EJ-09",
+      "bloque": "ejecutivo",
+      "titulo": "Te pica el bichito",
+      "flavor": "Viste un problema que nadie está resolviendo. No podés dormir. Ya sabés lo que significa.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": ["ejecutivo"],
+        "patMin": 1000000
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Renunciar y fundar",
+          "raw": "comeback: OVR inicial 60 · techo re-sorteado +10% tramos altos · term sheets mejorados · PAT financia el arranque (RW inicial = PAT/burn)",
+          "efectos": { "special": "comeback" },
+          "notas": "Comeback con ventajas: OVR inicial 60, techo re-sorteado +10% en tramos altos, term sheets mejorados, RW inicial = PAT/burn."
+        },
+        {
+          "id": "B",
+          "label": "Incubarlo adentro del gigante",
+          "raw": "45%: spin-off con 25% tuyo, TEND +2 / 55%: se lo quedan, OVR +1 de consuelo",
+          "apuesta": {
+            "p": 0.45,
+            "gana": {
+              "texto": "spin-off con 25% tuyo, TEND +2",
+              "efectos": { "tend": 2, "special": "spinOff" }
+            },
+            "pierde": {
+              "texto": "se lo quedan, OVR +1 de consuelo",
+              "efectos": { "ovr": 1 }
+            }
+          },
+          "notas": "El detalle del spin-off (25% tuyo) queda en raw/texto."
+        },
+        {
+          "id": "C",
+          "label": "Anotarlo en un cuaderno y seguir",
+          "raw": "TEND -1 · la carta puede volver",
+          "efectos": { "tend": -1 },
+          "notas": "La carta puede volver a aparecer (narrativo)."
+        }
+      ]
+    },
+    {
+      "id": "EJ-10",
+      "bloque": "ejecutivo",
+      "titulo": "La serruchada",
+      "flavor": "Un par tuyo está armando la cama. Lo sabés porque te lo contó su equipo.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": ["ejecutivo"],
+        "cargoMin": 2,
+        "cargoMax": 3
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Confrontarlo en la mesa chica",
+          "raw": "55%: se va él, Cargo -1 / 45%: te vas vos (salida con PAT +indemnización)",
+          "apuesta": {
+            "p": 0.55,
+            "gana": {
+              "texto": "se va él, Cargo -1",
+              "efectos": { "cargo": -1 }
+            },
+            "pierde": {
+              "texto": "te vas vos (salida con PAT +indemnización)",
+              "efectos": { "special": "saleEjecutivo" }
+            }
+          },
+          "notas": "La indemnización (PAT +) no está cuantificada en el .md."
+        },
+        {
+          "id": "B",
+          "label": "Blindarte con resultados",
+          "raw": "OVR +1 · TEND +1 · tarda un trienio más el ascenso",
+          "efectos": { "ovr": 1, "tend": 1 },
+          "notas": "El ascenso tarda un trienio más (narrativo): queda en raw."
+        },
+        {
+          "id": "C",
+          "label": "Ignorarlo",
+          "raw": "40%: no era nada / 60%: te serruchan, Cargo +1 (bajás)",
+          "apuesta": {
+            "p": 0.4,
+            "gana": {
+              "texto": "no era nada"
+            },
+            "pierde": {
+              "texto": "te serruchan, Cargo +1 (bajás)",
+              "efectos": { "cargo": 1 }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "EJ-11",
+      "bloque": "ejecutivo",
+      "titulo": "La tapa de la revista",
+      "flavor": "Una revista de negocios te quiere en la tapa: \"El ejecutivo que viene\". Tu CEO también la lee.",
+      "tipo": "T5",
+      "elegibilidad": {
+        "modos": ["ejecutivo"],
+        "cargoMax": 3
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptar la tapa",
+          "raw": "OVR +2 · 35%: ⚑ enemigo_arriba (brillaste de más)",
+          "efectos": { "ovr": 2 },
+          "apuesta": {
+            "p": 0.65,
+            "gana": {
+              "texto": "sin cambios"
+            },
+            "pierde": {
+              "texto": "⚑ enemigo_arriba (brillaste de más)",
+              "efectos": { "flags": ["enemigo_arriba"] }
+            }
+          },
+          "notas": "El .md da 35% para la rama mala; p = 0.65 es la rama buena (no pasa nada extra)."
+        },
+        {
+          "id": "B",
+          "label": "Sugerir que salga el CEO",
+          "raw": "TEND +2 · ⚑ favor_debido",
+          "efectos": { "tend": 2, "flags": ["favor_debido"] }
+        },
+        {
+          "id": "C",
+          "label": "Perfil bajo",
+          "raw": "sin cambios"
+        }
+      ]
+    },
+    {
+      "id": "EJ-12",
+      "bloque": "ejecutivo",
+      "titulo": "La silla grande",
+      "flavor": "El CEO se va. El board te mira a vos. Es todo lo que dijiste que querías. ¿Era?",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": ["ejecutivo"],
+        "cargoMin": 2,
+        "cargoMax": 2,
+        "ovrMin": 82
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptar ser CEO",
+          "raw": "Cargo #1 · PAT ×2/trienio · habilita final \"Terminaste manejando el barco de otro\" · TEND ±2 según resultados",
+          "efectos": { "cargo": -1, "special": "finalBarcoDeOtro" },
+          "notas": "Cargo #1 desde el #2 requerido por elegibilidad → cargo -1. El PAT ×2/trienio es recurrente y el TEND ±2 según resultados es condicional: quedan en raw. special = habilita el final \"Terminaste manejando el barco de otro\"."
+        },
+        {
+          "id": "B",
+          "label": "Rechazar y renunciar para fundar",
+          "raw": "comeback con máxima red: term sheets de élite · OVR inicial 65",
+          "efectos": { "special": "comeback" },
+          "notas": "Comeback con máxima red: term sheets de élite, OVR inicial 65."
+        },
+        {
+          "id": "C",
+          "label": "Rechazar y quedarte de #2",
+          "raw": "PAT +600K · TEND -1 (nunca más te lo ofrecen)",
+          "efectos": { "pat": 600000, "tend": -1 }
+        }
+      ]
+    }
+  ]
+}
