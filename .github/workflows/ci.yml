@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Validar deck (schema Zod + integridad)
+        run: node scripts/validate-cards.mjs
+
+      - name: Simulador — golden check (la lógica económica no cambió)
+        run: node scripts/sim.mjs 10000 --check
+
+      - name: Build estático
+        run: npm run build
