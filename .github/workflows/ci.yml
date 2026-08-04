@@ -25,5 +25,8 @@ jobs:
       - name: Simulador — golden check (la lógica económica no cambió)
         run: node scripts/sim.mjs 10000 --check
 
+      - name: Smoke del core loop (deck real + motor real)
+        run: node scripts/smoke-game.mjs 300
+
       - name: Build estático
         run: npm run build

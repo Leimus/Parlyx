@@ -62,11 +62,19 @@ npm run build          # build estático (out/)
 
 1. ✅ Scaffold + motor como módulo puro (salida idéntica verificada) + sim como test CI.
 2. ✅ Deck 102 cartas → JSON con Zod.
-3. 🔲 Integrar el deck real al motor (hoy la sim usa `politicaFx`, una política proxy)
-   → recalibrar `BAL` contra targets PRD §17 → activar `--strict-targets` en CI.
-4. 🔲 F2: core loop + pantallas (referencia: `reference/prototipo-ui-v0.2.jsx`,
-   dirección de arte PRD §14).
-5. 🔲 F4: og:image dinámica + tarjeta compartible (PRD §13 — LA feature).
+3. ✅ F2: core loop jugable (`lib/game/` + `app/Game.tsx`): setup ×4, 11 turnos con el
+   deck real (macro sorteada, elegibilidad, apuestas, flags, markers), economía por
+   trienio = `simulateTrienio()` del motor INTACTO, emergencias E-01→E-05, exits,
+   comeback, modo playa, tarjeta final con seed compartible (`?s=SEED`).
+   QA: `scripts/smoke-game.mjs` (auto-juega N partidas, corre en CI).
+   **Fuera del alcance F2** (entra con F3): modo ejecutivo D6 (bloque EJ excluido del
+   pool — sus triggers son prosa), condiciones/`trigger` en texto libre (no bloquean),
+   efectos condicionales de `raw`/`notas`, edad inicial elegible, retiro standalone
+   (gate PAT≥2M — hoy solo post-exit), cartas reactivas entre turnos.
+4. 🔲 F3: mecanizar lo pendiente de arriba + recalibrar `BAL` contra targets PRD §17
+   (la sim de CI sigue usando `politicaFx` como política proxy) → activar
+   `--strict-targets` en CI y regenerar el golden.
+5. 🔲 F4: og:image dinámica (edge function) + arte final de tarjeta (PRD §13 — LA feature).
 
 ## Contexto de negocio
 

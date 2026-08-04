@@ -11,7 +11,8 @@
     "sim": "node scripts/sim.mjs",
     "sim:golden": "node scripts/sim.mjs 10000 --update-golden",
     "validate:cards": "node scripts/validate-cards.mjs",
-    "test": "node scripts/validate-cards.mjs && node scripts/sim.mjs 10000 --check"
+    "smoke": "node scripts/smoke-game.mjs",
+    "test": "node scripts/validate-cards.mjs && node scripts/sim.mjs 10000 --check && node scripts/smoke-game.mjs 300"
   },
   "dependencies": {
     "next": "^15.4.6",

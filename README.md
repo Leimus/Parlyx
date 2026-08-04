@@ -51,11 +51,14 @@ npm run validate:cards # validar el deck solo
   (diff byte a byte sobre 20.000 partidas).
 - ✅ Deck completo: 102 cartas en JSON con schema Zod (fuente: `docs/deck-lote-*.md`).
 - ✅ Simulador como test de CI (golden check).
-- ⚠️ El motor usa una política proxy y **todavía no cumple los targets §17** (esperado):
-  la integración del deck real + recalibración de `BAL` es el paso 3 del plan (F3).
-  Cuando eso pase, activar `--strict-targets` en CI.
-- 🔲 F2: core loop jugable (portar pantallas de `reference/prototipo-ui-v0.2.jsx`).
-- 🔲 F4: og:image dinámica (edge function) + arte final.
+- ✅ **F2: juego jugable** — setup, 11 turnos con el deck real, apuestas, emergencias,
+  exits/comeback/playa y tarjeta final con seed compartible (`/?s=SEED`). La economía
+  de cada trienio es el `simulateTrienio()` del motor, sin tocar. Smoke de CI:
+  `npm run smoke` auto-juega 300 partidas.
+- ⚠️ Pendiente F3: modo ejecutivo (D6), condiciones en prosa del deck, y recalibración
+  de `BAL` contra targets §17 (la sim de CI usa la política proxy; al recalibrar,
+  activar `--strict-targets`).
+- 🔲 F4: og:image dinámica (edge function) + arte final de tarjeta.
 
 ## Deploy (Vercel)
 
