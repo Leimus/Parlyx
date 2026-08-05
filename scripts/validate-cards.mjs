@@ -124,6 +124,39 @@ for (const [bloque, esperadas] of Object.entries(CARTAS_POR_BLOQUE)) {
   }
 }
 
+/* --- Tags de eje (data/tags-ejes.json — PRD v0.3 §2) --- */
+const TAGS_VALIDOS = new Set([
+  "capital:diluidor", "capital:dueño", "motor:ventas", "motor:producto",
+  "gestion:delegador", "gestion:pulpo", "riesgo:apostador", "riesgo:arquitecto",
+]);
+const SINTETICAS = new Set(["OR-01", "PX-01"]); // cartas de código (origen, post-exit)
+const TAGS_PATH = path.join(__dirname, "..", "data", "tags-ejes.json");
+if (fs.existsSync(TAGS_PATH)) {
+  const cardMap = new Map(todas.map((c) => [c.id, c]));
+  const tagsJson = JSON.parse(fs.readFileSync(TAGS_PATH, "utf8"));
+  let nTagged = 0;
+  for (const [cardId, ops] of Object.entries(tagsJson.tags || {})) {
+    if (!cardMap.has(cardId) && !SINTETICAS.has(cardId)) { err(`tags-ejes: carta "${cardId}" no existe en el deck`); continue; }
+    for (const [opId, tags] of Object.entries(ops)) {
+      if (!SINTETICAS.has(cardId) && !cardMap.get(cardId).opciones.some((o) => o.id === opId)) {
+        err(`tags-ejes: ${cardId} no tiene opción "${opId}"`);
+      }
+      if (!Array.isArray(tags) || tags.length < 1 || tags.length > 2) err(`tags-ejes: ${cardId}.${opId} debe tener 1-2 tags`);
+      const ejes = new Set();
+      for (const t of tags) {
+        if (!TAGS_VALIDOS.has(t)) err(`tags-ejes: ${cardId}.${opId} tag inválido "${t}"`);
+        const eje = t.split(":")[0];
+        if (ejes.has(eje)) err(`tags-ejes: ${cardId}.${opId} repite el eje "${eje}"`);
+        ejes.add(eje);
+      }
+      nTagged++;
+    }
+  }
+  console.log(`  ✓ tags-ejes.json: ${nTagged} opciones taggeadas en ${Object.keys(tagsJson.tags || {}).length} cartas`);
+} else {
+  warn("Falta data/tags-ejes.json (arquetipos sin señal)");
+}
+
 const TOTAL = Object.values(CARTAS_POR_BLOQUE).reduce((a, b) => a + b, 0);
 console.log(`\nTotal: ${todas.length}/${TOTAL} cartas · ${errores} errores · ${advertencias} advertencias`);
 if (todas.length !== TOTAL) err(`El deck tiene ${todas.length} cartas, deben ser ${TOTAL}`);

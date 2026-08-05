@@ -4,8 +4,13 @@
 
 Minijuego web viral estilo Copero/Remar: simulás una carrera de founder 1993→2026,
 11 decisiones trienales, tarjeta final compartible para Twitter/X. Castellano rioplatense
-(voseo). Marketing de Parlyx AI. **Fuente de verdad del producto: `docs/PRD-v0.2.md`**
-(decisiones D1-D6 cerradas).
+(voseo). Marketing de Parlyx AI — y desde v0.3, **lead magnet jugable** (doble embudo).
+
+**Fuente de verdad del producto:** `docs/PRD-v0.2.md` (base, D1-D6) +
+`docs/PRD-v0.3-lead-magnet.md` (dirección lead magnet) + **`docs/anexo-psicologia-adiccion-v0.4.md`
+(manda donde contradiga al v0.3**: sin Rival NPC, sin micro-survey, captura = solo email,
+4 formatos de carta, tienda de 4 items**)**. Principio rector v0.3 §0: el juego primero —
+la captura jamás degrada la experiencia.
 
 ## Mapa del repo
 
@@ -18,10 +23,17 @@ Minijuego web viral estilo Copero/Remar: simulás una carrera de founder 1993→
 | `lib/engine/` | Motor económico puro, módulo importable | Fuente de verdad de la economía |
 | `data/balance.json` | `BAL` — el ÚNICO lugar de tuneo económico | — |
 | `data/eras.json` | Eras/múltiplos por año (generada de la eraFor original) | — |
+| `data/arcos.json` | Arcos narrativos (sesgos de momentum por fase, PRD v0.3 §5) | Tuneo de arcos acá |
+| `data/tags-ejes.json` | Tags de eje por opción → arquetipos (PRD v0.3 §2) | Tuneo del perfil acá |
 | `reference/engine-v1.original.js` | El motor original INTACTO (validado 20.000 sims) | Referencia para diff |
 | `reference/prototipo-ui-v0.2.jsx` | Prototipo React jugable | Solo referencia visual/UX |
 | `scripts/sim.mjs` | Simulador headless + golden check de CI | QA de balanceo |
+| `scripts/smoke-game.mjs` | Auto-juega N partidas · `--arcos` = distribución por arco | QA del core loop |
 | `tests/golden-sim.json` | Distribución exacta esperada (N=10000) | Traba de la regla dura #1 |
+
+**Nota motor:** `simulateTrienio` acepta `decisionesFx.momentumBias` (sesgo de arco,
+aditivo y opcional). Con 0 u omitido la matemática es EXACTAMENTE la original — el
+golden lo verifica. Los arcos se tunean en `data/arcos.json`, jamás en el motor.
 
 ## Reglas duras (no negociables)
 
@@ -63,18 +75,28 @@ npm run build          # build estático (out/)
 1. ✅ Scaffold + motor como módulo puro (salida idéntica verificada) + sim como test CI.
 2. ✅ Deck 102 cartas → JSON con Zod.
 3. ✅ F2: core loop jugable (`lib/game/` + `app/Game.tsx`): setup ×4, 11 turnos con el
-   deck real (macro sorteada, elegibilidad, apuestas, flags, markers), economía por
-   trienio = `simulateTrienio()` del motor INTACTO, emergencias E-01→E-05, exits,
-   comeback, modo playa, tarjeta final con seed compartible (`?s=SEED`).
-   QA: `scripts/smoke-game.mjs` (auto-juega N partidas, corre en CI).
-   **Fuera del alcance F2** (entra con F3): modo ejecutivo D6 (bloque EJ excluido del
-   pool — sus triggers son prosa), condiciones/`trigger` en texto libre (no bloquean),
-   efectos condicionales de `raw`/`notas`, edad inicial elegible, retiro standalone
-   (gate PAT≥2M — hoy solo post-exit), cartas reactivas entre turnos.
-4. 🔲 F3: mecanizar lo pendiente de arriba + recalibrar `BAL` contra targets PRD §17
-   (la sim de CI sigue usando `politicaFx` como política proxy) → activar
-   `--strict-targets` en CI y regenerar el golden.
-5. 🔲 F4: og:image dinámica (edge function) + arte final de tarjeta (PRD §13 — LA feature).
+   deck real, economía por trienio = `simulateTrienio()` del motor INTACTO,
+   emergencias E-01→E-05, exits, comeback, modo playa, seed compartible.
+4. ✅ **v1 del PRD v0.3/anexo v0.4** (11 ítems del pedido del owner):
+   arquetipos (tags en `data/tags-ejes.json` + mote) · arcos (`data/arcos.json`,
+   momentumBias) · vitrina SVG con siluetas + colección de arquetipos (localStorage) ·
+   ceremonia final 3 beats (cascada → copas → sello del mote; la tabla protagonista) ·
+   críticos dorados (5% apuestas ganadas, ×2) · línea del casi · one-screen 100dvh
+   (chips + tabla bajo demanda) · turno 1 "El Origen" + financiamiento gateado
+   (turno ≥3 y etapa ≥Seed) · landing "El 27% quiebra…" + "Fundar mi empresa" ·
+   "Otra carrera" 1-tap (setup recordado) · share 1ª persona con seed-desafío.
+   Verificación de arcos: 120k partidas (`smoke-game 120000 --arcos`) — épico 33%
+   Promesa vs 12% Desierto, quiebra estable 13-17%, agregado sano. BAL intacto.
+   **Pendiente de v1 (decisión consciente):** arco "Pase a la Corpo" (necesita modo
+   ejecutivo → su 15% está sumado a "ninguno" en arcos.json) · sesgo de SORTEO de
+   cartas por arco (solo momentum por ahora) · rebalanceo 40% cartas de pérdida
+   (anexo §1.5 — es tag de contenido, va con revisión de Leimus) · formatos de carta
+   Duelo/Apuesta (§7 v0.3; el pedido del owner no los listó) · audio de críticos.
+5. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
+   racha · email/informe por arquetipo · tienda/powerups (4 items) · HubSpot.
+6. 🔲 F3 motor: modo ejecutivo D6, condiciones en prosa, retiro standalone, edad
+   elegible, recalibrar `BAL` contra §17 → `--strict-targets` + regenerar golden.
+7. 🔲 F4: og:image dinámica + arte final de tarjeta.
 
 ## Contexto de negocio
 

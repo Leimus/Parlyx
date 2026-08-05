@@ -1,17 +1,19 @@
 "use client";
 /* ============================================================
-   TU CARRERA EMPRENDEDORA — front F2
-   Port de reference/prototipo-ui-v0.2.jsx sobre el motor REAL
-   (lib/engine) y el deck REAL (data/cards vía lib/game).
+   TU CARRERA EMPRENDEDORA — front v1 (PRD v0.3 + anexo v0.4)
+   One-screen 100dvh · arquetipos · vitrina · ceremonia final ·
+   críticos dorados · línea del casi · Otra carrera 1-tap.
    ============================================================ */
 import { useEffect, useReducer, useRef, useState } from "react";
 import {
-  createGame, chooseOption, advanceTurn, hudData, cardTePaso, TURN_YEARS,
+  createGame, chooseOption, advanceTurn, hudData, cardTePaso, TURN_YEARS, shareDesafio,
 } from "@/lib/game/state.js";
 import {
   VERTICALS_META, HQS_META, CAPITALES_META, EMOJIS, COLORS, NOMBRES,
   LOGROS_INFO, fmtUSD, ovrTier, ERA_NOMBRES, climaEmoji, EDAD_INICIAL,
 } from "@/lib/game/meta.js";
+import { TODOS_ARQUETIPOS } from "@/lib/game/arquetipos.js";
+import { COPAS, copasDePartida, actualizarVitrina, cargarVitrina } from "@/lib/game/vitrina.js";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type GS = any;
@@ -29,20 +31,15 @@ function Ticker({ clima }: { clima: number }) {
     const n = ((i * 7 + 3) % 40) / 10 + 0.4;
     return (
       <span key={s} style={{ color: pos ? "var(--up)" : "var(--down)" }}>
-        {s} {pos ? "▲" : "▼"}
-        {n.toFixed(1)}%
+        {s} {pos ? "▲" : "▼"}{n.toFixed(1)}%
       </span>
     );
   });
-  return (
-    <div className="ticker">
-      <div className="tape">{items}{items}</div>
-    </div>
-  );
+  return <div className="ticker"><div className="tape">{items}{items}</div></div>;
 }
 
 function Spark({ hist }: { hist: number[] }) {
-  const w = 92, h = 22;
+  const w = 84, h = 18;
   const max = Math.max(...hist), min = Math.min(...hist);
   const pts = hist
     .map((v, i) => `${(i / (hist.length - 1 || 1)) * w},${h - ((v - min) / (max - min || 1)) * (h - 4) - 2}`)
@@ -62,9 +59,9 @@ function OvrPill({ v }: { v: number }) {
   return <span className="pill" style={{ background: bg[t], color: co[t] }}>{v}</span>;
 }
 
-function Fila({ row }: { row: any }) {
+function Fila({ row, i }: { row: any; i?: number }) {
   return (
-    <div className="trow">
+    <div className="trow" style={i != null ? ({ "--i": i } as any) : undefined}>
       <span className="yr">{row.year}</span>
       <span className="empresa">
         <span className="logo" style={{ background: (row.color || "#333") + "22" }}>{row.emoji}</span>
@@ -83,6 +80,42 @@ function Fila({ row }: { row: any }) {
   );
 }
 
+/* ---------- Vitrina: copas SVG propias (sin emoji) ---------- */
+function CopaSVG({ id, ganada, size = 34 }: { id: string; ganada: boolean; size?: number }) {
+  const c = ganada ? "var(--gold)" : "#3a4150";
+  const s = { fill: "none", stroke: c, strokeWidth: 2.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  const glifos: Record<string, React.ReactNode> = {
+    millon: <><circle cx="20" cy="16" r="10" {...s} /><path d="M20 10v12M16.5 13.5h5a2.5 2.5 0 010 5h-3a2.5 2.5 0 000 5h5" {...s} strokeWidth={2} /><path d="M12 34h16M14 30h12" {...s} /></>,
+    decena: <><path d="M8 26L16 16l6 5 9-12" {...s} /><path d="M25 9h6v6" {...s} /><path d="M12 34h16" {...s} /></>,
+    cien: <><circle cx="13" cy="14" r="4.5" {...s} /><circle cx="27" cy="14" r="4.5" {...s} /><circle cx="20" cy="23" r="4.5" {...s} /><path d="M12 34h16" {...s} /></>,
+    unicornio: <><path d="M12 10h16v6a8 8 0 01-16 0z" {...s} /><path d="M20 4l2.5 6h-5z" {...s} /><path d="M16 28h8M20 24v4M12 34h16" {...s} /></>,
+    campana: <><path d="M20 6c6 0 8 5 8 10 0 5 2 7 3 8H9c1-1 3-3 3-8 0-5 2-10 8-10z" {...s} /><path d="M17 28a3 3 0 006 0M12 34h16" {...s} /></>,
+    salvavidas: <><circle cx="20" cy="18" r="11" {...s} /><circle cx="20" cy="18" r="4.5" {...s} /><path d="M20 7v6.5M20 22.5V29M9 18h6.5M24.5 18H31" {...s} strokeWidth={2} /><path d="M12 34h16" {...s} /></>,
+    desierto: <><circle cx="27" cy="10" r="4" {...s} /><path d="M13 25c0-6 1-12 1-12M14 17c-3 0-4-2-4-4M14 20c3 0 4-2 4-4" {...s} /><path d="M6 28c5-3 10-3 14 0s9 3 14 0" {...s} strokeWidth={2} /><path d="M12 34h16" {...s} /></>,
+    martillo: <><path d="M10 12l6-5 5 6-6 5z" {...s} /><path d="M18 16l11 12" {...s} /><path d="M12 34h16" {...s} /></>,
+    exit: <><path d="M10 8h12v20H10z" {...s} /><path d="M25 14l6 4-6 4M22 18h9" {...s} strokeWidth={2} /><path d="M12 34h16" {...s} /></>,
+    segundo: <><path d="M27 12a10 10 0 10 3 8" {...s} /><path d="M30 5v7h-7" {...s} /><path d="M12 34h16" {...s} /></>,
+    remador: <><path d="M8 28L28 8" {...s} /><path d="M26 6l6 2-2 6c-3 1-5-1-4-4z" {...s} strokeWidth={2} /><path d="M12 34h16" {...s} /></>,
+    reposera: <><path d="M20 6v18M20 6c-7 0-12 5-13 11l13-2 13 2C32 11 27 6 20 6z" {...s} /><path d="M12 30l4-5M28 30l-4-5M12 34h16" {...s} strokeWidth={2} /></>,
+  };
+  return (
+    <svg width={size} height={size + 4} viewBox="0 0 40 38" aria-hidden>
+      {glifos[id] || glifos.millon}
+    </svg>
+  );
+}
+
+/* Escudo de arquetipo: badge tipo ticker (bursátil, D4). */
+function EscudoSVG({ ticker, on, size = 44 }: { ticker: string; on: boolean; size?: number }) {
+  const c = on ? "var(--viol)" : "#3a4150";
+  return (
+    <svg width={size} height={size * 1.14} viewBox="0 0 44 50" aria-hidden>
+      <path d="M22 2L40 8v16c0 12-8 19-18 24C12 43 4 36 4 24V8z" fill={on ? "rgba(167,139,250,.10)" : "rgba(58,65,80,.12)"} stroke={c} strokeWidth="2.4" strokeLinejoin="round" />
+      <text x="22" y="29" textAnchor="middle" fontSize="10.5" fontWeight="800" fill={c} fontFamily="var(--font-mono), monospace">{ticker}</text>
+    </svg>
+  );
+}
+
 export default function Game() {
   const [screen, setScreen] = useState<"landing" | "setup" | "game" | "end">("landing");
   const [seedStr, setSeedStr] = useState("");
@@ -91,6 +124,8 @@ export default function Game() {
   const [step, setStep] = useState(0);
   const [showName, setShowName] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
+  const [tablaAbierta, setTablaAbierta] = useState(false);
+  const [vitrina, setVitrina] = useState<{ copas: string[]; arquetipos: string[]; partidas: number }>({ copas: [], arquetipos: [], partidas: 0 });
   const gsRef = useRef<GS>(null);
   const [, bump] = useReducer((x: number) => x + 1, 0);
 
@@ -98,13 +133,17 @@ export default function Game() {
     setSeedStr(randSeed());
     const s = new URLSearchParams(window.location.search).get("s");
     if (s && /^[A-Z2-9]{6}$/.test(s.toUpperCase())) setSeedInput(s.toUpperCase());
+    const v = cargarVitrina();
+    setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas });
+    if (v.setup?.empresa) setSetup(v.setup); // setup recordado (Otra carrera entre sesiones)
   }, []);
 
   const gs: GS = gsRef.current;
 
-  const startGame = (sd: string) => {
-    gsRef.current = createGame(sd, setup);
-    window.history.replaceState(null, "", "?s=" + sd);
+  const startGame = (sd: string, s = setup) => {
+    gsRef.current = createGame(sd, s);
+    try { window.history.replaceState(null, "", "?s=" + sd); } catch { /* sandbox */ }
+    setTablaAbierta(false);
     setScreen("game");
     bump();
   };
@@ -116,7 +155,11 @@ export default function Game() {
   const onContinue = () => {
     if (!gs || gs.phase !== "resolved") return;
     advanceTurn(gs);
-    if (gs.phase === "end") setScreen("end");
+    if (gs.phase === "end") {
+      const v = actualizarVitrina(gs);
+      setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas });
+      setScreen("end");
+    }
     bump();
   };
   const copy = (txt: string, tag: string) => {
@@ -126,18 +169,22 @@ export default function Game() {
     });
   };
 
-  /* ---------- Landing ---------- */
+  /* ---------- Landing (anexo §1.6) ---------- */
   if (screen === "landing")
     return (
       <div className="app"><div className="col">
         <Ticker clima={1} />
         <div className="brand"><h1>Tu Carrera Emprendedora</h1><span>por Parlyx AI</span></div>
-        <div className="bigtitle">33 años de startup.<br />11 decisiones.</div>
-        <p className="landquote">Fundá en 1993, atravesá cada burbuja y cada crash, y terminá tocando la campana… o vendiendo el auto.</p>
-        <button className="btn pri" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Arrancar carrera</button>
+        <div style={{ marginTop: 26 }}>
+          <div className="statline">El <span className="down">27%</span> quiebra.</div>
+          <div className="statline">El <span className="up">3%</span> toca la campana.</div>
+          <div className="vos">¿Vos?</div>
+        </div>
+        <p className="landquote">33 años de startup. 11 decisiones.<br />Una carrera que es toda tuya.</p>
+        <button className="btn pri" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Fundar mi empresa →</button>
         <div className="seedbox">
           <input
-            className="input mono" placeholder="¿Tenés un código? (seed)" maxLength={6} value={seedInput}
+            className="input mono" placeholder="¿Te retaron? Pegá la seed" maxLength={6} value={seedInput}
             onChange={(e) => setSeedInput(e.target.value.toUpperCase())} style={{ flex: 1 }}
           />
           <button
@@ -145,7 +192,11 @@ export default function Game() {
             onClick={() => { if (seedInput.length === 6) { setSeedStr(seedInput); setStep(0); setScreen("setup"); } }}
           >Jugar</button>
         </div>
-        <p className="mini">Motor v1 + deck de 102 cartas · sin servidor · seed compartible</p>
+        {vitrina.partidas > 0 && (
+          <p className="mini mono">
+            Vitrina {vitrina.copas.length}/{COPAS.length} · Arquetipos {vitrina.arquetipos.length}/8 · {vitrina.partidas} carreras
+          </p>
+        )}
       </div></div>
     );
 
@@ -221,181 +272,198 @@ export default function Game() {
     );
   }
 
-  /* ---------- Juego ---------- */
+  /* ---------- Juego: one-screen 100dvh (PRD v0.3 §10) ---------- */
   if (screen === "game" && gs) {
     const hud = hudData(gs);
     const card = gs.card;
     const isTP = cardTePaso(gs);
     const isEmergency = card?.bloque === "emergencia";
-    const isPost = card?.sintetica;
+    const isPost = card?.sintetica && card.id === "PX-01";
     const isPlaya = card?.bloque === "playa";
     return (
-      <div className="app"><div className="col">
+      <div className="app"><div className="col gamegrid">
         <Ticker clima={hud.era.clima} />
-        <div className="hud">
-          <div className="hudgrid">
-            <div className={"ovrbox t-" + ovrTier(hud.ovr)}><span className="k">OVR</span><span className="n">{hud.ovr}</span></div>
-            <div className="stat">
-              <div className="k">{hud.public ? "Mkt cap" : "Valuación"}</div>
-              <div className="v">{fmtUSD(hud.val)}</div>
-              <Spark hist={gs.hist} />
-            </div>
-            <div className="stat">
-              <div className="k">Runway</div>
-              <div className="v" style={{ color: hud.runway <= 6 && !hud.public && !hud.cfPositivo ? "var(--down)" : "inherit" }}>
-                {hud.public ? "—" : hud.cfPositivo ? "CF+" : hud.runway + "m"}
-              </div>
-              <div className="k" style={{ marginTop: 4 }}>ARR</div>
-              <div className="v" style={{ fontSize: 11 }}>{hud.arr ? fmtUSD(hud.arr) : "—"}</div>
-            </div>
-            <div className="stat">
-              <div className="k">Founder</div>
-              <div className="v">{hud.eq}%</div>
-              <div className="k" style={{ marginTop: 4 }}>{hud.pat > 0 ? "Patrimonio" : "Equipo"}</div>
-              <div className="v" style={{ fontSize: 11 }}>{hud.pat > 0 ? fmtUSD(hud.pat) : hud.emp}</div>
+        <div className="hudrow">
+          <div className={"ovrbox t-" + ovrTier(hud.ovr)}><span className="k">OVR</span><span className="n">{hud.ovr}</span></div>
+          <div className="stat">
+            <div className="k">{hud.public ? "Mkt cap" : "Valuación"}</div>
+            <div className="v">{fmtUSD(hud.val)}</div>
+            <Spark hist={gs.hist} />
+          </div>
+          <div className="stat">
+            <div className="k">Runway</div>
+            <div className="v" style={{ color: hud.runway <= 6 && !hud.public && !hud.cfPositivo ? "var(--down)" : "inherit" }}>
+              {hud.public ? "—" : hud.cfPositivo ? "CF+" : hud.runway + "m"}
             </div>
           </div>
+          <div className="stat">
+            <div className="k">Founder</div>
+            <div className="v">{hud.eq}%</div>
+          </div>
         </div>
-        <div className="era">
-          <span><b>{climaEmoji(hud.era.clima)}</b> {ERA_NOMBRES.get(hud.year) || "…"}</span>
-          <span className="mono">MÚLTIPLO {hud.era.mult}x · CAPITAL {hud.era.capital.toUpperCase()}</span>
-        </div>
-        <div className="tabla">
-          <div className="thead"><span>Año</span><span>Empresa</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>ARR</span></div>
+        <div className="chips" onClick={() => setTablaAbierta(true)} role="button" aria-label="Ver tabla de carrera">
           {TURN_YEARS.map((y: number, i: number) => {
             const row = gs.rows.find((r: any) => r.year === y);
-            if (row) return <Fila key={y} row={row} />;
-            if (i === gs.g.ti)
-              return (
-                <div className="trow actual" key={y}>
-                  <span className="yr">{y}</span>
-                  <span className="empresa" style={{ color: "var(--dim)" }}>Decidiendo…</span>
-                  <span style={{ textAlign: "center" }}><OvrPill v={gs.g.ovr} /></span>
-                  <span className="arrv" />
-                </div>
-              );
-            return <div className="trow ghost" key={y}><span className="yr">{y}</span><span /><span /><span /></div>;
+            if (row) {
+              const cls = gs.g.dead && i === gs.rows.length - 1 ? "muerte" : "done-" + ovrTier(row.ovr);
+              return <span key={y} className={"chip-t " + cls}>{String(y).slice(2)}</span>;
+            }
+            if (i === gs.g.ti) return <span key={y} className="chip-t actual">{String(y).slice(2)}</span>;
+            return <span key={y} className="chip-t">{String(y).slice(2)}</span>;
           })}
-          <div className="trow ghost"><span className="yr">2026</span><span className="empresa">Balance final</span><span /><span /></div>
+          <span className="chip-t">26</span>
         </div>
-        {gs.momentum != null && gs.phase === "decision" && Math.abs(gs.momentum) > 1 && (
-          <p className="mini mono" style={{ color: gs.momentum > 1 ? "var(--up)" : "var(--down)" }}>
-            {gs.momentum > 1 ? "El mercado te empuja ▲" : "Viento de frente ▼"}
-          </p>
-        )}
-        {card && (
-          <div className="card">
-            <div className="top">
-              <span className="yearbig">{hud.year}</span>
-              {isEmergency ? (
-                <span className="tepaso" style={{ background: "#7A1F27", color: "#FFD9DC" }}>EMERGENCIA</span>
-              ) : isPost ? (
-                <span className="tepaso" style={{ background: "#1F5C46", color: "#D7FFE9" }}>EXIT</span>
-              ) : isPlaya ? (
-                <span className="tepaso" style={{ background: "#0E4C56", color: "#C8F4FF" }}>PLAYA</span>
-              ) : isTP ? (
-                <span className="tepaso">TE PASÓ</span>
-              ) : null}
+        <div className="cardzone">
+          <div className="era" style={{ marginTop: 0 }}>
+            <span><b>{climaEmoji(hud.era.clima)}</b> {ERA_NOMBRES.get(hud.year) || "…"}</span>
+            <span className="mono">MULT {hud.era.mult}x · {hud.era.capital.toUpperCase()}</span>
+          </div>
+          {card && (
+            <div className="card">
+              <div className="top">
+                <span className="yearbig">{hud.year}</span>
+                {isEmergency ? (
+                  <span className="tepaso" style={{ background: "#7A1F27", color: "#FFD9DC" }}>EMERGENCIA</span>
+                ) : isPost ? (
+                  <span className="tepaso" style={{ background: "#1F5C46", color: "#D7FFE9" }}>EXIT</span>
+                ) : isPlaya ? (
+                  <span className="tepaso" style={{ background: "#0E4C56", color: "#C8F4FF" }}>PLAYA</span>
+                ) : isTP ? (
+                  <span className="tepaso">TE PASÓ</span>
+                ) : null}
+              </div>
+              <h2>{card.titulo}</h2>
+              <p className="flavor">{card.flavor}</p>
+              {card.opciones.map((o: any, i: number) => {
+                const elegida = gs.chosen === o.id;
+                const state =
+                  gs.chosen == null ? "" : elegida ? (gs.result ? (gs.result.good ? (gs.result.critico ? " win goldwin" : " win") : " lose") : " win") : " dimmed";
+                return (
+                  <button key={o.id} className={"opt" + state} onClick={() => onChoose(o.id)}>
+                    <span className="l"><span className="letra">{String.fromCharCode(65 + i)}</span>{o.label}</span>
+                    <span className="d">
+                      {o.raw}
+                      {o.apuesta && (
+                        <span className="betpill">
+                          <span className="g">{Math.round(o.apuesta.p * 100)}%</span> / <span className="r">{Math.round((1 - o.apuesta.p) * 100)}%</span>
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
+              {gs.result && (
+                <div className={"result " + (gs.result.critico ? "critico" : gs.result.good ? "good" : "bad")}>
+                  {gs.result.critico ? "★ DORADA — efecto ×2 · " : gs.result.good ? "▲ " : "▼ "}{gs.result.texto}
+                </div>
+              )}
+              {gs.phase === "resolved" && (
+                <div style={{ padding: "0 12px 14px" }}>
+                  <button className="btn pri" onClick={onContinue}>Continuar →</button>
+                </div>
+              )}
             </div>
-            <h2>{card.titulo}</h2>
-            <p className="flavor">{card.flavor}</p>
-            {card.opciones.map((o: any, i: number) => {
-              const state =
-                gs.chosen == null ? "" : gs.chosen === o.id ? (gs.result ? (gs.result.good ? " win" : " lose") : " win") : " dimmed";
-              return (
-                <button key={o.id} className={"opt" + state} onClick={() => onChoose(o.id)}>
-                  <span className="l"><span className="letra">{String.fromCharCode(65 + i)}</span>{o.label}</span>
-                  <span className="d">
-                    {o.raw}
-                    {o.apuesta && (
-                      <span className="betpill">
-                        <span className="g">{Math.round(o.apuesta.p * 100)}%</span> / <span className="r">{Math.round((1 - o.apuesta.p) * 100)}%</span>
-                      </span>
-                    )}
-                  </span>
-                </button>
-              );
-            })}
-            {gs.result && (
-              <div className={"result " + (gs.result.good ? "good" : "bad")}>
-                {gs.result.good ? "▲ " : "▼ "}{gs.result.texto}
-              </div>
-            )}
-            {gs.phase === "resolved" && (
-              <div style={{ padding: "0 12px 14px" }}>
-                <button className="btn pri" onClick={onContinue}>Continuar →</button>
-              </div>
-            )}
+          )}
+          {gs.momentum != null && gs.phase === "decision" && Math.abs(gs.momentum) > 1 && (
+            <p className="mini mono" style={{ color: gs.momentum > 1 ? "var(--up)" : "var(--down)", marginTop: 6 }}>
+              {gs.momentum > 1 ? "El mercado te empuja ▲" : "Viento de frente ▼"}
+            </p>
+          )}
+        </div>
+        {tablaAbierta && (
+          <div className="overlay" onClick={() => setTablaAbierta(false)}>
+            <div className="tabla">
+              <div className="thead"><span>Año</span><span>Empresa</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>ARR</span></div>
+              {TURN_YEARS.map((y: number, i: number) => {
+                const row = gs.rows.find((r: any) => r.year === y);
+                if (row) return <Fila key={y} row={row} />;
+                if (i === gs.g.ti)
+                  return (
+                    <div className="trow actual" key={y}>
+                      <span className="yr">{y}</span>
+                      <span className="empresa" style={{ color: "var(--dim)" }}>Decidiendo…</span>
+                      <span style={{ textAlign: "center" }}><OvrPill v={gs.g.ovr} /></span>
+                      <span className="arrv" />
+                    </div>
+                  );
+                return <div className="trow ghost" key={y}><span className="yr">{y}</span><span /><span /><span /></div>;
+              })}
+              <div className="trow ghost"><span className="yr">2026</span><span className="empresa">Balance final</span><span /><span /></div>
+            </div>
           </div>
         )}
       </div></div>
     );
   }
 
-  /* ---------- Final + tarjeta ---------- */
+  /* ---------- Final: ceremonia + tarjeta + vitrina (anexo §1.3/1.4) ---------- */
   if (screen === "end" && gs) {
     const e = gs.endInfo;
     const g = gs.g;
-    // Trayectoria de camisetas (D6/PRD §13): empresas en orden, playa incluida
     const camisetas: { emoji: string; name: string }[] = [];
     for (const r of gs.rows) {
       const last = camisetas[camisetas.length - 1];
       if (!last || last.name !== r.name) camisetas.push({ emoji: r.emoji, name: r.name });
     }
     const arrPeak = Math.max(...gs.rows.map((r: any) => r.arr || 0), 0);
-    const shareTxt =
-      `${e.emoji} ${e.titulo}\n${gs.coEmoji} ${gs.coName} · OVR pico ${g.ovrPeak} · Valuación pico ${fmtUSD(g.valPeak)}\n` +
-      `Hitos: ${Object.entries(gs.logros).map(([k, v]: any) => (v > 1 ? k + "×" + v : k)).join(" ") || "—"}\n` +
-      `Jugá la tuya · Tu Carrera Emprendedora por Parlyx AI · seed ${gs.seedStr}`;
-    const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/?s=${gs.seedStr}` : "";
+    const copasEsta = copasDePartida(gs);
+    const nRows = gs.rows.length;
+    const copasBase = nRows * 90 + 300; // la cascada termina, caen las copas
+    const selloDelay = copasBase + copasEsta.size * 220 + 250;
+    const shareUrl = typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}?s=${gs.seedStr}` : "";
+    const desafio = shareDesafio(gs, shareUrl);
     return (
-      <div className="app"><div className="col">
+      <div className="app"><div className="col ceremonia">
         <Ticker clima={["digna", "escandalo", "playa0"].includes(e.key) ? -2 : 1} />
         <div className="brand"><h1>Carrera finalizada</h1><span>Compartí tu tarjeta</span></div>
-        <div className="tabla">
-          <div className="thead"><span>Año</span><span>Empresa</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>ARR</span></div>
-          {gs.rows.map((row: any) => <Fila key={row.year} row={row} />)}
-        </div>
+
         <div className="sharecard">
-          <div className="sc-head">
-            <div className={"ovrbox t-" + ovrTier(g.ovrPeak)} style={{ width: 72, height: 72 }}>
+          {/* El sello del mote: acompaña, no tapa — la tabla es la protagonista */}
+          <div className="sello mote-badge" style={{ "--d": `${selloDelay}ms` } as any}>
+            <EscudoSVG ticker={gs.mote.ticker} on size={56} />
+          </div>
+
+          <div className="tabla" style={{ marginTop: 0 }}>
+            <div className="thead"><span>Año</span><span>Empresa</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>ARR</span></div>
+            {gs.rows.map((row: any, i: number) => <Fila key={row.year} row={row} i={i} />)}
+          </div>
+
+          <div className="sc-head" style={{ marginTop: 14 }}>
+            <div className={"ovrbox t-" + ovrTier(g.ovrPeak)} style={{ width: 64, height: 64 }}>
               <span className="k">OVR PICO</span><span className="n">{g.ovrPeak}</span>
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: "flex", gap: 7, alignItems: "center", flexWrap: "wrap" }}>
-                <span className="logo" style={{ background: gs.coColor + "33", width: 26, height: 26, fontSize: 15 }}>{gs.coEmoji}</span>
-                <b style={{ fontSize: 19 }}>{gs.exits.length && gs.coN > 1 ? gs.exits[0].name + " → " + gs.coName : gs.coName}</b>
+                <span className="logo" style={{ background: gs.coColor + "33", width: 24, height: 24, fontSize: 14 }}>{gs.coEmoji}</span>
+                <b style={{ fontSize: 17 }}>{gs.exits.length && gs.coN > 1 ? gs.exits[0].name + " → " + gs.coName : gs.coName}</b>
                 <span>{HQS_META.find((h) => h.id === gs.hq)?.flag}</span>
                 <span className="chip">{VERTICALS_META.find((v) => v.id === gs.setup.vertical)?.label}</span>
               </div>
-              <div className="mono" style={{ color: "var(--dim)", fontSize: 12, marginTop: 5 }}>
+              <div className="mono" style={{ color: "var(--dim)", fontSize: 12, marginTop: 4 }}>
                 VALUACIÓN PICO <b style={{ color: "var(--up)" }}>{fmtUSD(g.valPeak)}</b>
+              </div>
+              <div style={{ fontSize: 12, marginTop: 3 }}>
+                <b style={{ color: "var(--viol)" }}>{gs.mote.nombre}</b>
+                <span style={{ color: "var(--dim)" }}> — {gs.mote.linea}</span>
               </div>
               {showName && gs.setup.apellido && (
                 <div style={{ color: "var(--dim)", fontSize: 12, marginTop: 2 }}>Fundada por {gs.setup.apellido}</div>
               )}
             </div>
           </div>
+
           <div className="sc-stats">
-            <div><div className="k">AÑOS</div><div className="v">{gs.rows.length * 3}</div></div>
+            <div><div className="k">AÑOS</div><div className="v">{nRows * 3}</div></div>
             <div><div className="k">ARR PICO</div><div className="v">{fmtUSD(arrPeak)}</div></div>
-            <div><div className="k">EQUIPO PICO</div><div className="v">{g.empPeak}</div></div>
+            <div><div className="k">EQUIPO</div><div className="v">{g.empPeak}</div></div>
             <div><div className="k">FOUNDER</div><div className="v">{Math.round(g.eq)}%</div></div>
           </div>
+
           <div className="sc-sec">Trayectoria</div>
           <div className="tray">{camisetas.map((c, i) => (
             <span className="chip" key={i}>{c.emoji} {c.name}</span>
           ))}</div>
-          {Object.keys(gs.logros).length > 0 && (
-            <>
-              <div className="sc-sec">Hitos</div>
-              <div className="hitochips">{Object.entries(gs.logros).map(([k, v]: any) => (
-                <span className="hitochip" key={k}>
-                  <span className="em">{k}</span>{LOGROS_INFO[k as keyof typeof LOGROS_INFO] || ""}{v > 1 && <span className="xn">×{v}</span>}
-                </span>
-              ))}</div>
-            </>
-          )}
+
           <div className="finaltxt">{e.emoji} {e.titulo}</div>
           {g.pat > 0 && <p className="mini mono">Patrimonio personal: {fmtUSD(g.pat)}</p>}
           <div className="sc-foot">
@@ -403,15 +471,50 @@ export default function Game() {
             <span className="mono">seed {gs.seedStr}</span>
           </div>
         </div>
+
+        {/* Vitrina: lo que ganaste cae; lo que falta, en silueta (Zeigarnik) */}
+        <div className="vitrina">
+          <h3>Vitrina · <span className="cnt">{vitrina.copas.length}/{COPAS.length}</span></h3>
+          <div className="copas-grid">
+            {COPAS.map((c, i) => {
+              const enColeccion = vitrina.copas.includes(c.id);
+              const nueva = copasEsta.has(c.id);
+              return (
+                <div key={c.id} className={"copa" + (enColeccion ? "" : " lock") + (nueva ? " nueva copa-drop" : "")}
+                  style={nueva ? ({ "--d": `${copasBase + i * 220}ms` } as any) : undefined}
+                  title={c.detalle}>
+                  <CopaSVG id={c.id} ganada={enColeccion} />
+                  <span className="nom">{c.nombre}</span>
+                </div>
+              );
+            })}
+          </div>
+          <h3 style={{ marginTop: 14 }}>Formas de fundar · <span className="cnt">{vitrina.arquetipos.length}/8</span></h3>
+          <div className="escudos-grid">
+            {TODOS_ARQUETIPOS.filter((a) => a.id !== "enigma").map((a) => {
+              const on = vitrina.arquetipos.includes(a.id);
+              return (
+                <div key={a.id} className={"escudo" + (on ? "" : " lock")} title={on ? a.linea : "¿Cómo se juega esto?"}>
+                  <EscudoSVG ticker={on ? a.ticker : "$???"} on={on} size={38} />
+                  <span className="nom">{on ? a.nombre : "———"}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* La línea del casi: el anzuelo del replay, arriba de "Otra carrera" */}
+        <div className="casi">{gs.casi}</div>
+
         <div className="toggle">
           <span>Mostrar mi nombre</span>
           <div className={"sw2" + (showName ? " on" : "")} onClick={() => setShowName(!showName)}><div className="dot" /></div>
         </div>
-        <div style={{ marginTop: 16 }}>
-          <button className="btn pri" onClick={() => copy(shareTxt, "txt")}>{copied === "txt" ? "✓ Copiado" : "Copiar resultado"}</button>
-          <button className="btn sec" onClick={() => copy(shareUrl, "url")}>{copied === "url" ? "✓ Link copiado" : "Copiar link con seed"}</button>
+        <div style={{ marginTop: 12 }}>
+          <button className="btn pri" onClick={() => startGame(randSeed())}>Otra carrera</button>
+          <button className="btn sec" onClick={() => copy(desafio, "desafio")}>{copied === "desafio" ? "✓ Copiado" : "Copiar desafío (con mi seed)"}</button>
           <button className="btn sec" onClick={() => startGame(gs.seedStr)}>Revancha (misma seed)</button>
-          <button className="btn sec" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Nueva partida</button>
+          <button className="btn sec" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Cambiar setup</button>
         </div>
       </div></div>
     );

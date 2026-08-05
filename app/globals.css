@@ -141,3 +141,75 @@ button { font-family: inherit; }
 .landquote { color: var(--dim); text-align: center; font-size: 14px; line-height: 1.5; margin: 10px 0 22px; }
 .bigtitle { font-weight: 900; font-size: 34px; text-align: center; line-height: 1.02; letter-spacing: -0.02em; margin-top: 26px; font-stretch: 80%; }
 .seedbox { display: flex; gap: 8px; margin-top: 12px; }
+
+/* ================= v0.3/v0.4 — one-screen + vitrina + ceremonia ================= */
+
+/* Juego en una pantalla (PRD v0.3 §10): la decisión SIEMPRE above the fold */
+.gamegrid { display: grid; grid-template-rows: 26px auto auto 1fr; height: 100dvh; overflow: hidden; }
+.gamegrid .ticker { margin: 0 -14px; }
+.hudrow { display: grid; grid-template-columns: 56px 1fr 1fr 1fr; gap: 7px; padding: 8px 0 6px; align-items: stretch; }
+.hudrow .stat { padding: 6px 9px; }
+.hudrow .ovrbox .n { font-size: 22px; }
+
+.chips { display: flex; align-items: center; gap: 5px; padding: 4px 0 8px; cursor: pointer; }
+.chip-t { width: 22px; height: 22px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 8px; font-family: var(--font-mono), monospace; color: var(--dim); background: var(--panel); border: 1px solid var(--line); flex: 1; }
+.chip-t.done-bronce { background: #3a2a18; color: var(--bronze); border-color: #4a3620; }
+.chip-t.done-plata { background: #262b33; color: #c7cfda; border-color: #333a45; }
+.chip-t.done-dorado { background: #3d3006; color: var(--gold); border-color: #55430c; }
+.chip-t.done-violeta { background: #2b2151; color: var(--viol); border-color: #40337a; }
+.chip-t.actual { border-color: var(--ink); animation: pulseChip 1.6s ease infinite; }
+.chip-t.muerte { background: #3a1518; color: var(--down); border-color: #5a2228; }
+@keyframes pulseChip { 0%, 100% { box-shadow: 0 0 0 0 rgba(242, 243, 245, 0.25); } 50% { box-shadow: 0 0 0 3px rgba(242, 243, 245, 0.08); } }
+
+.cardzone { overflow-y: auto; padding-bottom: 12px; display: flex; flex-direction: column; }
+.cardzone .card { margin-top: 8px; }
+.cardzone .yearbig { font-size: 36px; }
+.cardzone .card h2 { font-size: 19px; }
+.cardzone .card p.flavor { padding-bottom: 10px; }
+
+/* Overlay de tabla completa (tap en los chips) */
+.overlay { position: fixed; inset: 0; background: rgba(6, 7, 10, 0.82); z-index: 40; display: flex; align-items: center; justify-content: center; padding: 18px; }
+.overlay .tabla { width: 100%; max-width: 430px; max-height: 80dvh; overflow-y: auto; margin: 0; }
+
+/* Crítico dorado (anexo §1.1) */
+.result.critico { background: linear-gradient(120deg, rgba(240, 185, 11, 0.18), rgba(240, 185, 11, 0.08)); color: var(--gold); border: 1px solid rgba(240, 185, 11, 0.55); animation: critico 0.7s ease; }
+@keyframes critico { 0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(240, 185, 11, 0.5); } 45% { transform: scale(1.04); box-shadow: 0 0 34px 6px rgba(240, 185, 11, 0.35); } 100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; } }
+.opt.win.goldwin { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+
+/* Ceremonia final (anexo §1.4): filas en cascada → copas → sello */
+.ceremonia .trow { animation: rowIn 0.3s both; animation-delay: calc(var(--i) * 90ms); }
+@keyframes rowIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+.copa-drop { animation: copaDrop 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) both; animation-delay: var(--d); }
+@keyframes copaDrop { from { opacity: 0; transform: translateY(-26px) scale(1.25); } to { opacity: 1; transform: none; } }
+.sello { position: absolute; top: -10px; right: 8px; transform: rotate(7deg); z-index: 3; animation: sellazo 0.5s cubic-bezier(0.3, 1.8, 0.5, 1) both; animation-delay: var(--d); }
+@keyframes sellazo { from { opacity: 0; transform: rotate(7deg) scale(2.6); } to { opacity: 1; transform: rotate(7deg) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .ceremonia .trow, .copa-drop, .sello { animation: none; } }
+
+/* Vitrina */
+.vitrina { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-top: 12px; }
+.vitrina h3 { font-size: 10px; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; text-align: center; }
+.vitrina .cnt { color: var(--ink); }
+.copas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+.copa { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 7px 2px; border-radius: 10px; background: var(--panel2); border: 1px solid var(--line); }
+.copa .nom { font-size: 8.5px; text-align: center; color: var(--ink); font-weight: 700; line-height: 1.15; }
+.copa.lock { opacity: 0.4; }
+.copa.lock .nom { color: var(--dim); font-weight: 500; }
+.copa.nueva { border-color: rgba(240, 185, 11, 0.5); }
+.escudos-grid { display: flex; justify-content: center; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
+.escudo { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 64px; }
+.escudo .tick { font-family: var(--font-mono), monospace; font-weight: 700; font-size: 10px; }
+.escudo .nom { font-size: 8px; color: var(--dim); text-align: center; }
+.escudo.lock { opacity: 0.35; }
+
+/* Sello del mote (SVG badge) */
+.mote-badge { display: flex; flex-direction: column; align-items: center; }
+
+/* Línea del casi (anexo §1.2) */
+.casi { text-align: center; color: var(--gold); font-size: 13px; font-weight: 700; margin-top: 16px; padding: 10px 14px; background: rgba(240, 185, 11, 0.07); border: 1px solid rgba(240, 185, 11, 0.25); border-radius: 12px; }
+
+/* Landing v0.4 */
+.statline { font-weight: 900; font-size: 40px; line-height: 1.04; letter-spacing: -0.02em; text-align: center; }
+.statline .up { color: var(--up); }
+.statline .down { color: var(--down); }
+.vos { font-weight: 900; font-size: 54px; text-align: center; margin-top: 6px; }
+.sharecard { position: relative; }
