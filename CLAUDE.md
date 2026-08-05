@@ -23,6 +23,7 @@ la captura jamás degrada la experiencia.
 | `lib/engine/` | Motor económico puro, módulo importable | Fuente de verdad de la economía |
 | `data/balance.json` | `BAL` — el ÚNICO lugar de tuneo económico | — |
 | `data/eras.json` | Eras/múltiplos por año (generada de la eraFor original) | — |
+| `docs/UI-SPEC-v2-densidad-copero.md` | Spec de UI vigente (tabla siempre visible, píldora OVR, Framer Motion) | **Manda sobre cualquier spec de UI anterior** (incl. anexo §10) |
 | `data/arcos.json` | Arcos narrativos (sesgos de momentum por fase, PRD v0.3 §5) | Tuneo de arcos acá |
 | `data/tags-ejes.json` | Tags de eje por opción → arquetipos (PRD v0.3 §2) | Tuneo del perfil acá |
 | `reference/engine-v1.original.js` | El motor original INTACTO (validado 20.000 sims) | Referencia para diff |
@@ -81,10 +82,14 @@ npm run build          # build estático (out/)
    arquetipos (tags en `data/tags-ejes.json` + mote) · arcos (`data/arcos.json`,
    momentumBias) · vitrina SVG con siluetas + colección de arquetipos (localStorage) ·
    ceremonia final 3 beats (cascada → copas → sello del mote; la tabla protagonista) ·
-   críticos dorados (5% apuestas ganadas, ×2) · línea del casi · one-screen 100dvh
-   (chips + tabla bajo demanda) · turno 1 "El Origen" + financiamiento gateado
-   (turno ≥3 y etapa ≥Seed) · landing "El 27% quiebra…" + "Fundar mi empresa" ·
-   "Otra carrera" 1-tap (setup recordado) · share 1ª persona con seed-desafío.
+   críticos dorados (5% apuestas ganadas, ×2) · línea del casi · turno 1 "El Origen" +
+   financiamiento gateado (turno ≥3 y etapa ≥Seed) · landing "El 27% quiebra…" +
+   "Fundar mi empresa" · "Otra carrera" 1-tap (setup recordado) · share 1ª persona
+   con seed-desafío. **UI v2 "Densidad Copero"** (reemplazó los chips del anexo §10):
+   tabla de 12 filas SIEMPRE visible (30px/fila, chip de año por etapa), píldora OVR
+   spec exacta (número oscuro sobre fondo saturado, glow solo violeta), Framer Motion
+   (springs, odómetro, cascada, carta como bottom-sheet, tensión 500-700ms),
+   export Feed 4:5 / Story 9:16. Presupuesto ≤550KB: bundle 484KB.
    Verificación de arcos: 120k partidas (`smoke-game 120000 --arcos`) — épico 33%
    Promesa vs 12% Desierto, quiebra estable 13-17%, agregado sano. BAL intacto.
    **Pendiente de v1 (decisión consciente):** arco "Pase a la Corpo" (necesita modo

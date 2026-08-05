@@ -1,29 +1,62 @@
 "use client";
 /* ============================================================
-   TU CARRERA EMPRENDEDORA — front v1 (PRD v0.3 + anexo v0.4)
-   One-screen 100dvh · arquetipos · vitrina · ceremonia final ·
-   críticos dorados · línea del casi · Otra carrera 1-tap.
+   TU CARRERA EMPRENDEDORA — front v2 "Densidad Copero"
+   (docs/UI-SPEC-v2-densidad-copero.md — manda sobre specs previos)
+   Tabla SIEMPRE visible · píldora OVR saturada · Framer Motion:
+   springs, odómetro, cascada, bottom-sheet, tensión de reveal.
    ============================================================ */
 import { useEffect, useReducer, useRef, useState } from "react";
+import { AnimatePresence, MotionConfig, animate, motion, useReducedMotion } from "framer-motion";
 import {
   createGame, chooseOption, advanceTurn, hudData, cardTePaso, TURN_YEARS, shareDesafio,
 } from "@/lib/game/state.js";
 import {
   VERTICALS_META, HQS_META, CAPITALES_META, EMOJIS, COLORS, NOMBRES,
-  LOGROS_INFO, fmtUSD, ovrTier, ERA_NOMBRES, climaEmoji, EDAD_INICIAL,
+  fmtUSD, ovrTier, ERA_NOMBRES, climaEmoji, EDAD_INICIAL, ETAPAS,
 } from "@/lib/game/meta.js";
+import { etapaIdx } from "@/lib/engine/index.js";
 import { TODOS_ARQUETIPOS } from "@/lib/game/arquetipos.js";
 import { COPAS, copasDePartida, actualizarVitrina, cargarVitrina } from "@/lib/game/vitrina.js";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type GS = any;
 
+const SPRING = { type: "spring", stiffness: 400, damping: 17 } as const;
+
 const randSeed = () =>
   Array.from({ length: 6 }, () => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[Math.floor(Math.random() * 32)]).join("");
 
 const CAP_RW: Record<string, string> = { boot: "6 meses de caja", fff: "14 meses de caja · -8% eq", vc: "20 meses de caja · -15% eq" };
 
-function Ticker({ clima }: { clima: number }) {
+/* Todo lo tocable responde con spring (§3), sin excepción. */
+function MBtn({ className, onClick, disabled, style, children }: any) {
+  return (
+    <motion.button
+      className={className} onClick={onClick} disabled={disabled} style={style}
+      whileTap={{ scale: 0.96 }} whileHover={{ scale: 1.02 }} transition={SPRING}
+    >
+      {children}
+    </motion.button>
+  );
+}
+
+/* Odómetro (§3): OVR/Valuación/ARR/PAT nunca cambian en seco. */
+function useOdometer(value: number, fmt: (n: number) => string, fromZero = false) {
+  const [txt, setTxt] = useState(() => fmt(fromZero ? 0 : value));
+  const prev = useRef(fromZero ? 0 : value);
+  const reduced = useReducedMotion();
+  useEffect(() => {
+    const from = prev.current;
+    prev.current = value;
+    if (from === value || reduced) { setTxt(fmt(value)); return; }
+    const controls = animate(from, value, { duration: 0.45, ease: "easeOut", onUpdate: (v: number) => setTxt(fmt(v)) });
+    return () => controls.stop();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, reduced]);
+  return txt;
+}
+
+function Ticker({ clima, frozen }: { clima: number; frozen?: boolean }) {
   const up = clima >= 0;
   const syms = ["PLYX", "KUAL", "NXBI", "MELI*", "TECH", "LATM", "SAAS", "FNTX", "ORBT", "WAIR"];
   const items = syms.map((s, i) => {
@@ -35,11 +68,11 @@ function Ticker({ clima }: { clima: number }) {
       </span>
     );
   });
-  return <div className="ticker"><div className="tape">{items}{items}</div></div>;
+  return <div className="ticker"><div className={"tape" + (frozen ? " frozen" : "")}>{items}{items}</div></div>;
 }
 
 function Spark({ hist }: { hist: number[] }) {
-  const w = 84, h = 18;
+  const w = 84, h = 16;
   const max = Math.max(...hist), min = Math.min(...hist);
   const pts = hist
     .map((v, i) => `${(i / (hist.length - 1 || 1)) * w},${h - ((v - min) / (max - min || 1)) * (h - 4) - 2}`)
@@ -52,22 +85,33 @@ function Spark({ hist }: { hist: number[] }) {
   );
 }
 
-function OvrPill({ v }: { v: number }) {
+/* Píldora OVR (§1, spec exacta): número oscuro black sobre fondo saturado. */
+function OvrPill({ v, size }: { v: number; size?: "grande" | "pico" }) {
   const t = ovrTier(v);
-  const bg: Record<string, string> = { bronce: "#3a2a18", plata: "#262b33", dorado: "#3d3006", violeta: "#2b2151" };
-  const co: Record<string, string> = { bronce: "var(--bronze)", plata: "#C7CFDA", dorado: "var(--gold)", violeta: "var(--viol)" };
-  return <span className="pill" style={{ background: bg[t], color: co[t] }}>{v}</span>;
+  const odo = useOdometer(v, (n) => String(Math.round(n)));
+  return <span className={`pill p-${t}${size ? " " + size : ""}`}>{odo}</span>;
 }
 
-function Fila({ row, i }: { row: any; i?: number }) {
+/* Chip de año coloreado por etapa (§1). */
+const ETAPA_CLASS: Record<string, string> = {
+  Garage: "e-garage", Seed: "e-seed", "Serie A": "e-serieA", "Serie B": "e-serieB",
+  "Serie C": "e-serieC", Gigante: "e-serieC", "Pública": "e-publica", Retiro: "e-retiro",
+};
+
+function Fila({ row, delay = 0 }: { row: any; delay?: number }) {
   return (
-    <div className="trow" style={i != null ? ({ "--i": i } as any) : undefined}>
-      <span className="yr">{row.year}</span>
+    <motion.div
+      className="trow"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 24, delay }}
+    >
+      <span className={"yrchip " + (ETAPA_CLASS[row.etapa] || "")}>{row.year}</span>
       <span className="empresa">
-        <span className="logo" style={{ background: (row.color || "#333") + "22" }}>{row.emoji}</span>
+        <span className="logo" style={{ background: (row.color || "#333") + "26" }}>{row.emoji}</span>
         {row.name}{" "}
         {row.markers.map((m: string) => (
-          <span key={m} style={{ color: m === "🔁" ? "var(--up)" : "var(--down)" }}>{m}</span>
+          <span key={m} style={{ color: m === "🔁" ? "var(--up)" : "var(--down)", fontSize: 11 }}>{m}</span>
         ))}
         <span className="hito-inline">{row.hitos.join(" ")}</span>
       </span>
@@ -76,11 +120,11 @@ function Fila({ row, i }: { row: any; i?: number }) {
         {row.playa ? fmtUSD(row.pat) : row.arr ? fmtUSD(row.arr) : "—"}
         {row.down && <span style={{ color: "var(--down)" }}>▼</span>}
       </span>
-    </div>
+    </motion.div>
   );
 }
 
-/* ---------- Vitrina: copas SVG propias (sin emoji) ---------- */
+/* Copas y escudos SVG propios (nunca Lucide para trofeos — §4). */
 function CopaSVG({ id, ganada, size = 34 }: { id: string; ganada: boolean; size?: number }) {
   const c = ganada ? "var(--gold)" : "#3a4150";
   const s = { fill: "none", stroke: c, strokeWidth: 2.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
@@ -105,7 +149,6 @@ function CopaSVG({ id, ganada, size = 34 }: { id: string; ganada: boolean; size?
   );
 }
 
-/* Escudo de arquetipo: badge tipo ticker (bursátil, D4). */
 function EscudoSVG({ ticker, on, size = 44 }: { ticker: string; on: boolean; size?: number }) {
   const c = on ? "var(--viol)" : "#3a4150";
   return (
@@ -116,6 +159,22 @@ function EscudoSVG({ ticker, on, size = 44 }: { ticker: string; on: boolean; siz
   );
 }
 
+function HudValuacion({ val, hist, publica }: { val: number; hist: number[]; publica: boolean }) {
+  const odo = useOdometer(val, fmtUSD);
+  return (
+    <div className="stat">
+      <div className="k">{publica ? "Mkt cap" : "Valuación"}</div>
+      <div className="v">{odo}</div>
+      <Spark hist={hist} />
+    </div>
+  );
+}
+
+function PatOdo({ pat }: { pat: number }) {
+  const odo = useOdometer(pat, fmtUSD, true);
+  return <p className="mini mono">Patrimonio personal: {odo}</p>;
+}
+
 export default function Game() {
   const [screen, setScreen] = useState<"landing" | "setup" | "game" | "end">("landing");
   const [seedStr, setSeedStr] = useState("");
@@ -124,10 +183,12 @@ export default function Game() {
   const [step, setStep] = useState(0);
   const [showName, setShowName] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
-  const [tablaAbierta, setTablaAbierta] = useState(false);
+  const [pendingOp, setPendingOp] = useState<string | null>(null);
+  const [formato, setFormato] = useState<"45" | "916">("45");
   const [vitrina, setVitrina] = useState<{ copas: string[]; arquetipos: string[]; partidas: number }>({ copas: [], arquetipos: [], partidas: 0 });
   const gsRef = useRef<GS>(null);
   const [, bump] = useReducer((x: number) => x + 1, 0);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     setSeedStr(randSeed());
@@ -135,22 +196,37 @@ export default function Game() {
     if (s && /^[A-Z2-9]{6}$/.test(s.toUpperCase())) setSeedInput(s.toUpperCase());
     const v = cargarVitrina();
     setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas });
-    if (v.setup?.empresa) setSetup(v.setup); // setup recordado (Otra carrera entre sesiones)
+    if (v.setup?.empresa) setSetup(v.setup);
   }, []);
+
+  /* Al resolver, la sheet baja sola al resultado + Continuar. */
+  useEffect(() => {
+    if (gsRef.current?.phase === "resolved") {
+      const el = document.querySelector(".sheet");
+      el?.scrollTo({ top: el.scrollHeight, behavior: reduced ? "auto" : "smooth" });
+    }
+  });
 
   const gs: GS = gsRef.current;
 
   const startGame = (sd: string, s = setup) => {
     gsRef.current = createGame(sd, s);
     try { window.history.replaceState(null, "", "?s=" + sd); } catch { /* sandbox */ }
-    setTablaAbierta(false);
+    setPendingOp(null);
     setScreen("game");
     bump();
   };
+  /* Reveal con tensión (§3): tap → 500-700ms de suspenso → outcome. */
   const onChoose = (opId: string) => {
-    if (!gs || gs.phase !== "decision") return;
-    chooseOption(gs, opId);
-    bump();
+    if (!gs || gs.phase !== "decision" || pendingOp) return;
+    const op = gs.card.opciones.find((o: any) => o.id === opId);
+    const delay = reduced ? 0 : op?.apuesta ? 500 + Math.random() * 200 : 200;
+    setPendingOp(opId);
+    window.setTimeout(() => {
+      chooseOption(gs, opId);
+      setPendingOp(null);
+      bump();
+    }, delay);
   };
   const onContinue = () => {
     if (!gs || gs.phase !== "resolved") return;
@@ -169,9 +245,10 @@ export default function Game() {
     });
   };
 
-  /* ---------- Landing (anexo §1.6) ---------- */
+  /* ---------- Landing ---------- */
   if (screen === "landing")
     return (
+      <MotionConfig reducedMotion="user">
       <div className="app"><div className="col">
         <Ticker clima={1} />
         <div className="brand"><h1>Tu Carrera Emprendedora</h1><span>por Parlyx AI</span></div>
@@ -181,16 +258,16 @@ export default function Game() {
           <div className="vos">¿Vos?</div>
         </div>
         <p className="landquote">33 años de startup. 11 decisiones.<br />Una carrera que es toda tuya.</p>
-        <button className="btn pri" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Fundar mi empresa →</button>
+        <MBtn className="btn pri" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Fundar mi empresa →</MBtn>
         <div className="seedbox">
           <input
             className="input mono" placeholder="¿Te retaron? Pegá la seed" maxLength={6} value={seedInput}
             onChange={(e) => setSeedInput(e.target.value.toUpperCase())} style={{ flex: 1 }}
           />
-          <button
+          <MBtn
             className="btn sec" style={{ width: "auto", padding: "0 18px" }}
             onClick={() => { if (seedInput.length === 6) { setSeedStr(seedInput); setStep(0); setScreen("setup"); } }}
-          >Jugar</button>
+          >Jugar</MBtn>
         </div>
         {vitrina.partidas > 0 && (
           <p className="mini mono">
@@ -198,6 +275,7 @@ export default function Game() {
           </p>
         )}
       </div></div>
+      </MotionConfig>
     );
 
   /* ---------- Setup ---------- */
@@ -209,8 +287,8 @@ export default function Game() {
         <div style={{ display: "flex", gap: 8 }}>
           <input className="input" maxLength={14} value={setup.empresa} placeholder="Zentra"
             onChange={(e) => setSetup({ ...setup, empresa: e.target.value })} style={{ flex: 1 }} />
-          <button className="btn sec" style={{ width: "auto", padding: "0 14px" }}
-            onClick={() => setSetup({ ...setup, empresa: NOMBRES[Math.floor(Math.random() * NOMBRES.length)] })}>🎲</button>
+          <MBtn className="btn sec" style={{ width: "auto", padding: "0 14px" }}
+            onClick={() => setSetup({ ...setup, empresa: NOMBRES[Math.floor(Math.random() * NOMBRES.length)] })}>🎲</MBtn>
         </div>
         <span className="label">Tu apellido (para la tarjeta)</span>
         <input className="input" maxLength={16} value={setup.apellido} placeholder="Lamedica"
@@ -257,22 +335,24 @@ export default function Game() {
     ];
     const canNext = [setup.empresa.trim().length > 0, !!setup.vertical, !!setup.hq, !!setup.capital][step];
     return (
+      <MotionConfig reducedMotion="user">
       <div className="app"><div className="col">
         <Ticker clima={1} />
         <div className="brand"><h1>Tu Carrera Emprendedora</h1><span>{step + 1}/4</span></div>
         {steps[step]}
         <div style={{ marginTop: 18 }}>
-          <button className="btn pri" disabled={!canNext} style={{ opacity: canNext ? 1 : 0.4 }}
+          <MBtn className="btn pri" disabled={!canNext} style={{ opacity: canNext ? 1 : 0.4 }}
             onClick={() => { if (step < 3) setStep(step + 1); else startGame(seedStr); }}>
             {step < 3 ? "Siguiente" : `Fundar en 1993 (a los ${EDAD_INICIAL}) →`}
-          </button>
-          <button className="btn sec" onClick={() => (step > 0 ? setStep(step - 1) : setScreen("landing"))}>Volver</button>
+          </MBtn>
+          <MBtn className="btn sec" onClick={() => (step > 0 ? setStep(step - 1) : setScreen("landing"))}>Volver</MBtn>
         </div>
       </div></div>
+      </MotionConfig>
     );
   }
 
-  /* ---------- Juego: one-screen 100dvh (PRD v0.3 §10) ---------- */
+  /* ---------- Juego (§2): ticker · HUD · era · TABLA COMPLETA · sheet ---------- */
   if (screen === "game" && gs) {
     const hud = hudData(gs);
     const card = gs.card;
@@ -280,16 +360,14 @@ export default function Game() {
     const isEmergency = card?.bloque === "emergencia";
     const isPost = card?.sintetica && card.id === "PX-01";
     const isPlaya = card?.bloque === "playa";
+    const etapaActual = gs.mode === "playa" ? "Retiro" : gs.g.public ? "Pública" : ETAPAS[etapaIdx(gs.g.val)];
     return (
-      <div className="app"><div className="col gamegrid">
-        <Ticker clima={hud.era.clima} />
+      <MotionConfig reducedMotion="user">
+      <div className="app"><div className="col ingame">
+        <Ticker clima={hud.era.clima} frozen={!!pendingOp} />
         <div className="hudrow">
-          <div className={"ovrbox t-" + ovrTier(hud.ovr)}><span className="k">OVR</span><span className="n">{hud.ovr}</span></div>
-          <div className="stat">
-            <div className="k">{hud.public ? "Mkt cap" : "Valuación"}</div>
-            <div className="v">{fmtUSD(hud.val)}</div>
-            <Spark hist={gs.hist} />
-          </div>
+          <OvrPill v={hud.ovr} size="grande" />
+          <HudValuacion val={hud.val} hist={gs.hist} publica={hud.public} />
           <div className="stat">
             <div className="k">Runway</div>
             <div className="v" style={{ color: hud.runway <= 6 && !hud.public && !hud.cfPositivo ? "var(--down)" : "inherit" }}>
@@ -301,102 +379,107 @@ export default function Game() {
             <div className="v">{hud.eq}%</div>
           </div>
         </div>
-        <div className="chips" onClick={() => setTablaAbierta(true)} role="button" aria-label="Ver tabla de carrera">
+        <div className="era">
+          <span><b>{climaEmoji(hud.era.clima)}</b> {ERA_NOMBRES.get(hud.year) || "…"}</span>
+          <span className="mono">MULT {hud.era.mult}x · {hud.era.capital.toUpperCase()}</span>
+        </div>
+        {/* LA TABLA — siempre visible completa (§0, regla nueva) */}
+        <div className="tabla">
+          <div className="thead"><span>Año</span><span>Empresa</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>ARR</span></div>
           {TURN_YEARS.map((y: number, i: number) => {
             const row = gs.rows.find((r: any) => r.year === y);
-            if (row) {
-              const cls = gs.g.dead && i === gs.rows.length - 1 ? "muerte" : "done-" + ovrTier(row.ovr);
-              return <span key={y} className={"chip-t " + cls}>{String(y).slice(2)}</span>;
-            }
-            if (i === gs.g.ti) return <span key={y} className="chip-t actual">{String(y).slice(2)}</span>;
-            return <span key={y} className="chip-t">{String(y).slice(2)}</span>;
+            if (row) return <Fila key={y} row={row} />;
+            if (i === gs.g.ti)
+              return (
+                <div className="trow actual" key={y}>
+                  <span className={"yrchip " + (ETAPA_CLASS[etapaActual] || "")}>{y}</span>
+                  <span className="empresa" style={{ color: "var(--dim)", fontWeight: 500 }}>Decidiendo…</span>
+                  <span style={{ textAlign: "center" }}><OvrPill v={gs.g.ovr} /></span>
+                  <span className="arrv" />
+                </div>
+              );
+            return <div className="trow ghost" key={y}><span className="yrchip">{y}</span><span /><span /><span /></div>;
           })}
-          <span className="chip-t">26</span>
+          <div className="trow ghost"><span className="yrchip">2026</span><span className="empresa" style={{ fontWeight: 500 }}>Balance final</span><span /><span /></div>
         </div>
-        <div className="cardzone">
-          <div className="era" style={{ marginTop: 0 }}>
-            <span><b>{climaEmoji(hud.era.clima)}</b> {ERA_NOMBRES.get(hud.year) || "…"}</span>
-            <span className="mono">MULT {hud.era.mult}x · {hud.era.capital.toUpperCase()}</span>
-          </div>
-          {card && (
-            <div className="card">
-              <div className="top">
-                <span className="yearbig">{hud.year}</span>
-                {isEmergency ? (
-                  <span className="tepaso" style={{ background: "#7A1F27", color: "#FFD9DC" }}>EMERGENCIA</span>
-                ) : isPost ? (
-                  <span className="tepaso" style={{ background: "#1F5C46", color: "#D7FFE9" }}>EXIT</span>
-                ) : isPlaya ? (
-                  <span className="tepaso" style={{ background: "#0E4C56", color: "#C8F4FF" }}>PLAYA</span>
-                ) : isTP ? (
-                  <span className="tepaso">TE PASÓ</span>
-                ) : null}
-              </div>
-              <h2>{card.titulo}</h2>
-              <p className="flavor">{card.flavor}</p>
-              {card.opciones.map((o: any, i: number) => {
-                const elegida = gs.chosen === o.id;
-                const state =
-                  gs.chosen == null ? "" : elegida ? (gs.result ? (gs.result.good ? (gs.result.critico ? " win goldwin" : " win") : " lose") : " win") : " dimmed";
-                return (
-                  <button key={o.id} className={"opt" + state} onClick={() => onChoose(o.id)}>
-                    <span className="l"><span className="letra">{String.fromCharCode(65 + i)}</span>{o.label}</span>
-                    <span className="d">
-                      {o.raw}
-                      {o.apuesta && (
-                        <span className="betpill">
-                          <span className="g">{Math.round(o.apuesta.p * 100)}%</span> / <span className="r">{Math.round((1 - o.apuesta.p) * 100)}%</span>
-                        </span>
-                      )}
-                    </span>
-                  </button>
-                );
-              })}
-              {gs.result && (
-                <div className={"result " + (gs.result.critico ? "critico" : gs.result.good ? "good" : "bad")}>
-                  {gs.result.critico ? "★ DORADA — efecto ×2 · " : gs.result.good ? "▲ " : "▼ "}{gs.result.texto}
-                </div>
-              )}
-              {gs.phase === "resolved" && (
-                <div style={{ padding: "0 12px 14px" }}>
-                  <button className="btn pri" onClick={onContinue}>Continuar →</button>
-                </div>
-              )}
-            </div>
-          )}
-          {gs.momentum != null && gs.phase === "decision" && Math.abs(gs.momentum) > 1 && (
-            <p className="mini mono" style={{ color: gs.momentum > 1 ? "var(--up)" : "var(--down)", marginTop: 6 }}>
-              {gs.momentum > 1 ? "El mercado te empuja ▲" : "Viento de frente ▼"}
-            </p>
-          )}
-        </div>
-        {tablaAbierta && (
-          <div className="overlay" onClick={() => setTablaAbierta(false)}>
-            <div className="tabla">
-              <div className="thead"><span>Año</span><span>Empresa</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>ARR</span></div>
-              {TURN_YEARS.map((y: number, i: number) => {
-                const row = gs.rows.find((r: any) => r.year === y);
-                if (row) return <Fila key={y} row={row} />;
-                if (i === gs.g.ti)
-                  return (
-                    <div className="trow actual" key={y}>
-                      <span className="yr">{y}</span>
-                      <span className="empresa" style={{ color: "var(--dim)" }}>Decidiendo…</span>
-                      <span style={{ textAlign: "center" }}><OvrPill v={gs.g.ovr} /></span>
-                      <span className="arrv" />
-                    </div>
-                  );
-                return <div className="trow ghost" key={y}><span className="yr">{y}</span><span /><span /><span /></div>;
-              })}
-              <div className="trow ghost"><span className="yr">2026</span><span className="empresa">Balance final</span><span /><span /></div>
-            </div>
-          </div>
+        {gs.momentum != null && gs.phase === "decision" && Math.abs(gs.momentum) > 1 && (
+          <p className="mini mono" style={{ color: gs.momentum > 1 ? "var(--up)" : "var(--down)", marginTop: 6 }}>
+            {gs.momentum > 1 ? "El mercado te empuja ▲" : "Viento de frente ▼"}
+          </p>
         )}
+
+        {/* CARTA = bottom-sheet con rebote; la anterior sale a la izquierda (§3) */}
+        <div className="sheetwrap">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {card && (
+              <motion.div
+                className="sheet"
+                key={card.id + ":" + gs.g.ti + ":" + gs.rows.length}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ x: -80, opacity: 0, pointerEvents: "none" }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                <div className="top">
+                  <span className="yearbig">{hud.year}</span>
+                  {isEmergency ? (
+                    <span className="tepaso" style={{ background: "#7A1F27", color: "#FFD9DC" }}>EMERGENCIA</span>
+                  ) : isPost ? (
+                    <span className="tepaso" style={{ background: "#1F5C46", color: "#D7FFE9" }}>EXIT</span>
+                  ) : isPlaya ? (
+                    <span className="tepaso" style={{ background: "#0E4C56", color: "#C8F4FF" }}>PLAYA</span>
+                  ) : isTP ? (
+                    <span className="tepaso">TE PASÓ</span>
+                  ) : null}
+                </div>
+                <h2>{card.titulo}</h2>
+                <p className="flavor">{card.flavor}</p>
+                {card.opciones.map((o: any, i: number) => {
+                  const state =
+                    pendingOp ? (pendingOp === o.id ? " pending" : " dimmed")
+                    : gs.chosen == null ? ""
+                    : gs.chosen === o.id ? (gs.result ? (gs.result.good ? (gs.result.critico ? " win goldwin" : " win") : " lose") : " win")
+                    : " dimmed";
+                  return (
+                    <motion.button key={o.id} className={"opt" + state} onClick={() => onChoose(o.id)}
+                      whileTap={{ scale: 0.96 }} whileHover={{ scale: 1.02 }} transition={SPRING}>
+                      <span className="l"><span className="letra">{String.fromCharCode(65 + i)}</span>{o.label}</span>
+                      <span className="d">
+                        {o.raw}
+                        {o.apuesta && (
+                          <span className="betpill">
+                            <span className="g">{Math.round(o.apuesta.p * 100)}%</span> / <span className="r">{Math.round((1 - o.apuesta.p) * 100)}%</span>
+                          </span>
+                        )}
+                      </span>
+                    </motion.button>
+                  );
+                })}
+                {gs.result && !pendingOp && (
+                  <motion.div
+                    className={"result " + (gs.result.critico ? "critico" : gs.result.good ? "good" : "bad")}
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={gs.result.critico ? { scale: [0.9, 1.15, 1], opacity: 1 } : { scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.45 }}
+                  >
+                    {gs.result.critico ? "★ DORADA — efecto ×2 · " : gs.result.good ? "▲ " : "▼ "}{gs.result.texto}
+                  </motion.div>
+                )}
+                {gs.phase === "resolved" && !pendingOp && (
+                  <div style={{ padding: "0 12px 14px" }}>
+                    <MBtn className="btn pri" onClick={onContinue}>Continuar →</MBtn>
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div></div>
+      </MotionConfig>
     );
   }
 
-  /* ---------- Final: ceremonia + tarjeta + vitrina (anexo §1.3/1.4) ---------- */
+  /* ---------- Final (§5): tabla protagonista → vitrina → casi → Otra carrera ---------- */
   if (screen === "end" && gs) {
     const e = gs.endInfo;
     const g = gs.g;
@@ -408,30 +491,41 @@ export default function Game() {
     const arrPeak = Math.max(...gs.rows.map((r: any) => r.arr || 0), 0);
     const copasEsta = copasDePartida(gs);
     const nRows = gs.rows.length;
-    const copasBase = nRows * 90 + 300; // la cascada termina, caen las copas
-    const selloDelay = copasBase + copasEsta.size * 220 + 250;
+    const copasBase = nRows * 0.09 + 0.35;
+    const selloDelay = copasBase + copasEsta.size * 0.22 + 0.25;
     const shareUrl = typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}?s=${gs.seedStr}` : "";
     const desafio = shareDesafio(gs, shareUrl);
+    let copaIdx = 0;
     return (
-      <div className="app"><div className="col ceremonia">
+      <MotionConfig reducedMotion="user">
+      <div className="app"><div className="col">
         <Ticker clima={["digna", "escandalo", "playa0"].includes(e.key) ? -2 : 1} />
         <div className="brand"><h1>Carrera finalizada</h1><span>Compartí tu tarjeta</span></div>
 
-        <div className="sharecard">
-          {/* El sello del mote: acompaña, no tapa — la tabla es la protagonista */}
-          <div className="sello mote-badge" style={{ "--d": `${selloDelay}ms` } as any}>
+        <div className="formato-toggle">
+          <button className={formato === "45" ? "on" : ""} onClick={() => setFormato("45")}>Feed 4:5</button>
+          <button className={formato === "916" ? "on" : ""} onClick={() => setFormato("916")}>Story 9:16</button>
+        </div>
+
+        <div className={"sharecard" + (formato === "916" ? " story" : "")}>
+          {/* Sello del mote: acompaña a la tabla, no la tapa */}
+          <motion.div
+            className="sello mote-badge"
+            initial={{ scale: 2.6, opacity: 0, rotate: 7 }}
+            animate={{ scale: 1, opacity: 1, rotate: 7 }}
+            transition={{ type: "spring", stiffness: 260, damping: 18, delay: selloDelay }}
+          >
             <EscudoSVG ticker={gs.mote.ticker} on size={56} />
-          </div>
+          </motion.div>
 
-          <div className="tabla" style={{ marginTop: 0 }}>
+          {/* LA TABLA — protagonista del screenshot, cascada con física */}
+          <div className="tabla">
             <div className="thead"><span>Año</span><span>Empresa</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>ARR</span></div>
-            {gs.rows.map((row: any, i: number) => <Fila key={row.year} row={row} i={i} />)}
+            {gs.rows.map((row: any, i: number) => <Fila key={row.year} row={row} delay={i * 0.09} />)}
           </div>
 
-          <div className="sc-head" style={{ marginTop: 14 }}>
-            <div className={"ovrbox t-" + ovrTier(g.ovrPeak)} style={{ width: 64, height: 64 }}>
-              <span className="k">OVR PICO</span><span className="n">{g.ovrPeak}</span>
-            </div>
+          <div className="sc-head">
+            <OvrPill v={g.ovrPeak} size="pico" />
             <div style={{ flex: 1 }}>
               <div style={{ display: "flex", gap: 7, alignItems: "center", flexWrap: "wrap" }}>
                 <span className="logo" style={{ background: gs.coColor + "33", width: 24, height: 24, fontSize: 14 }}>{gs.coEmoji}</span>
@@ -465,27 +559,29 @@ export default function Game() {
           ))}</div>
 
           <div className="finaltxt">{e.emoji} {e.titulo}</div>
-          {g.pat > 0 && <p className="mini mono">Patrimonio personal: {fmtUSD(g.pat)}</p>}
+          {g.pat > 0 && <PatOdo pat={g.pat} />}
           <div className="sc-foot">
             <span>Jugá la tuya · <b style={{ color: "var(--ink)" }}>Tu Carrera Emprendedora</b> por Parlyx AI</span>
             <span className="mono">seed {gs.seedStr}</span>
           </div>
         </div>
 
-        {/* Vitrina: lo que ganaste cae; lo que falta, en silueta (Zeigarnik) */}
         <div className="vitrina">
           <h3>Vitrina · <span className="cnt">{vitrina.copas.length}/{COPAS.length}</span></h3>
           <div className="copas-grid">
-            {COPAS.map((c, i) => {
+            {COPAS.map((c) => {
               const enColeccion = vitrina.copas.includes(c.id);
               const nueva = copasEsta.has(c.id);
+              const d = nueva ? copasBase + copaIdx++ * 0.22 : 0;
               return (
-                <div key={c.id} className={"copa" + (enColeccion ? "" : " lock") + (nueva ? " nueva copa-drop" : "")}
-                  style={nueva ? ({ "--d": `${copasBase + i * 220}ms` } as any) : undefined}
+                <motion.div key={c.id} className={"copa" + (enColeccion ? "" : " lock") + (nueva ? " nueva" : "")}
+                  initial={nueva ? { scale: 0, opacity: 0 } : false}
+                  animate={nueva ? { scale: [0, 1.2, 1], opacity: 1 } : {}}
+                  transition={nueva ? { delay: d, duration: 0.45, times: [0, 0.6, 1] } : undefined}
                   title={c.detalle}>
                   <CopaSVG id={c.id} ganada={enColeccion} />
                   <span className="nom">{c.nombre}</span>
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -503,7 +599,6 @@ export default function Game() {
           </div>
         </div>
 
-        {/* La línea del casi: el anzuelo del replay, arriba de "Otra carrera" */}
         <div className="casi">{gs.casi}</div>
 
         <div className="toggle">
@@ -511,12 +606,13 @@ export default function Game() {
           <div className={"sw2" + (showName ? " on" : "")} onClick={() => setShowName(!showName)}><div className="dot" /></div>
         </div>
         <div style={{ marginTop: 12 }}>
-          <button className="btn pri" onClick={() => startGame(randSeed())}>Otra carrera</button>
-          <button className="btn sec" onClick={() => copy(desafio, "desafio")}>{copied === "desafio" ? "✓ Copiado" : "Copiar desafío (con mi seed)"}</button>
-          <button className="btn sec" onClick={() => startGame(gs.seedStr)}>Revancha (misma seed)</button>
-          <button className="btn sec" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Cambiar setup</button>
+          <MBtn className="btn pri" onClick={() => startGame(randSeed())}>Otra carrera</MBtn>
+          <MBtn className="btn sec" onClick={() => copy(desafio, "desafio")}>{copied === "desafio" ? "✓ Copiado" : "Copiar desafío (con mi seed)"}</MBtn>
+          <MBtn className="btn sec" onClick={() => startGame(gs.seedStr)}>Revancha (misma seed)</MBtn>
+          <MBtn className="btn sec" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Cambiar setup</MBtn>
         </div>
       </div></div>
+      </MotionConfig>
     );
   }
   return null;
