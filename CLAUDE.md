@@ -6,11 +6,15 @@ Minijuego web viral estilo Copero/Remar: simulás una carrera de founder 1993→
 11 decisiones trienales, tarjeta final compartible para Twitter/X. Castellano rioplatense
 (voseo). Marketing de Parlyx AI — y desde v0.3, **lead magnet jugable** (doble embudo).
 
-**Fuente de verdad del producto:** `docs/PRD-v0.2.md` (base, D1-D6) +
-`docs/PRD-v0.3-lead-magnet.md` (dirección lead magnet) + **`docs/anexo-psicologia-adiccion-v0.4.md`
-(manda donde contradiga al v0.3**: sin Rival NPC, sin micro-survey, captura = solo email,
-4 formatos de carta, tienda de 4 items**)**. Principio rector v0.3 §0: el juego primero —
-la captura jamás degrada la experiencia.
+**Fuente de verdad del producto:** **`docs/PRD-v1.0-pivote-ecommerce.md` (DEFINITIVA de
+concepto — manda sobre v0.3/anexos donde contradiga)** + `docs/PRD-v0.2.md` (base) +
+`docs/PRD-v0.3-lead-magnet.md` + `docs/anexo-psicologia-adiccion-v0.4.md`.
+Pivote v1.0: ya no sos un founder de startup — **fundás una MARCA de comercio y la llevás
+33 años por la historia del e-commerce**. Un solo protagonista (6 rubros como sabor),
+lenguaje humano en pantalla (cero notación de motor), Parlyx desbloqueado como beat
+estructural en 2020 (regla de oro: óptimo en 60-70% de contextos, verificado en sim),
+y NINGUNA carrera termina antes de 2026 (la quiebra es un capítulo, no un corte).
+Principio rector v0.3 §0 sigue: el juego primero.
 
 ## Mapa del repo
 
@@ -18,7 +22,8 @@ la captura jamás degrada la experiencia.
 |---|---|---|
 | `docs/PRD-v0.2.md` | PRD completo y vigente | **Fuente de verdad del producto** |
 | `docs/deck-lote-1.md` + `docs/deck-lote-2.md` | Las 102 cartas con efectos y probabilidades | Fuente de verdad del contenido |
-| `data/cards/*.json` | El deck en JSON (schema `lib/cards/schema.mjs`) | Forma ejecutable del contenido |
+| `data/cards/*.json` | El deck en JSON, 111 cartas (schema `lib/cards/schema.mjs`) — la capa e-commerce (`05-ecommerce.json`, 25 cartas EC en lenguaje humano) reemplazó a los verticales tech | Forma ejecutable del contenido |
+| `lib/game/humano.js` | Traducción de notación de motor → palabras (deck viejo) + `scripts/check-lenguaje.mjs` en CI | Regla §5 del PRD v1.0 |
 | `docs/conversion-cartas.md` | Convenciones .md → JSON (incl. errata F-04→P-04) | Contrato de la conversión |
 | `lib/engine/` | Motor económico puro, módulo importable | Fuente de verdad de la economía |
 | `data/balance.json` | `BAL` — el ÚNICO lugar de tuneo económico | — |
@@ -97,11 +102,24 @@ npm run build          # build estático (out/)
    cartas por arco (solo momentum por ahora) · rebalanceo 40% cartas de pérdida
    (anexo §1.5 — es tag de contenido, va con revisión de Leimus) · formatos de carta
    Duelo/Apuesta (§7 v0.3; el pedido del owner no los listó) · audio de críticos.
-5. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
+5. ✅ **Pivote e-commerce (PRD v1.0)**: capa EC de 25 cartas (2 beats anclados: EC-24
+   "Quinientos mensajes en una hora" en 2020 → PARLYX DESBLOQUEADO con momento visual,
+   y EC-25 "El tiempo que recuperaste" en 2023 si lo activaste) · macros adaptadas al
+   comercio · lenguaje humano integral (humano.js + check-lenguaje en CI, 950 textos,
+   0 fugas) · setup 2 pantallas con preview vivo (bolsa SVG), 12 isotipos y 6 rubros ·
+   motor: `g.prodMul` opcional (Parlyx ×1.35) + margen ecom 0.30→0.45 (golden
+   regenerado) · regla "sin finales tempranos": quiebra → carta DD-01 "El día después"
+   (corpo/refundar/austero), la tabla SIEMPRE llega a 2026 · bloque IMPACTO en tarjeta
+   o casi "conversaciones sin responder" · bugs: sello $??? (no se muestra con Enigma) y
+   El Enigma 16%→1.1% (<3% target, umbral 4 + desempate). **Verificado en sim:** regla
+   de oro Parlyx 68.4% ∈ [60-70] · smoke 111 cartas sin crashes. **Pendiente consciente:**
+   renombrar arquetipos que suenen a VC (§9, "revisar con owner") · HQ fijo en BA (el
+   setup de 2 pantallas no lo elige; cartas H-* siguen vivas).
+6. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
    racha · email/informe por arquetipo · tienda/powerups (4 items) · HubSpot.
-6. 🔲 F3 motor: modo ejecutivo D6, condiciones en prosa, retiro standalone, edad
-   elegible, recalibrar `BAL` contra §17 → `--strict-targets` + regenerar golden.
-7. 🔲 F4: og:image dinámica + arte final de tarjeta.
+7. 🔲 F3 motor: modo ejecutivo D6 completo (el corpo de DD-01 es la versión light),
+   condiciones en prosa, retiro standalone, recalibrar `BAL` contra §17.
+8. 🔲 F4: og:image dinámica + arte final de tarjeta.
 
 ## Contexto de negocio
 

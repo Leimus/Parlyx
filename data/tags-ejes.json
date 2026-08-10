@@ -1,87 +1,868 @@
 {
-  "_comentario": "Tags de eje por opción (PRD v0.3 §2): hasta 2 por opción, invisibles al jugador. Ejes: capital (diluidor/dueño) · motor (ventas/producto) · gestion (delegador/pulpo) · riesgo (apostador/arquitecto). Solo se taggean opciones donde hay elección real entre polos; el mote se calcula con estas decisiones (mín. 6 con tag, si no: El Enigma). El bloque ejecutivo no se taggea (fuera de v1). Validado por scripts/validate-cards.mjs.",
+  "_comentario": "Tags de eje por opción (PRD v0.3 §2): hasta 2 por opción, invisibles al jugador. Ejes: capital (diluidor/dueño) · motor (ventas/producto) · gestion (delegador/pulpo) · riesgo (apostador/arquitecto). Solo se taggean opciones donde hay elección real entre polos; el mote se calcula con estas decisiones (mín. 6 con tag, si no: El Enigma). El bloque ejecutivo no se taggea (fuera de v1). Pivote v1.0: la capa vertical (V-*) fue reemplazada por la e-commerce (EC-*), taggeada completa. Validado por scripts/validate-cards.mjs.",
   "tags": {
-    "M-01": { "A": ["capital:diluidor", "riesgo:apostador"], "B": ["capital:diluidor"], "C": ["capital:dueño", "riesgo:arquitecto"] },
-    "M-02": { "A": ["riesgo:arquitecto"], "B": ["riesgo:apostador"], "C": ["riesgo:apostador"] },
-    "M-03": { "A": ["motor:ventas"], "C": ["riesgo:apostador"] },
-    "M-04": { "A": ["motor:producto", "riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "M-05": { "A": ["riesgo:arquitecto"], "B": ["motor:ventas"], "C": ["capital:diluidor"] },
-    "M-06": { "A": ["motor:producto", "riesgo:apostador"], "C": ["riesgo:arquitecto"] },
-    "M-07": { "A": ["capital:diluidor"], "B": ["capital:dueño"] },
-    "M-08": { "A": ["capital:diluidor"], "B": ["motor:ventas"] },
-    "M-09": { "A": ["riesgo:apostador"], "C": ["riesgo:arquitecto"] },
-    "M-10": { "B": ["riesgo:apostador"], "C": ["riesgo:arquitecto"] },
-    "M-11": { "A": ["capital:diluidor"], "B": ["capital:diluidor"], "C": ["capital:dueño", "riesgo:apostador"] },
-    "M-12": { "A": ["gestion:delegador"], "B": ["riesgo:arquitecto"], "C": ["riesgo:apostador"] },
-    "M-13": { "A": ["capital:diluidor", "riesgo:apostador"], "B": ["capital:diluidor"], "C": ["riesgo:arquitecto"] },
-    "M-14": { "B": ["capital:diluidor"], "C": ["motor:producto"] },
-    "M-15": { "A": ["motor:producto", "riesgo:apostador"], "B": ["motor:ventas"] },
-    "G-01": { "A": ["motor:ventas", "riesgo:apostador"], "B": ["motor:producto"], "C": ["motor:ventas", "gestion:pulpo"] },
-    "G-03": { "A": ["motor:ventas"], "C": ["riesgo:arquitecto"] },
-    "G-04": { "A": ["riesgo:apostador", "gestion:pulpo"], "B": ["riesgo:arquitecto"] },
-    "G-05": { "A": ["capital:dueño"] },
-    "G-06": { "A": ["gestion:delegador"], "C": ["gestion:pulpo"] },
-    "G-07": { "A": ["motor:producto"], "B": ["motor:ventas"] },
-    "G-08": { "A": ["capital:diluidor"], "B": ["capital:diluidor"], "C": ["capital:diluidor", "riesgo:apostador"] },
-    "G-09": { "A": ["capital:dueño", "riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "G-10": { "A": ["capital:dueño"], "B": ["capital:diluidor"] },
-    "G-11": { "A": ["riesgo:arquitecto"], "B": ["capital:dueño", "riesgo:apostador"], "C": ["riesgo:arquitecto"] },
-    "G-12": { "A": ["gestion:delegador", "riesgo:apostador"], "B": ["motor:ventas"], "C": ["riesgo:arquitecto"] },
-    "G-13": { "A": ["riesgo:apostador"], "B": ["motor:producto"] },
-    "G-14": { "A": ["riesgo:arquitecto"], "B": ["capital:dueño", "riesgo:apostador"], "C": ["riesgo:apostador"] },
-    "G-15": { "A": ["riesgo:apostador"], "B": ["riesgo:apostador"], "C": ["riesgo:arquitecto", "motor:ventas"] },
-    "G-16": { "A": ["riesgo:apostador"] },
-    "G-17": { "A": ["riesgo:arquitecto"], "B": ["riesgo:apostador"], "C": ["gestion:delegador"] },
-    "G-18": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "G-19": { "A": ["gestion:delegador", "motor:ventas"], "B": ["gestion:delegador"], "C": ["gestion:pulpo", "motor:ventas"] },
-    "G-20": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"], "C": ["riesgo:apostador"] },
-    "E-01": { "C": ["riesgo:apostador"] },
-    "E-03": { "A": ["capital:dueño", "riesgo:apostador"], "C": ["riesgo:arquitecto"] },
-    "V-01": { "A": ["motor:producto"], "B": ["motor:ventas"] },
-    "V-02": { "A": ["motor:ventas"], "B": ["motor:producto"], "C": ["motor:producto"] },
-    "V-03": { "A": ["gestion:delegador", "riesgo:arquitecto"], "C": ["riesgo:apostador"] },
-    "V-04": { "A": ["riesgo:arquitecto"], "B": ["riesgo:apostador"] },
-    "V-05": { "A": ["motor:producto"], "B": ["riesgo:arquitecto"], "C": ["motor:ventas", "riesgo:apostador"] },
-    "V-06": { "A": ["riesgo:arquitecto", "motor:producto"], "B": ["riesgo:apostador"] },
-    "V-07": { "A": ["riesgo:apostador"], "B": ["gestion:pulpo"], "C": ["riesgo:arquitecto"] },
-    "V-08": { "A": ["motor:ventas"], "B": ["motor:producto"] },
-    "V-09": { "B": ["riesgo:apostador"], "C": ["motor:producto", "riesgo:arquitecto"] },
-    "V-10": { "A": ["motor:producto"], "B": ["riesgo:apostador"], "C": ["riesgo:arquitecto"] },
-    "V-11": { "A": ["riesgo:apostador", "motor:producto"], "B": ["motor:ventas"], "C": ["riesgo:arquitecto"] },
-    "V-12": { "A": ["motor:producto"], "B": ["motor:ventas"] },
-    "V-13": { "A": ["motor:producto", "riesgo:apostador"], "B": ["motor:ventas"], "C": ["riesgo:arquitecto"] },
-    "V-14": { "A": ["motor:ventas", "riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "V-15": { "A": ["riesgo:arquitecto"], "B": ["riesgo:apostador"], "C": ["riesgo:apostador"] },
-    "V-16": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "H-01": { "A": ["motor:ventas"] },
-    "H-02": { "A": ["riesgo:arquitecto"], "C": ["riesgo:apostador"] },
-    "H-03": { "A": ["motor:ventas"], "B": ["motor:producto"], "C": ["riesgo:arquitecto"] },
-    "H-04": { "A": ["gestion:delegador"], "B": ["gestion:pulpo"], "C": ["capital:diluidor", "riesgo:apostador"] },
-    "H-05": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "H-06": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "H-07": { "A": ["riesgo:arquitecto"], "B": ["riesgo:apostador"] },
-    "H-08": { "A": ["riesgo:arquitecto"], "B": ["riesgo:apostador"] },
-    "T-01": { "A": ["gestion:delegador"], "B": ["capital:dueño"], "C": ["riesgo:apostador"] },
-    "T-02": { "A": ["gestion:delegador"], "B": ["riesgo:apostador"], "C": ["gestion:delegador", "riesgo:arquitecto"] },
-    "T-03": { "A": ["gestion:delegador"] },
-    "T-04": { "A": ["riesgo:arquitecto"], "C": ["motor:ventas"] },
-    "T-05": { "B": ["gestion:delegador"] },
-    "T-06": { "A": ["gestion:delegador"], "B": ["gestion:pulpo"] },
-    "T-07": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "T-08": { "C": ["capital:dueño"] },
-    "F-01": { "A": ["riesgo:apostador"], "B": ["capital:diluidor"], "C": ["riesgo:arquitecto"] },
-    "F-02": { "A": ["riesgo:apostador", "gestion:pulpo"], "B": ["motor:producto", "gestion:delegador"], "C": ["capital:dueño"] },
-    "F-03": { "A": ["gestion:delegador"], "C": ["gestion:pulpo"] },
-    "F-04": { "A": ["riesgo:arquitecto"], "B": ["riesgo:apostador"] },
-    "F-05": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "P-01": { "B": ["riesgo:arquitecto"], "C": ["riesgo:apostador"] },
-    "P-02": { "A": ["riesgo:apostador"], "C": ["riesgo:arquitecto"] },
-    "P-03": { "A": ["riesgo:arquitecto"], "B": ["riesgo:apostador"] },
-    "P-05": { "B": ["riesgo:apostador"], "C": ["riesgo:arquitecto"] },
-    "P-08": { "B": ["riesgo:apostador"] },
-    "C-02": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "C-03": { "C": ["gestion:pulpo"] },
-    "C-04": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"] },
-    "OR-01": { "A": ["riesgo:apostador"], "B": ["riesgo:arquitecto"], "C": ["gestion:pulpo"] }
+    "M-01": {
+      "A": [
+        "capital:diluidor",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "capital:diluidor"
+      ],
+      "C": [
+        "capital:dueño",
+        "riesgo:arquitecto"
+      ]
+    },
+    "M-02": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "M-03": {
+      "A": [
+        "motor:ventas"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "M-04": {
+      "A": [
+        "motor:producto",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "M-05": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "motor:ventas"
+      ],
+      "C": [
+        "capital:diluidor"
+      ]
+    },
+    "M-06": {
+      "A": [
+        "motor:producto",
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "M-07": {
+      "A": [
+        "capital:diluidor"
+      ],
+      "B": [
+        "capital:dueño"
+      ]
+    },
+    "M-08": {
+      "A": [
+        "capital:diluidor"
+      ],
+      "B": [
+        "motor:ventas"
+      ]
+    },
+    "M-09": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "M-10": {
+      "B": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "M-11": {
+      "A": [
+        "capital:diluidor"
+      ],
+      "B": [
+        "capital:diluidor"
+      ],
+      "C": [
+        "capital:dueño",
+        "riesgo:apostador"
+      ]
+    },
+    "M-12": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "M-13": {
+      "A": [
+        "capital:diluidor",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "capital:diluidor"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "M-14": {
+      "B": [
+        "capital:diluidor"
+      ],
+      "C": [
+        "motor:producto"
+      ]
+    },
+    "M-15": {
+      "A": [
+        "motor:producto",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "motor:ventas"
+      ]
+    },
+    "G-01": {
+      "A": [
+        "motor:ventas",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "motor:producto"
+      ],
+      "C": [
+        "motor:ventas",
+        "gestion:pulpo"
+      ]
+    },
+    "G-03": {
+      "A": [
+        "motor:ventas"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "G-04": {
+      "A": [
+        "riesgo:apostador",
+        "gestion:pulpo"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "G-05": {
+      "A": [
+        "capital:dueño"
+      ]
+    },
+    "G-06": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "C": [
+        "gestion:pulpo"
+      ]
+    },
+    "G-07": {
+      "A": [
+        "motor:producto"
+      ],
+      "B": [
+        "motor:ventas"
+      ]
+    },
+    "G-08": {
+      "A": [
+        "capital:diluidor"
+      ],
+      "B": [
+        "capital:diluidor"
+      ],
+      "C": [
+        "capital:diluidor",
+        "riesgo:apostador"
+      ]
+    },
+    "G-09": {
+      "A": [
+        "capital:dueño",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "G-10": {
+      "A": [
+        "capital:dueño"
+      ],
+      "B": [
+        "capital:diluidor"
+      ]
+    },
+    "G-11": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "capital:dueño",
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "G-12": {
+      "A": [
+        "gestion:delegador",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "motor:ventas"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "G-13": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "motor:producto"
+      ]
+    },
+    "G-14": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "capital:dueño",
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "G-15": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:arquitecto",
+        "motor:ventas"
+      ]
+    },
+    "G-16": {
+      "A": [
+        "riesgo:apostador"
+      ]
+    },
+    "G-17": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "gestion:delegador"
+      ]
+    },
+    "G-18": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "G-19": {
+      "A": [
+        "gestion:delegador",
+        "motor:ventas"
+      ],
+      "B": [
+        "gestion:delegador"
+      ],
+      "C": [
+        "gestion:pulpo",
+        "motor:ventas"
+      ]
+    },
+    "G-20": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "E-01": {
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "E-03": {
+      "A": [
+        "capital:dueño",
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "H-01": {
+      "A": [
+        "motor:ventas"
+      ]
+    },
+    "H-02": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "H-03": {
+      "A": [
+        "motor:ventas"
+      ],
+      "B": [
+        "motor:producto"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "H-04": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "gestion:pulpo"
+      ],
+      "C": [
+        "capital:diluidor",
+        "riesgo:apostador"
+      ]
+    },
+    "H-05": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "H-06": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "H-07": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ]
+    },
+    "H-08": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ]
+    },
+    "T-01": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "capital:dueño"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "T-02": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "gestion:delegador",
+        "riesgo:arquitecto"
+      ]
+    },
+    "T-03": {
+      "A": [
+        "gestion:delegador"
+      ]
+    },
+    "T-04": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "motor:ventas"
+      ]
+    },
+    "T-05": {
+      "B": [
+        "gestion:delegador"
+      ]
+    },
+    "T-06": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "gestion:pulpo"
+      ]
+    },
+    "T-07": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "T-08": {
+      "C": [
+        "capital:dueño"
+      ]
+    },
+    "F-01": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "capital:diluidor"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "F-02": {
+      "A": [
+        "riesgo:apostador",
+        "gestion:pulpo"
+      ],
+      "B": [
+        "motor:producto",
+        "gestion:delegador"
+      ],
+      "C": [
+        "capital:dueño"
+      ]
+    },
+    "F-03": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "C": [
+        "gestion:pulpo"
+      ]
+    },
+    "F-04": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ]
+    },
+    "F-05": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "P-01": {
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "P-02": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "P-03": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ]
+    },
+    "P-05": {
+      "B": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "P-08": {
+      "B": [
+        "riesgo:apostador"
+      ]
+    },
+    "C-02": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "C-03": {
+      "C": [
+        "gestion:pulpo"
+      ]
+    },
+    "C-04": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "OR-01": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "gestion:pulpo"
+      ]
+    },
+    "EC-01": {
+      "A": [
+        "motor:ventas"
+      ],
+      "B": [
+        "capital:dueño",
+        "motor:producto"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-02": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-03": {
+      "A": [
+        "riesgo:apostador",
+        "motor:producto"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-04": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "gestion:pulpo"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-05": {
+      "A": [
+        "motor:producto",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-06": {
+      "A": [
+        "motor:ventas"
+      ],
+      "B": [
+        "capital:dueño",
+        "motor:producto"
+      ],
+      "C": [
+        "gestion:pulpo"
+      ]
+    },
+    "EC-07": {
+      "A": [
+        "motor:ventas",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-08": {
+      "A": [
+        "riesgo:apostador",
+        "gestion:pulpo"
+      ],
+      "B": [
+        "gestion:delegador"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-09": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "gestion:pulpo"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-10": {
+      "A": [
+        "motor:producto",
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ]
+    },
+    "EC-11": {
+      "A": [
+        "motor:ventas",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "gestion:delegador"
+      ],
+      "C": [
+        "motor:producto",
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-12": {
+      "A": [
+        "motor:ventas",
+        "riesgo:apostador"
+      ],
+      "B": [
+        "motor:producto"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-13": {
+      "A": [
+        "riesgo:apostador",
+        "motor:ventas"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "capital:dueño"
+      ]
+    },
+    "EC-14": {
+      "A": [
+        "motor:producto"
+      ],
+      "B": [
+        "motor:ventas"
+      ]
+    },
+    "EC-15": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "gestion:pulpo"
+      ],
+      "C": [
+        "gestion:delegador"
+      ]
+    },
+    "EC-16": {
+      "A": [
+        "riesgo:arquitecto",
+        "motor:producto"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ]
+    },
+    "EC-17": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "capital:dueño",
+        "motor:producto"
+      ]
+    },
+    "EC-18": {
+      "A": [
+        "motor:ventas"
+      ],
+      "B": [
+        "capital:dueño"
+      ],
+      "C": [
+        "motor:producto"
+      ]
+    },
+    "EC-19": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "motor:producto"
+      ],
+      "C": [
+        "capital:dueño"
+      ]
+    },
+    "EC-20": {
+      "A": [
+        "motor:ventas",
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "capital:dueño",
+        "motor:producto"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "EC-21": {
+      "A": [
+        "motor:ventas"
+      ],
+      "B": [
+        "motor:producto",
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ]
+    },
+    "EC-22": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "gestion:pulpo"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-23": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "gestion:pulpo"
+      ],
+      "C": [
+        "riesgo:arquitecto"
+      ]
+    },
+    "EC-24": {
+      "A": [
+        "gestion:pulpo"
+      ],
+      "B": [
+        "gestion:delegador"
+      ],
+      "C": [
+        "gestion:delegador"
+      ]
+    },
+    "EC-25": {
+      "A": [
+        "motor:ventas"
+      ],
+      "B": [
+        "motor:producto"
+      ],
+      "C": [
+        "riesgo:apostador"
+      ],
+      "D": [
+        "motor:producto"
+      ]
+    }
   }
 }

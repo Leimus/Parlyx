@@ -8,17 +8,32 @@
       "titulo": "El garage",
       "flavor": "Versión uno. Podés sacarla ya con alambre, o pulirla seis meses más.",
       "tipo": "T1",
-      "elegibilidad": { "modos": ["founder"], "turnoMax": 2 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "turnoMax": 2
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Lanzar ya, ver qué pasa",
           "raw": "ARR +10% · TEND +1 (aprendés rápido) · 25%: OVR -1 (papelón chico)",
-          "efectos": { "arrMul": 1.1, "tend": 1 },
+          "efectos": {
+            "arrMul": 1.1,
+            "tend": 1
+          },
           "apuesta": {
             "p": 0.75,
-            "gana": { "texto": "sin efecto" },
-            "pierde": { "texto": "OVR -1 (papelón chico)", "efectos": { "ovr": -1 } }
+            "gana": {
+              "texto": "sin efecto"
+            },
+            "pierde": {
+              "texto": "OVR -1 (papelón chico)",
+              "efectos": {
+                "ovr": -1
+              }
+            }
           },
           "notas": "Apuesta de riesgo puro: en el .md solo figura la rama mala (25%: OVR -1); p = 0.75 es la probabilidad de la rama buena (sin efecto)."
         },
@@ -26,13 +41,19 @@
           "id": "B",
           "label": "Pulir hasta que brille",
           "raw": "RW -5m · OVR +1",
-          "efectos": { "rw": -5, "ovr": 1 }
+          "efectos": {
+            "rw": -5,
+            "ovr": 1
+          }
         },
         {
           "id": "C",
           "label": "Buscar 10 clientes a mano antes de escribir código",
           "raw": "RW -2m · TEND +2 (la vieja escuela)",
-          "efectos": { "rw": -2, "tend": 2 }
+          "efectos": {
+            "rw": -2,
+            "tend": 2
+          }
         }
       ]
     },
@@ -42,13 +63,22 @@
       "titulo": "La facultad",
       "flavor": "Te faltan ocho materias. Tu vieja pregunta. Tus inversores no.",
       "tipo": "T1",
-      "elegibilidad": { "modos": ["founder"], "turnoMax": 2, "edadMax": 26 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "turnoMax": 2,
+        "edadMax": 26
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Terminarla a distancia",
           "raw": "RW -2m · OVR +1 (red de contactos)",
-          "efectos": { "rw": -2, "ovr": 1 }
+          "efectos": {
+            "rw": -2,
+            "ovr": 1
+          }
         },
         {
           "id": "B",
@@ -62,8 +92,18 @@
           "raw": "50%: OVR +1 (personaje) / 50%: OVR -1 (insoportable)",
           "apuesta": {
             "p": 0.5,
-            "gana": { "texto": "OVR +1 (personaje)", "efectos": { "ovr": 1 } },
-            "pierde": { "texto": "OVR -1 (insoportable)", "efectos": { "ovr": -1 } }
+            "gana": {
+              "texto": "OVR +1 (personaje)",
+              "efectos": {
+                "ovr": 1
+              }
+            },
+            "pierde": {
+              "texto": "OVR -1 (insoportable)",
+              "efectos": {
+                "ovr": -1
+              }
+            }
           }
         }
       ]
@@ -74,13 +114,24 @@
       "titulo": "El primer cliente grande",
       "flavor": "Una empresa enorme quiere tu producto. Condición: exclusividad por tres años.",
       "tipo": "T3",
-      "elegibilidad": { "modos": ["founder"], "etapaMax": 1 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMax": 1
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Firmar la exclusividad",
           "raw": "ARR +50% · TEND -2 (te ata al elefante) · ⚑ dependencia",
-          "efectos": { "arrMul": 1.5, "tend": -2, "flags": ["dependencia"] }
+          "efectos": {
+            "arrMul": 1.5,
+            "tend": -2,
+            "flags": [
+              "dependencia"
+            ]
+          }
         },
         {
           "id": "B",
@@ -88,15 +139,25 @@
           "raw": "50%: ARR +30% / 50%: se cae el deal",
           "apuesta": {
             "p": 0.5,
-            "gana": { "texto": "ARR +30%", "efectos": { "arrMul": 1.3 } },
-            "pierde": { "texto": "se cae el deal" }
+            "gana": {
+              "texto": "ARR +30%",
+              "efectos": {
+                "arrMul": 1.3
+              }
+            },
+            "pierde": {
+              "texto": "se cae el deal"
+            }
           }
         },
         {
           "id": "C",
           "label": "Rechazar y diversificar",
           "raw": "OVR +1 · ARR +5%",
-          "efectos": { "ovr": 1, "arrMul": 1.05 }
+          "efectos": {
+            "ovr": 1,
+            "arrMul": 1.05
+          }
         }
       ]
     },
@@ -106,7 +167,11 @@
       "titulo": "Modo crunch",
       "flavor": "Seis meses a fondo para llegar al lanzamiento. El equipo te sigue. Por ahora.",
       "tipo": "T2",
-      "elegibilidad": { "modos": ["founder"] },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ]
+      },
       "opciones": [
         {
           "id": "A",
@@ -114,15 +179,29 @@
           "raw": "65%: sale la feature clave, OVR +2, ARR +20% / 35%: burnout, OVR -1, TEND -1",
           "apuesta": {
             "p": 0.65,
-            "gana": { "texto": "sale la feature clave, OVR +2, ARR +20%", "efectos": { "ovr": 2, "arrMul": 1.2 } },
-            "pierde": { "texto": "burnout, OVR -1, TEND -1", "efectos": { "ovr": -1, "tend": -1 } }
+            "gana": {
+              "texto": "sale la feature clave, OVR +2, ARR +20%",
+              "efectos": {
+                "ovr": 2,
+                "arrMul": 1.2
+              }
+            },
+            "pierde": {
+              "texto": "burnout, OVR -1, TEND -1",
+              "efectos": {
+                "ovr": -1,
+                "tend": -1
+              }
+            }
           }
         },
         {
           "id": "B",
           "label": "Ritmo sostenible",
           "raw": "mitad del efecto, sin riesgo: ARR +10%",
-          "efectos": { "arrMul": 1.1 }
+          "efectos": {
+            "arrMul": 1.1
+          }
         }
       ]
     },
@@ -132,19 +211,33 @@
       "titulo": "Tu cofounder se quiere ir",
       "flavor": "Está quemado, quiere hacer la suya. Es tu amigo desde los 12.",
       "tipo": "T6",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 1 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 1
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Comprarle su parte",
           "raw": "RW -6m · EQ +8% (recuperás) · OVR -1 (duele)",
-          "efectos": { "rw": -6, "eq": 8, "ovr": -1 }
+          "efectos": {
+            "rw": -6,
+            "eq": 8,
+            "ovr": -1
+          }
         },
         {
           "id": "B",
           "label": "Dejarlo ir con todo",
           "raw": "TEND -1 · el equity se lo lleva (⚑ dead_equity)",
-          "efectos": { "tend": -1, "flags": ["dead_equity"] },
+          "efectos": {
+            "tend": -1,
+            "flags": [
+              "dead_equity"
+            ]
+          },
           "notas": "\"El equity se lo lleva\": no hay delta de EQ en el .md; queda representado por el ⚑ dead_equity."
         },
         {
@@ -153,8 +246,18 @@
           "raw": "50%: se queda y se recupera, TEND +1 / 50%: se va igual y peor, TEND -2",
           "apuesta": {
             "p": 0.5,
-            "gana": { "texto": "se queda y se recupera, TEND +1", "efectos": { "tend": 1 } },
-            "pierde": { "texto": "se va igual y peor, TEND -2", "efectos": { "tend": -2 } }
+            "gana": {
+              "texto": "se queda y se recupera, TEND +1",
+              "efectos": {
+                "tend": 1
+              }
+            },
+            "pierde": {
+              "texto": "se va igual y peor, TEND -2",
+              "efectos": {
+                "tend": -2
+              }
+            }
           }
         }
       ]
@@ -165,19 +268,30 @@
       "titulo": "El CTO estrella",
       "flavor": "Viene del buscador. Cuesta el doble que vos. Dicen que vale el triple.",
       "tipo": "T1",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 1 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 1
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Contratarlo",
           "raw": "RW -6m · TEND +2 (carga los dados del futuro)",
-          "efectos": { "rw": -6, "tend": 2 }
+          "efectos": {
+            "rw": -6,
+            "tend": 2
+          }
         },
         {
           "id": "B",
           "label": "Formar al junior de adentro",
           "raw": "RW -1m · TEND +1 pero recién en 2 trienios",
-          "efectos": { "rw": -1, "tendLenta": 1 },
+          "efectos": {
+            "rw": -1,
+            "tendLenta": 1
+          },
           "notas": "tendLenta: el TEND +1 llega recién en 2 trienios."
         },
         {
@@ -194,17 +308,34 @@
       "titulo": "Reescribir todo de cero",
       "flavor": "Tu CTO dice que el código viejo no aguanta más. Quiere seis meses y cero features nuevas.",
       "tipo": "T2",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 2 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 2
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Dale, reescriban",
           "raw": "ARR -10% este trienio · 60%: TEND +2 / 40%: tarda el doble, RW -6m",
-          "efectos": { "arrMul": 0.9 },
+          "efectos": {
+            "arrMul": 0.9
+          },
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "TEND +2", "efectos": { "tend": 2 } },
-            "pierde": { "texto": "tarda el doble, RW -6m", "efectos": { "rw": -6 } }
+            "gana": {
+              "texto": "TEND +2",
+              "efectos": {
+                "tend": 2
+              }
+            },
+            "pierde": {
+              "texto": "tarda el doble, RW -6m",
+              "efectos": {
+                "rw": -6
+              }
+            }
           },
           "notas": "\"ARR -10% este trienio\" mecanizado como arrMul 0.9; el matiz temporal \"este trienio\" queda en raw."
         },
@@ -212,7 +343,12 @@
           "id": "B",
           "label": "Parches y a seguir vendiendo",
           "raw": "ARR +10% · ⚑ deuda_técnica (próxima crisis: efectos ×1.5)",
-          "efectos": { "arrMul": 1.1, "flags": ["deuda_técnica"] },
+          "efectos": {
+            "arrMul": 1.1,
+            "flags": [
+              "deuda_técnica"
+            ]
+          },
           "notas": "Condicional en raw (no mecanizado): con ⚑ deuda_técnica, la próxima crisis tiene efectos ×1.5."
         },
         {
@@ -228,25 +364,43 @@
       "titulo": "Dos term sheets",
       "flavor": "El fondo top del Valle y el fondo regional de siempre. Mismo día, distinta letra chica.",
       "tipo": "T7",
-      "elegibilidad": { "modos": ["founder"] },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ]
+      },
       "opciones": [
         {
           "id": "A",
           "label": "El fondo top",
           "raw": "RW +20m · EQ -20% · TEND +1 · ⚑ presión_growth",
-          "efectos": { "rw": 20, "eq": -20, "tend": 1, "flags": ["presión_growth"] }
+          "efectos": {
+            "rw": 20,
+            "eq": -20,
+            "tend": 1,
+            "flags": [
+              "presión_growth"
+            ]
+          }
         },
         {
           "id": "B",
           "label": "El fondo regional paciente",
           "raw": "RW +14m · EQ -15%",
-          "efectos": { "rw": 14, "eq": -15 }
+          "efectos": {
+            "rw": 14,
+            "eq": -15
+          }
         },
         {
           "id": "C",
           "label": "Los dos (ronda más grande)",
           "raw": "RW +28m · EQ -26% · board complicado: TEND -1",
-          "efectos": { "rw": 28, "eq": -26, "tend": -1 }
+          "efectos": {
+            "rw": 28,
+            "eq": -26,
+            "tend": -1
+          }
         }
       ]
     },
@@ -256,13 +410,24 @@
       "titulo": "Plata prestada",
       "flavor": "Venture debt: plata sin ceder equity. El interés se paga igual, llueva o truene.",
       "tipo": "T7",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 2, "condicion": "ARR > 0" },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 2,
+        "condicion": "ARR > 0"
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Tomar la deuda",
           "raw": "RW +10m · EQ 0% · ⚑ deuda (si llega era ⛈: RW -6m extra)",
-          "efectos": { "rw": 10, "flags": ["deuda"] },
+          "efectos": {
+            "rw": 10,
+            "flags": [
+              "deuda"
+            ]
+          },
           "notas": "\"EQ 0%\" = sin dilución (no hay efecto de EQ). Condicional en raw (no mecanizado): si llega era ⛈, RW -6m extra."
         },
         {
@@ -278,20 +443,30 @@
       "titulo": "A pulmón",
       "flavor": "Podés levantar. También podés no levantar. Nadie te obliga a diluirte.",
       "tipo": "T7",
-      "elegibilidad": { "modos": ["founder"], "condicion": "sin ronda previa este trienio" },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "condicion": "sin ronda previa este trienio"
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Bootstrap un trienio más",
           "raw": "OVR +1 (disciplina) · TEND +1 si terminás el trienio cash-flow positivo",
-          "efectos": { "ovr": 1 },
+          "efectos": {
+            "ovr": 1
+          },
           "notas": "Condicional en raw (no mecanizado): TEND +1 si terminás el trienio cash-flow positivo."
         },
         {
           "id": "B",
           "label": "Levantar igual, por las dudas",
           "raw": "RW +12m · EQ -12%",
-          "efectos": { "rw": 12, "eq": -12 }
+          "efectos": {
+            "rw": 12,
+            "eq": -12
+          }
         }
       ]
     },
@@ -301,26 +476,42 @@
       "titulo": "Vender un cachito",
       "flavor": "Un fondo te ofrece comprarte el 4% personal. Tu primera plata real en diez años.",
       "tipo": "T7",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 3, "condicion": "EQ ≥ 30%" },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 3,
+        "condicion": "EQ ≥ 30%"
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Vender el 4%",
           "raw": "PAT +2M (o proporcional a valuación) · EQ -4% · habilita retiro (gate PAT ≥ 2M)",
-          "efectos": { "pat": 2000000, "eq": -4, "special": "habilitaRetiro" },
+          "efectos": {
+            "pat": 2000000,
+            "eq": -4,
+            "special": "habilitaRetiro"
+          },
           "notas": "PAT +2M o proporcional a valuación (el .md deja las dos lecturas). habilitaRetiro: habilita el retiro (gate PAT ≥ 2M)."
         },
         {
           "id": "B",
           "label": "\"Yo cobro cuando cobran todos\"",
           "raw": "OVR +1 · los VCs lo cuentan en los asados",
-          "efectos": { "ovr": 1 }
+          "efectos": {
+            "ovr": 1
+          }
         },
         {
           "id": "C",
           "label": "Vender el 8%",
           "raw": "PAT ×2 · EQ -8% · TEND -1 (señal fea al mercado)",
-          "efectos": { "patMul": 2, "eq": -8, "tend": -1 }
+          "efectos": {
+            "patMul": 2,
+            "eq": -8,
+            "tend": -1
+          }
         }
       ]
     },
@@ -330,24 +521,44 @@
       "titulo": "México te tira onda",
       "flavor": "Tres clientes grandes de allá te escriben solos. El mercado es cinco veces el tuyo.",
       "tipo": "T8",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 2, "hqNo": ["cdmx"] },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 2,
+        "hqNo": [
+          "cdmx"
+        ]
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Abrir CDMX en serio",
           "raw": "RW -5m · TEND +1 · ARR +20% en 2 trienios",
-          "efectos": { "rw": -5, "tend": 1 },
+          "efectos": {
+            "rw": -5,
+            "tend": 1
+          },
           "notas": "Efecto diferido no mecanizado (no hay campo arrLenta): ARR +20% recién en 2 trienios, queda en raw."
         },
         {
           "id": "B",
           "label": "Venderles remoto",
           "raw": "ARR +10% · 40%: un competidor local te gana la plaza, TEND -1",
-          "efectos": { "arrMul": 1.1 },
+          "efectos": {
+            "arrMul": 1.1
+          },
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "sin efecto" },
-            "pierde": { "texto": "un competidor local te gana la plaza, TEND -1", "efectos": { "tend": -1 } }
+            "gana": {
+              "texto": "sin efecto"
+            },
+            "pierde": {
+              "texto": "un competidor local te gana la plaza, TEND -1",
+              "efectos": {
+                "tend": -1
+              }
+            }
           },
           "notas": "Apuesta de riesgo puro: en el .md solo figura la rama mala (40%: TEND -1); p = 0.6 es la probabilidad de la rama buena (sin efecto)."
         },
@@ -364,24 +575,45 @@
       "titulo": "Guerra de precios",
       "flavor": "Un competidor levantó una fortuna y regala el producto. Literalmente: gratis.",
       "tipo": "T3",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 2, "verticales": ["marketplace", "ecom", "gaming"] },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 2
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Bajar precios y bancar la quema",
           "raw": "RW -8m · 50%: se funde él primero, ARR +40% / 50%: se funden los dos un poco, TEND -1",
-          "efectos": { "rw": -8 },
+          "efectos": {
+            "rw": -8
+          },
           "apuesta": {
             "p": 0.5,
-            "gana": { "texto": "se funde él primero, ARR +40%", "efectos": { "arrMul": 1.4 } },
-            "pierde": { "texto": "se funden los dos un poco, TEND -1", "efectos": { "tend": -1 } }
+            "gana": {
+              "texto": "se funde él primero, ARR +40%",
+              "efectos": {
+                "arrMul": 1.4
+              }
+            },
+            "pierde": {
+              "texto": "se funden los dos un poco, TEND -1",
+              "efectos": {
+                "tend": -1
+              }
+            }
           }
         },
         {
           "id": "B",
           "label": "Subir precios e ir a premium",
           "raw": "ARR -15% · OVR +2 · TEND +1",
-          "efectos": { "arrMul": 0.85, "ovr": 2, "tend": 1 }
+          "efectos": {
+            "arrMul": 0.85,
+            "ovr": 2,
+            "tend": 1
+          }
         },
         {
           "id": "C",
@@ -389,8 +621,15 @@
           "raw": "40%: fusión, valuación +30% / 60%: te dice que no y lo tuitea",
           "apuesta": {
             "p": 0.4,
-            "gana": { "texto": "fusión, valuación +30%", "efectos": { "valMul": 1.3 } },
-            "pierde": { "texto": "te dice que no y lo tuitea" }
+            "gana": {
+              "texto": "fusión, valuación +30%",
+              "efectos": {
+                "valMul": 1.3
+              }
+            },
+            "pierde": {
+              "texto": "te dice que no y lo tuitea"
+            }
           },
           "notas": "\"valuación +30%\" mecanizado como valMul 1.3 (multiplicador de valuación del trienio)."
         }
@@ -402,20 +641,31 @@
       "titulo": "Te quieren comprar temprano",
       "flavor": "Oferta por toda la empresa. Es plata que te cambia la vida. También es temprano.",
       "tipo": "T3",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 1, "etapaMax": 2, "condicion": "Valuación ≥ 5M" },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 1,
+        "etapaMax": 2,
+        "condicion": "Valuación ≥ 5M"
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Vender",
           "raw": "final Exit chico · PAT según valuación y EQ · fin de esta empresa (habilita playa o comeback)",
-          "efectos": { "special": "sellNow" },
+          "efectos": {
+            "special": "sellNow"
+          },
           "notas": "sellNow: final Exit chico, PAT según valuación y EQ, fin de esta empresa (habilita playa o comeback)."
         },
         {
           "id": "B",
           "label": "Rechazar",
           "raw": "TEND +1 (creés en vos) · flavor recordatorio si después quebrás",
-          "efectos": { "tend": 1 },
+          "efectos": {
+            "tend": 1
+          },
           "notas": "Efecto narrativo condicional (flavor recordatorio si después quebrás): queda en raw."
         },
         {
@@ -424,8 +674,15 @@
           "raw": "25%: aceptan, Exit ×2 / 75%: se van y no vuelven",
           "apuesta": {
             "p": 0.25,
-            "gana": { "texto": "aceptan, Exit ×2", "efectos": { "special": "sellNow" } },
-            "pierde": { "texto": "se van y no vuelven" }
+            "gana": {
+              "texto": "aceptan, Exit ×2",
+              "efectos": {
+                "special": "sellNow"
+              }
+            },
+            "pierde": {
+              "texto": "se van y no vuelven"
+            }
           },
           "notas": "Si aceptan es el mismo final Exit chico de la opción A pero con Exit ×2 (el ×2 queda en texto/raw)."
         }
@@ -437,7 +694,12 @@
       "titulo": "El elefante moroso",
       "flavor": "Tu cliente más grande —el 60% de tu facturación— hace 90 días que no paga.",
       "tipo": "T2",
-      "elegibilidad": { "modos": ["founder"], "condicion": "⚑ dependencia o ARR concentrado" },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "condicion": "⚑ dependencia o ARR concentrado"
+      },
       "opciones": [
         {
           "id": "A",
@@ -445,26 +707,54 @@
           "raw": "50%: paga en 48hs, OVR +1 / 50%: se va, ARR -40%",
           "apuesta": {
             "p": 0.5,
-            "gana": { "texto": "paga en 48hs, OVR +1", "efectos": { "ovr": 1 } },
-            "pierde": { "texto": "se va, ARR -40%", "efectos": { "arrMul": 0.6 } }
+            "gana": {
+              "texto": "paga en 48hs, OVR +1",
+              "efectos": {
+                "ovr": 1
+              }
+            },
+            "pierde": {
+              "texto": "se va, ARR -40%",
+              "efectos": {
+                "arrMul": 0.6
+              }
+            }
           }
         },
         {
           "id": "B",
           "label": "Financiarlo y rezar",
           "raw": "RW -6m · 60%: paga y renueva, ARR +10% / 40%: quiebra él, ARR -50%",
-          "efectos": { "rw": -6 },
+          "efectos": {
+            "rw": -6
+          },
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "paga y renueva, ARR +10%", "efectos": { "arrMul": 1.1 } },
-            "pierde": { "texto": "quiebra él, ARR -50%", "efectos": { "arrMul": 0.5 } }
+            "gana": {
+              "texto": "paga y renueva, ARR +10%",
+              "efectos": {
+                "arrMul": 1.1
+              }
+            },
+            "pierde": {
+              "texto": "quiebra él, ARR -50%",
+              "efectos": {
+                "arrMul": 0.5
+              }
+            }
           }
         },
         {
           "id": "C",
           "label": "Salir a diversificar ya",
           "raw": "RW -3m · TEND +2 · quita ⚑ dependencia",
-          "efectos": { "rw": -3, "tend": 2, "quitaFlags": ["dependencia"] }
+          "efectos": {
+            "rw": -3,
+            "tend": 2,
+            "quitaFlags": [
+              "dependencia"
+            ]
+          }
         }
       ]
     },
@@ -474,17 +764,33 @@
       "titulo": "El influencer advisor",
       "flavor": "Doscientos mil seguidores hablando de negocios. Se ofrece de advisor por el 2%.",
       "tipo": "T5",
-      "elegibilidad": { "modos": ["founder"] },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ]
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Aceptar",
           "raw": "EQ -2% · 60%: OVR +2 (visibilidad) / 40%: papelón público, OVR -1",
-          "efectos": { "eq": -2 },
+          "efectos": {
+            "eq": -2
+          },
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "OVR +2 (visibilidad)", "efectos": { "ovr": 2 } },
-            "pierde": { "texto": "papelón público, OVR -1", "efectos": { "ovr": -1 } }
+            "gana": {
+              "texto": "OVR +2 (visibilidad)",
+              "efectos": {
+                "ovr": 2
+              }
+            },
+            "pierde": {
+              "texto": "papelón público, OVR -1",
+              "efectos": {
+                "ovr": -1
+              }
+            }
           }
         },
         {
@@ -493,8 +799,12 @@
           "raw": "50%: acepta, mitad de efectos / 50%: te escracha en un hilo",
           "apuesta": {
             "p": 0.5,
-            "gana": { "texto": "acepta, mitad de efectos" },
-            "pierde": { "texto": "te escracha en un hilo" }
+            "gana": {
+              "texto": "acepta, mitad de efectos"
+            },
+            "pierde": {
+              "texto": "te escracha en un hilo"
+            }
           },
           "notas": "\"Mitad de efectos\" (referido a la opción A, que incluye su propia apuesta) no es mecanizable: queda en texto/raw. \"Te escracha en un hilo\" no tiene efecto numérico en el .md."
         },
@@ -511,13 +821,20 @@
       "titulo": "El panel del futuro",
       "flavor": "Te invitan a un panel: \"El futuro de tu industria\". Micrófono abierto, prensa presente.",
       "tipo": "T5",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 2 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 2
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Ir y jugarla segura",
           "raw": "OVR +1",
-          "efectos": { "ovr": 1 }
+          "efectos": {
+            "ovr": 1
+          }
         },
         {
           "id": "B",
@@ -525,8 +842,16 @@
           "raw": "60%: OVR +2, TEND +1 (visionario) / 40%: envejece mal en un trienio, OVR -2",
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "OVR +2, TEND +1 (visionario)", "efectos": { "ovr": 2, "tend": 1 } },
-            "pierde": { "texto": "envejece mal en un trienio, OVR -2" }
+            "gana": {
+              "texto": "OVR +2, TEND +1 (visionario)",
+              "efectos": {
+                "ovr": 2,
+                "tend": 1
+              }
+            },
+            "pierde": {
+              "texto": "envejece mal en un trienio, OVR -2"
+            }
           },
           "notas": "El OVR -2 de la rama mala es diferido (llega recién en un trienio) y no hay campo para OVR lento: queda en texto/raw, no en efectos."
         },
@@ -534,7 +859,9 @@
           "id": "C",
           "label": "Mandar al cofounder",
           "raw": "TEND +1 del equipo · 20%: la rompe y ahora es la cara visible",
-          "efectos": { "tend": 1 },
+          "efectos": {
+            "tend": 1
+          },
           "notas": "El 20% (la rompe y ahora es la cara visible) es narrativo, sin efecto numérico en el .md: no se modela como apuesta."
         }
       ]
@@ -545,7 +872,11 @@
       "titulo": "El tweet",
       "flavor": "Son las 2 AM. Tenés una opinión picante sobre el ecosistema y el pulgar caliente.",
       "tipo": "T5",
-      "elegibilidad": { "modos": ["founder"] },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ]
+      },
       "opciones": [
         {
           "id": "A",
@@ -553,15 +884,30 @@
           "raw": "55%: OVR +2 (personaje del ecosistema) / 45%: quilombo, OVR -2, ⚑ manchado_redes",
           "apuesta": {
             "p": 0.55,
-            "gana": { "texto": "OVR +2 (personaje del ecosistema)", "efectos": { "ovr": 2 } },
-            "pierde": { "texto": "quilombo, OVR -2, ⚑ manchado_redes", "efectos": { "ovr": -2, "flags": ["manchado_redes"] } }
+            "gana": {
+              "texto": "OVR +2 (personaje del ecosistema)",
+              "efectos": {
+                "ovr": 2
+              }
+            },
+            "pierde": {
+              "texto": "quilombo, OVR -2, ⚑ manchado_redes",
+              "efectos": {
+                "ovr": -2,
+                "flags": [
+                  "manchado_redes"
+                ]
+              }
+            }
           }
         },
         {
           "id": "B",
           "label": "Guardarlo en borradores",
           "raw": "OVR +1 (madurez)",
-          "efectos": { "ovr": 1 }
+          "efectos": {
+            "ovr": 1
+          }
         },
         {
           "id": "C",
@@ -569,8 +915,15 @@
           "raw": "30%: alguien lo filtra igual, mitad del efecto malo",
           "apuesta": {
             "p": 0.7,
-            "gana": { "texto": "sin efecto" },
-            "pierde": { "texto": "alguien lo filtra igual, mitad del efecto malo", "efectos": { "ovr": -1 } }
+            "gana": {
+              "texto": "sin efecto"
+            },
+            "pierde": {
+              "texto": "alguien lo filtra igual, mitad del efecto malo",
+              "efectos": {
+                "ovr": -1
+              }
+            }
           },
           "notas": "Apuesta de riesgo puro: el .md solo da la rama mala (30%); p = 0.7 es la rama buena (sin efecto). \"Mitad del efecto malo\" (la rama mala de A: OVR -2, ⚑ manchado_redes) mecanizado como OVR -1; el flag no se prende (no hay mitad de un ⚑)."
         }
@@ -582,17 +935,35 @@
       "titulo": "El VP de Ventas golazo-o-fichita",
       "flavor": "Currículum brillante, sonrisa de cierre. Los VP de Ventas son la posición con más varianza del fútbol.",
       "tipo": "T2",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 2 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 2
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Contratarlo",
           "raw": "RW -5m · 55%: ARR +35%, TEND +1 / 45%: no vende nada, lo echás en un año, TEND -1",
-          "efectos": { "rw": -5 },
+          "efectos": {
+            "rw": -5
+          },
           "apuesta": {
             "p": 0.55,
-            "gana": { "texto": "ARR +35%, TEND +1", "efectos": { "arrMul": 1.35, "tend": 1 } },
-            "pierde": { "texto": "no vende nada, lo echás en un año, TEND -1", "efectos": { "tend": -1 } }
+            "gana": {
+              "texto": "ARR +35%, TEND +1",
+              "efectos": {
+                "arrMul": 1.35,
+                "tend": 1
+              }
+            },
+            "pierde": {
+              "texto": "no vende nada, lo echás en un año, TEND -1",
+              "efectos": {
+                "tend": -1
+              }
+            }
           }
         },
         {
@@ -601,15 +972,24 @@
           "raw": "65%: ARR +15% / 35%: era mejor vendedor que jefe",
           "apuesta": {
             "p": 0.65,
-            "gana": { "texto": "ARR +15%", "efectos": { "arrMul": 1.15 } },
-            "pierde": { "texto": "era mejor vendedor que jefe" }
+            "gana": {
+              "texto": "ARR +15%",
+              "efectos": {
+                "arrMul": 1.15
+              }
+            },
+            "pierde": {
+              "texto": "era mejor vendedor que jefe"
+            }
           }
         },
         {
           "id": "C",
           "label": "Seguir vendiendo vos",
           "raw": "ARR +5% · OVR -1 desde Serie B (no escala)",
-          "efectos": { "arrMul": 1.05 },
+          "efectos": {
+            "arrMul": 1.05
+          },
           "notas": "Efecto condicional/recurrente (OVR -1 desde Serie B): queda en raw, no en efectos."
         }
       ]
@@ -620,17 +1000,36 @@
       "titulo": "El pivot",
       "flavor": "Los números no mienten hace dos años. Hay otra puerta, pero es empezar casi de cero.",
       "tipo": "T3",
-      "elegibilidad": { "modos": ["founder"], "condicion": "TEND ≤ -1 o ARR estancado" },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "condicion": "TEND ≤ -1 o ARR estancado"
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Pivotear con todo",
           "raw": "↳ en la tabla · ARR -40% ya · 55%: TEND +2 y techo re-sorteado / 45%: TEND -1",
-          "efectos": { "marker": "↳", "arrMul": 0.6 },
+          "efectos": {
+            "marker": "↳",
+            "arrMul": 0.6
+          },
           "apuesta": {
             "p": 0.55,
-            "gana": { "texto": "TEND +2 y techo re-sorteado", "efectos": { "tend": 2, "special": "retechear" } },
-            "pierde": { "texto": "TEND -1", "efectos": { "tend": -1 } }
+            "gana": {
+              "texto": "TEND +2 y techo re-sorteado",
+              "efectos": {
+                "tend": 2,
+                "special": "retechear"
+              }
+            },
+            "pierde": {
+              "texto": "TEND -1",
+              "efectos": {
+                "tend": -1
+              }
+            }
           },
           "notas": "retechear: el techo oculto de OVR se re-sortea si sale la rama buena."
         },
@@ -640,8 +1039,15 @@
           "raw": "60%: ARR +20% / 40%: sin efecto",
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "ARR +20%", "efectos": { "arrMul": 1.2 } },
-            "pierde": { "texto": "sin efecto" }
+            "gana": {
+              "texto": "ARR +20%",
+              "efectos": {
+                "arrMul": 1.2
+              }
+            },
+            "pierde": {
+              "texto": "sin efecto"
+            }
           }
         },
         {
@@ -650,8 +1056,18 @@
           "raw": "35%: era cuestión de tiempo, ARR +30% / 65%: TEND -2",
           "apuesta": {
             "p": 0.35,
-            "gana": { "texto": "era cuestión de tiempo, ARR +30%", "efectos": { "arrMul": 1.3 } },
-            "pierde": { "texto": "TEND -2", "efectos": { "tend": -2 } }
+            "gana": {
+              "texto": "era cuestión de tiempo, ARR +30%",
+              "efectos": {
+                "arrMul": 1.3
+              }
+            },
+            "pierde": {
+              "texto": "TEND -2",
+              "efectos": {
+                "tend": -2
+              }
+            }
           }
         }
       ]

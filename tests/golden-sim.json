@@ -1,16 +1,16 @@
 {
   "n": 10000,
   "dist": {
-    "remando": 2440,
-    "grande": 2855,
-    "quiebra": 2307,
-    "pyme": 1566,
-    "unicornio": 258,
-    "ipo_caida": 304,
-    "ipo": 270
+    "remando": 2655,
+    "quiebra": 1809,
+    "grande": 3032,
+    "pyme": 1587,
+    "unicornio": 273,
+    "ipo_caida": 338,
+    "ipo": 306
   },
-  "emergTot": 11592,
-  "rescTot": 9285,
-  "ovrPeakTot": 725692,
-  "rondasTot": 26153
+  "emergTot": 10692,
+  "rescTot": 8883,
+  "ovrPeakTot": 729966,
+  "rondasTot": 26213
 }

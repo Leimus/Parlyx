@@ -186,3 +186,36 @@ button { font-family: inherit; }
   .tape { animation: none; }
   .opt.pending { animation: none; border-color: var(--ink); }
 }
+
+/* ================= Pivote e-commerce v1.0 ================= */
+/* Setup con onda (§6): preview vivo de la marca como protagonista */
+.marca-preview { display: flex; justify-content: center; padding: 18px 0 6px; }
+.rubro-tile { display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 13px; padding: 11px 13px; cursor: pointer; }
+.rubro-tile.on { border-color: var(--ink); }
+.rubro-tile .n { font-weight: 800; font-size: 13.5px; }
+.rubro-tile .s { color: var(--dim); font-size: 10.5px; }
+.iso-grid { display: flex; gap: 7px; flex-wrap: wrap; }
+.iso { width: 40px; height: 40px; border-radius: 10px; cursor: pointer; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; background: var(--panel); }
+.iso.on { border-color: var(--ink); }
+
+/* Chip de etapa Corpo */
+.e-corpo { background: #4a3606; color: #fcd34d; }
+
+/* PARLYX DESBLOQUEADO (§4): momento visual propio */
+.parlyx-overlay { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: rgba(6, 7, 10, 0.86); backdrop-filter: blur(6px); }
+.parlyx-card { text-align: center; padding: 28px 30px; border-radius: 20px; background: linear-gradient(170deg, #14161d, #0b0c10); border: 1px solid rgba(22, 199, 132, 0.5); box-shadow: 0 0 60px rgba(22, 199, 132, 0.25); }
+.parlyx-card .robot { font-size: 44px; }
+.parlyx-card h2 { font-size: 22px; font-weight: 900; letter-spacing: 0.04em; margin-top: 8px; color: var(--up); }
+.parlyx-card p { color: var(--dim); font-size: 13px; margin-top: 6px; }
+.opt.parlyx-op { border-color: rgba(22, 199, 132, 0.45); background: linear-gradient(120deg, rgba(22, 199, 132, 0.08), var(--panel2)); }
+
+/* Beat de números de Parlyx bajo la tabla */
+.parlyx-beat { text-align: center; color: var(--up); font-size: 11.5px; font-weight: 600; margin-top: 6px; font-family: var(--font-mono), monospace; }
+
+/* Bloque IMPACTO en la tarjeta (§4.3) */
+.impacto { margin-top: 12px; padding: 10px 12px; background: rgba(22, 199, 132, 0.06); border: 1px solid rgba(22, 199, 132, 0.3); border-radius: 11px; }
+.impacto .t { font-size: 9px; letter-spacing: 0.2em; color: var(--up); text-transform: uppercase; text-align: center; font-weight: 800; }
+.impacto .grid { display: flex; justify-content: space-between; margin-top: 7px; }
+.impacto .grid div { text-align: center; }
+.impacto .k { font-size: 8.5px; letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase; }
+.impacto .v { font-family: var(--font-mono), monospace; font-weight: 700; font-size: 14px; color: var(--up); }

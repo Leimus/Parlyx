@@ -22,6 +22,9 @@ jobs:
       - name: Validar deck (schema Zod + integridad)
         run: node scripts/validate-cards.mjs
 
+      - name: Lenguaje humano (cero jerga de motor en pantalla)
+        run: node scripts/check-lenguaje.mjs
+
       - name: Simulador — golden check (la lógica económica no cambió)
         run: node scripts/sim.mjs 10000 --check
 

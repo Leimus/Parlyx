@@ -8,11 +8,12 @@
    Uso: node scripts/smoke-game.mjs [N]   (default 300)              */
 import { createGame, chooseOption, advanceTurn } from "../lib/game/state.js";
 import { rng } from "../lib/engine/index.js";
-import { VERTICALS_META, HQS_META, CAPITALES_META, EMOJIS, COLORS, NOMBRES } from "../lib/game/meta.js";
+import { RUBROS_META, HQS_META, CAPITALES_META, EMOJIS, COLORS, NOMBRES } from "../lib/game/meta.js";
 import { hashStr, mulberry32 } from "../lib/engine/prng.js";
 
 const N = parseInt(process.argv.find((a) => !a.startsWith("--") && !a.includes("/")) || "300", 10);
 const porArco = process.argv.includes("--arcos");
+const modoParlyx = process.argv.includes("--parlyx");
 const finals = {};
 const porArcoDist = {}; // arco → {final: n, _n: total}
 const motes = {};
@@ -27,9 +28,9 @@ for (let i = 0; i < N; i++) {
   const setup = {
     empresa: NOMBRES[Math.floor(rs() * NOMBRES.length)],
     apellido: "Test",
-    emoji: EMOJIS[Math.floor(rs() * EMOJIS.length)],
+    isotipo: "rombo",
     color: COLORS[Math.floor(rs() * COLORS.length)],
-    vertical: VERTICALS_META[Math.floor(rs() * VERTICALS_META.length)].id,
+    rubro: RUBROS_META[Math.floor(rs() * RUBROS_META.length)].id,
     hq: HQS_META[Math.floor(rs() * HQS_META.length)].id,
     capital: CAPITALES_META[Math.floor(rs() * CAPITALES_META.length)].id,
   };
@@ -61,7 +62,7 @@ for (let i = 0; i < N; i++) {
     turnosTot += gs.rows.length;
   } catch (e) {
     fallas++;
-    console.error(`✗ seed ${seed} (${setup.vertical}/${setup.hq}/${setup.capital}): ${e.message}`);
+    console.error(`✗ seed ${seed} (${setup.rubro}/${setup.hq}/${setup.capital}): ${e.message}`);
     if (fallas > 5) { console.error("Demasiadas fallas, corto."); break; }
   }
 }
@@ -69,7 +70,7 @@ for (let i = 0; i < N; i++) {
 console.log(`\n=== SMOKE (${N} partidas auto-jugadas) ===`);
 console.log("Finales:", Object.entries(finals).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}:${((100 * v) / N).toFixed(1)}%`).join(" · "));
 console.log("Motes:  ", Object.entries(motes).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}:${((100 * v) / N).toFixed(1)}%`).join(" · "));
-console.log(`Filas promedio: ${(turnosTot / (N - fallas)).toFixed(1)} · Cartas distintas vistas: ${cartasVistas.size}/102 (+PX)`);
+console.log(`Filas promedio: ${(turnosTot / (N - fallas)).toFixed(1)} · Cartas distintas vistas: ${cartasVistas.size}/111 (+sintéticas)`);
 
 if (porArco) {
   console.log("\n=== DISTRIBUCIÓN POR ARCO (recalibración v0.3 §12.5) ===");
@@ -87,3 +88,51 @@ if (fallas) {
   process.exit(1);
 }
 console.log("✓ Todas las partidas terminaron sin errores.");
+
+/* ---- REGLA DE ORO (PRD v1.0 §4.2): activar Parlyx debe ser óptimo en
+   ~60-70% de los contextos, NO en el 100%. Cada seed se juega tres veces
+   con la misma política (solo cambia la decisión de EC-24) y se compara
+   el resultado final (plata del jugador + valor de su parte). ---- */
+if (modoParlyx) {
+  const score = (gs) => {
+    const g = gs.g;
+    const parte = !g.dead && (gs.mode === "founder" || gs.retired === false) ? g.val * (g.eq / 100) : 0;
+    return g.pat + parte;
+  };
+  const jugar = (seed, setup, opcionEC24) => {
+    const gs = createGame(seed, setup);
+    let guard = 0;
+    while (gs.phase !== "end" && guard++ < 200) {
+      if (gs.phase === "decision") {
+        const ops = gs.card.opciones;
+        const op = gs.card.id === "EC-24"
+          ? ops.find((o) => o.id === opcionEC24) || ops[0]
+          : ops[Math.floor(rng(gs.g) * ops.length)];
+        chooseOption(gs, op.id);
+      } else advanceTurn(gs);
+    }
+    return gs;
+  };
+  let conBeat = 0, ganaParlyx = 0;
+  const M = Math.min(N, 600);
+  for (let i = 0; i < M; i++) {
+    const seed = "GOLD" + i;
+    const rs = mulberry32(hashStr(seed + "::autosetup"));
+    const setup = {
+      empresa: NOMBRES[Math.floor(rs() * NOMBRES.length)], apellido: "T",
+      isotipo: "rombo", color: COLORS[Math.floor(rs() * COLORS.length)],
+      rubro: RUBROS_META[Math.floor(rs() * RUBROS_META.length)].id,
+      hq: HQS_META[Math.floor(rs() * HQS_META.length)].id,
+      capital: CAPITALES_META[Math.floor(rs() * CAPITALES_META.length)].id,
+    };
+    const a = jugar(seed, setup, "A"); // responder vos
+    if (!a.used.has("EC-24")) continue; // no llegó al beat (quiebra temprana)
+    const b = jugar(seed, setup, "B"); // contratar
+    const c = jugar(seed, setup, "C"); // activar Parlyx
+    conBeat++;
+    if (score(c) > Math.max(score(a), score(b))) ganaParlyx++;
+  }
+  const pct = ((100 * ganaParlyx) / Math.max(1, conBeat)).toFixed(1);
+  console.log(`\n=== REGLA DE ORO PARLYX (§4.2) — ${conBeat} contextos ===`);
+  console.log(`Activar Parlyx fue óptimo en ${pct}% de los contextos (target 60-70%, jamás 100%)`);
+}

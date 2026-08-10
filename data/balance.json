@@ -2,7 +2,7 @@
   "_comentario": "Objeto BAL extraído de engine-v1.js — ÚNICO lugar de tuneo económico (regla dura #1 del CLAUDE.md). En growthCaps, null representa Infinity (JSON no soporta Infinity); el loader lib/engine/balance.js lo revive.",
   "techo": [[0.35, 68, 9], [0.65, 77, 9], [0.87, 86, 8], [0.97, 94, 4], [1.01, 98, 2]],
   "ovrInicial": 50,
-  "margen": { "saas": 0.75, "fintech": 0.55, "ecom": 0.3, "marketplace": 0.6, "ai": 0.65, "gaming": 0.7, "deeptech": 0.45, "crypto": 0.6 },
+  "margen": { "saas": 0.75, "fintech": 0.55, "ecom": 0.45, "marketplace": 0.6, "ai": 0.65, "gaming": 0.7, "deeptech": 0.45, "crypto": 0.6 },
   "costoEmpleadoPorEtapa": [35000, 55000, 80000, 95000, 105000, 110000],
   "overheadPorEtapa": [20000, 80000, 400000, 1500000, 3500000, 8000000],
   "productividadARRxEmp": 130000,
