@@ -33,13 +33,20 @@ Principio rector v0.3 §0 sigue: el juego primero.
 | `data/tags-ejes.json` | Tags de eje por opción → arquetipos (PRD v0.3 §2) | Tuneo del perfil acá |
 | `reference/engine-v1.original.js` | El motor original INTACTO (validado 20.000 sims) | Referencia para diff |
 | `reference/prototipo-ui-v0.2.jsx` | Prototipo React jugable | Solo referencia visual/UX |
-| `scripts/sim.mjs` | Simulador headless + golden check de CI | QA de balanceo |
-| `scripts/smoke-game.mjs` | Auto-juega N partidas · `--arcos` = distribución por arco | QA del core loop |
+| `scripts/sim.mjs` | Simulador headless + golden check de CI (incluye distribución de OVR pico F-P §1) | QA de balanceo |
+| `scripts/smoke-game.mjs` | Auto-juega N partidas · `--arcos` = distribución + curva OVR por arco · `--parlyx` = regla de oro | QA del core loop |
+| `scripts/test-parlyx-invariante.mjs` | Invariante "nunca caés más CON Parlyx que sin él" (en npm test) | Traba del FIX-PACK §5 |
 | `tests/golden-sim.json` | Distribución exacta esperada (N=10000) | Traba de la regla dura #1 |
+| `docs/FIX-PACK-techo-pendiente-parlyx.md` | Fix-pack ago-2026: techo como pendiente, rachas, amortiguador Parlyx | Ejecutado (estado #6) |
 
 **Nota motor:** `simulateTrienio` acepta `decisionesFx.momentumBias` (sesgo de arco,
-aditivo y opcional). Con 0 u omitido la matemática es EXACTAMENTE la original — el
-golden lo verifica. Los arcos se tunean en `data/arcos.json`, jamás en el motor.
+aditivo y opcional; en 0 u omitido no hace nada) y dos knobs opcionales en `g`:
+`prodMul` (productividad Parlyx ×1.35) y `caidaMul` (amortiguador de caídas ×0.6,
+FIX-PACK §5 — con test de invariante en CI). Desde el FIX-PACK el motor base además
+trae talentFactor (el techo como PENDIENTE — tuneo en `BAL.talent*`: recta + tramo
+élite desde talentKink) y rachas (±1 de momentum tras 2 trienios seguidos del mismo
+signo): recalibración intencional, golden regenerado y targets §1 verificados a 20k.
+Los arcos se tunean en `data/arcos.json`, jamás en el motor.
 
 ## Reglas duras (no negociables)
 
@@ -115,11 +122,28 @@ npm run build          # build estático (out/)
    de oro Parlyx 68.4% ∈ [60-70] · smoke 111 cartas sin crashes. **Pendiente consciente:**
    renombrar arquetipos que suenen a VC (§9, "revisar con owner") · HQ fijo en BA (el
    setup de 2 pantallas no lo elige; cartas H-* siguen vivas).
-6. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
+6. ✅ **FIX-PACK "el techo es una pendiente" + lógica Parlyx** (docs/FIX-PACK-…md):
+   §1 talentFactor recta+tramo élite (`BAL.talentBase 0.6 / talentDiv 38 / talentKink 93 /
+   talentDiv2 12`; una recta sola NO puede dar todas las bandas — verificado en sweep) →
+   a 20k: pico ≥80 24.7% · ≥85 12.6% · ≥90 6.2% · ≥95 2.4% · promedio 73.5, TODAS en
+   banda, robusto en 4 familias de seeds · §2 señal del wonderkid (turno 2 techo≥94
+   fuerte / turno 3 techo≥86 sutil, nunca el número) · §3 rachas ±1 tras 2 trienios
+   (racha 3+: 40.4% ≥ 30%) + 🔥×N en el HUD · §4 arcos verificados VIVOS (curvas
+   promedio por arco en `smoke --arcos`, visiblemente distintas; sesgos ya ±2) ·
+   §5 amortiguador `g.caidaMul 0.6` + test de invariante en CI (21.7k trienios, 0
+   violaciones) + contrafactual visible ("Ventas -27%. Sin automatizar: -45%") +
+   línea IMPACTO "Amortiguó la crisis del YEAR" · regla de oro re-tuneada: EC-24 C
+   pierde tend+1 (el beneficio persistente ahora es el special) → 68.8% ∈ [60-70] ·
+   §6 sello del mote inline en sc-head (el absolute murió; verificado por E2E) ·
+   §7 linea/lineaModesta por arquetipo según final · bugs: revivir en la emergencia
+   del último trienio ya no simula un año 12 · beats/contrafactual/señal ARRIBA de
+   la tabla (abajo quedaban tapados por el bottom-sheet con 10+ filas). Golden
+   regenerado y commiteado con el cambio (recalibración intencional).
+7. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
    racha · email/informe por arquetipo · tienda/powerups (4 items) · HubSpot.
-7. 🔲 F3 motor: modo ejecutivo D6 completo (el corpo de DD-01 es la versión light),
+8. 🔲 F3 motor: modo ejecutivo D6 completo (el corpo de DD-01 es la versión light),
    condiciones en prosa, retiro standalone, recalibrar `BAL` contra §17.
-8. 🔲 F4: og:image dinámica + arte final de tarjeta.
+9. 🔲 F4: og:image dinámica + arte final de tarjeta.
 
 ## Contexto de negocio
 

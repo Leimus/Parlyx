@@ -12,7 +12,7 @@
     "sim:golden": "node scripts/sim.mjs 10000 --update-golden",
     "validate:cards": "node scripts/validate-cards.mjs",
     "smoke": "node scripts/smoke-game.mjs",
-    "test": "node scripts/validate-cards.mjs && node scripts/check-lenguaje.mjs && node scripts/sim.mjs 10000 --check && node scripts/smoke-game.mjs 300"
+    "test": "node scripts/validate-cards.mjs && node scripts/check-lenguaje.mjs && node scripts/sim.mjs 10000 --check && node scripts/test-parlyx-invariante.mjs && node scripts/smoke-game.mjs 300"
   },
   "dependencies": {
     "framer-motion": "^12.43.0",

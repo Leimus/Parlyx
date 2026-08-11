@@ -16,6 +16,7 @@ const porArco = process.argv.includes("--arcos");
 const modoParlyx = process.argv.includes("--parlyx");
 const finals = {};
 const porArcoDist = {}; // arco → {final: n, _n: total}
+const porArcoCurva = {}; // arco → [{sum, n}] por turno (FIX-PACK §4: curvas visiblemente distintas)
 const motes = {};
 const cartasVistas = new Set();
 let turnosTot = 0;
@@ -58,6 +59,12 @@ for (let i = 0; i < N; i++) {
     const pa = (porArcoDist[gs.arco] = porArcoDist[gs.arco] || { _n: 0 });
     pa._n++;
     pa[gs.endInfo.key] = (pa[gs.endInfo.key] || 0) + 1;
+    const curva = (porArcoCurva[gs.arco] = porArcoCurva[gs.arco] || []);
+    gs.rows.forEach((r, t) => {
+      curva[t] = curva[t] || { sum: 0, n: 0 };
+      curva[t].sum += r.ovr;
+      curva[t].n++;
+    });
     criticosTot += gs.decisionLog.filter((d) => d.win && gs.result?.critico).length ? 1 : 0;
     turnosTot += gs.rows.length;
   } catch (e) {
@@ -81,6 +88,11 @@ if (porArco) {
   for (const [arco, d] of Object.entries(porArcoDist).sort((a, b) => b[1]._n - a[1]._n)) {
     const detalle = KEYS.filter((k) => d[k]).map((k) => `${k}:${((100 * d[k]) / d._n).toFixed(0)}%`).join(" ");
     console.log(arco.padEnd(14), String(d._n).padStart(6), quiebra(d).toFixed(1).padStart(8) + "%", epico(d).toFixed(1).padStart(7) + "%", " " + detalle);
+  }
+  console.log("\n=== CURVA OVR PROMEDIO POR ARCO (FIX-PACK §4: deben verse DISTINTAS) ===");
+  for (const [arco, curva] of Object.entries(porArcoCurva).sort((a, b) => porArcoDist[b[0]]._n - porArcoDist[a[0]]._n)) {
+    const serie = curva.map((c) => (c.sum / c.n).toFixed(0)).join(" → ");
+    console.log(arco.padEnd(14), serie);
   }
 }
 if (fallas) {

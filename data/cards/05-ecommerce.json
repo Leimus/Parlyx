@@ -1211,10 +1211,9 @@
           "efectos": {
             "rw": -4,
             "arrMul": 1.35,
-            "tend": 1,
             "special": "parlyxActivar"
           },
-          "notas": "El beat estructural (PRD v1.0 §4). No es gratis ni obligatorio, y no siempre es lo óptimo: la regla de oro se verifica en sim (target 60-70%)."
+          "notas": "El beat estructural (PRD v1.0 §4). No es gratis ni obligatorio, y no siempre es lo óptimo: la regla de oro se verifica en sim (target 60-70%). El beneficio persistente vive en el special (prodMul ×1.35 + amortiguador de caídas ×0.6, FIX-PACK §5) — sin tend extra para no contarlo dos veces."
         }
       ],
       "notas": "Anclada al 2020 por deck.js (garantizada por estructura, como los años ancla)."

@@ -436,7 +436,10 @@ export default function Game() {
       <div className="app"><div className="col ingame">
         <Ticker clima={hud.era.clima} frozen={!!pendingOp} />
         <div className="hudrow">
-          <OvrPill v={hud.ovr} size="grande" />
+          <div className="ovrwrap">
+            <OvrPill v={hud.ovr} size="grande" />
+            {hud.racha >= 2 && <span className="racha">🔥×{hud.racha}</span>}
+          </div>
           <HudValuacion val={hud.val} hist={gs.hist} publica={hud.public} />
           <div className="stat">
             <div className="k">Caja</div>
@@ -453,6 +456,18 @@ export default function Game() {
           <span><b>{climaEmoji(hud.era.clima)}</b> {ERA_NOMBRES.get(hud.year) || "…"}</span>
           <span className="mono">MULT {hud.era.mult}x · {hud.era.capital.toUpperCase()}</span>
         </div>
+        {/* Los beats van ARRIBA de la tabla: con 10+ filas, abajo quedaban
+            tapados por el bottom-sheet (el contrafactual §5 DEBE verse). */}
+        {gs.contrafactual && gs.phase === "decision" && (
+          <p className="contraf">🛡 Ventas {gs.contrafactual.con}%. Sin automatizar: {gs.contrafactual.sin}%.</p>
+        )}
+        {gs.parlyxBeat && gs.phase === "decision" && !gs.contrafactual && <p className="parlyx-beat">{gs.parlyxBeat}</p>}
+        {gs.senal && gs.phase === "decision" && <p className="senal">✦ {gs.senal}</p>}
+        {gs.momentum != null && gs.phase === "decision" && Math.abs(gs.momentum) > 1 && !gs.parlyxBeat && !gs.contrafactual && !gs.senal && (
+          <p className="mini mono" style={{ color: gs.momentum > 1 ? "var(--up)" : "var(--down)", marginTop: 6, textAlign: "center" }}>
+            {gs.momentum > 1 ? "El mercado te empuja ▲" : "Viento de frente ▼"}
+          </p>
+        )}
         <div className="tabla">
           <div className="thead"><span>Año</span><span>Marca</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>Ventas</span></div>
           {TURN_YEARS.map((y: number, i: number) => {
@@ -471,13 +486,6 @@ export default function Game() {
           })}
           <div className="trow ghost"><span className="yrchip">2026</span><span className="empresa" style={{ fontWeight: 500 }}>Balance final</span><span /><span /></div>
         </div>
-        {gs.parlyxBeat && gs.phase === "decision" && <p className="parlyx-beat">{gs.parlyxBeat}</p>}
-        {gs.momentum != null && gs.phase === "decision" && Math.abs(gs.momentum) > 1 && !gs.parlyxBeat && (
-          <p className="mini mono" style={{ color: gs.momentum > 1 ? "var(--up)" : "var(--down)", marginTop: 6 }}>
-            {gs.momentum > 1 ? "El mercado te empuja ▲" : "Viento de frente ▼"}
-          </p>
-        )}
-
         <div className="sheetwrap">
           <AnimatePresence mode="popLayout" initial={false}>
             {card && !parlyxFlash && (
@@ -596,17 +604,6 @@ export default function Game() {
         </div>
 
         <div className={"sharecard" + (formato === "916" ? " story" : "")}>
-          {gs.mote.id !== "enigma" && (
-            <motion.div
-              className="sello mote-badge"
-              initial={{ scale: 2.6, opacity: 0, rotate: 7 }}
-              animate={{ scale: 1, opacity: 1, rotate: 7 }}
-              transition={{ type: "spring", stiffness: 260, damping: 18, delay: selloDelay }}
-            >
-              <EscudoSVG ticker={gs.mote.ticker} on size={56} />
-            </motion.div>
-          )}
-
           <div className="tabla">
             <div className="thead"><span>Año</span><span>Marca</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>Ventas</span></div>
             {gs.rows.map((row: any, i: number) => <Fila key={row.year} row={row} delay={i * 0.09} />)}
@@ -625,12 +622,24 @@ export default function Game() {
               </div>
               <div style={{ fontSize: 12, marginTop: 3 }}>
                 <b style={{ color: "var(--viol)" }}>{gs.mote.nombre}</b>
-                <span style={{ color: "var(--dim)" }}> — {gs.mote.linea}</span>
+                <span style={{ color: "var(--dim)" }}> — {gs.moteLinea || gs.mote.linea}</span>
               </div>
               {showName && gs.setup.apellido && (
                 <div style={{ color: "var(--dim)", fontSize: 12, marginTop: 2 }}>Fundada por {gs.setup.apellido}</div>
               )}
             </div>
+            {/* El sello del mote vive EN el flujo del header (FIX-PACK §6):
+                nada absoluto que pueda flotar sobre la tabla. */}
+            {gs.mote.id !== "enigma" && (
+              <motion.div
+                className="mote-badge"
+                initial={{ scale: 2.2, opacity: 0, rotate: 7 }}
+                animate={{ scale: 1, opacity: 1, rotate: 7 }}
+                transition={{ type: "spring", stiffness: 260, damping: 18, delay: selloDelay }}
+              >
+                <EscudoSVG ticker={gs.mote.ticker} on size={48} />
+              </motion.div>
+            )}
           </div>
 
           <div className="sc-stats">
@@ -649,6 +658,11 @@ export default function Game() {
                 <div><div className="k">Ventas generadas</div><div className="v">{gs.parlyx.ventas.toLocaleString("es-AR")}</div></div>
                 <div><div className="k">Horas recuperadas</div><div className="v">{gs.parlyx.horas.toLocaleString("es-AR")}</div></div>
               </div>
+              {gs.parlyx.amortiguado && (
+                <div className="amort">
+                  🛡 Amortiguó la crisis del {gs.parlyx.amortiguado.year}: {gs.parlyx.amortiguado.con}% en vez de {gs.parlyx.amortiguado.sin}%.
+                </div>
+              )}
             </div>
           )}
 
