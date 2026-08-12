@@ -15,6 +15,7 @@ import {
   fmtUSD, ovrTier, ERA_NOMBRES, climaEmoji, ETAPAS,
 } from "@/lib/game/meta.js";
 import { humanizar } from "@/lib/game/humano.js";
+import { track } from "@/lib/game/analytics.js";
 import { etapaIdx } from "@/lib/engine/index.js";
 import { TODOS_ARQUETIPOS } from "@/lib/game/arquetipos.js";
 import { COPAS, copasDePartida, actualizarVitrina, cargarVitrina } from "@/lib/game/vitrina.js";
@@ -254,6 +255,7 @@ export default function Game() {
   const [formato, setFormato] = useState<"45" | "916">("45");
   const [vitrina, setVitrina] = useState<{ copas: string[]; arquetipos: string[]; partidas: number }>({ copas: [], arquetipos: [], partidas: 0 });
   const gsRef = useRef<GS>(null);
+  const esDesafio = useRef(false);
   const [, bump] = useReducer((x: number) => x + 1, 0);
   const reduced = useReducedMotion();
 
@@ -277,9 +279,11 @@ export default function Game() {
 
   const gs: GS = gsRef.current;
 
-  const startGame = (sd: string, s = setup) => {
+  const startGame = (sd: string, origen = "nueva", s = setup) => {
     gsRef.current = createGame(sd, s);
     try { window.history.replaceState(null, "", "?s=" + sd); } catch { /* sandbox */ }
+    track("game_start", { seed: sd, origen, rubro: s.rubro, capital: s.capital });
+    if (origen === "desafio" || origen === "revancha") track("seed_replay", { seed: sd, origen });
     setPendingOp(null);
     setParlyxFlash(false);
     setScreen("game");
@@ -290,11 +294,13 @@ export default function Game() {
     const op = gs.card.opciones.find((o: any) => o.id === opId);
     const delay = reduced ? 0 : op?.apuesta ? 500 + Math.random() * 200 : 200;
     const teniaParlyx = !!gs.parlyx;
+    track("turn_decision", { carta: gs.card.id, opcion: opId, anio: TURN_YEARS[gs.g.ti] });
     setPendingOp(opId);
     window.setTimeout(() => {
       chooseOption(gs, opId);
       setPendingOp(null);
       if (!teniaParlyx && gs.parlyx) {
+        track("parlyx_activado", { anio: gs.parlyx.desde });
         setParlyxFlash(true);
         window.setTimeout(() => { setParlyxFlash(false); bump(); }, reduced ? 400 : 1900);
       }
@@ -305,6 +311,7 @@ export default function Game() {
     if (!gs || gs.phase !== "resolved") return;
     advanceTurn(gs);
     if (gs.phase === "end") {
+      track("game_end", { final: gs.endInfo.key, arquetipo: gs.mote.id });
       const v = actualizarVitrina(gs);
       setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas });
       setScreen("end");
@@ -313,6 +320,7 @@ export default function Game() {
   };
   const copy = (txt: string, tag: string) => {
     navigator.clipboard?.writeText(txt).then(() => {
+      if (tag === "desafio") track("share_complete", { formato });
       setCopied(tag);
       setTimeout(() => setCopied(null), 1600);
     });
@@ -324,14 +332,20 @@ export default function Game() {
       <MotionConfig reducedMotion="user">
       <div className="app"><div className="col">
         <Ticker clima={1} />
-        <div className="brand"><h1>Tu Carrera Emprendedora</h1><span>por Parlyx AI</span></div>
+        <div className="brand">
+          <h1>Tu Carrera Emprendedora</h1>
+          <a
+            className="plx-link" href="https://parlyx.ai?utm_source=carrera&utm_medium=juego&utm_content=landing"
+            target="_blank" rel="noopener" onClick={() => track("outbound_parlyx", { desde: "landing" })}
+          >por Parlyx AI</a>
+        </div>
         <div style={{ marginTop: 26 }}>
           <div className="statline">El <span className="down">27%</span> quiebra.</div>
           <div className="statline">El <span className="up">3%</span> toca la campana.</div>
           <div className="vos">¿Vos?</div>
         </div>
         <p className="landquote">33 años de tu marca a través de la historia del comercio.<br />11 decisiones. Una carrera que es toda tuya.</p>
-        <MBtn className="btn pri" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Fundar mi marca →</MBtn>
+        <MBtn className="btn pri" onClick={() => { esDesafio.current = false; setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Fundar mi marca →</MBtn>
         <div className="seedbox">
           <input
             className="input mono" placeholder="¿Te retaron? Pegá la seed" maxLength={6} value={seedInput}
@@ -339,7 +353,7 @@ export default function Game() {
           />
           <MBtn
             className="btn sec" style={{ width: "auto", padding: "0 18px" }}
-            onClick={() => { if (seedInput.length === 6) { setSeedStr(seedInput); setStep(0); setScreen("setup"); } }}
+            onClick={() => { if (seedInput.length === 6) { esDesafio.current = true; setSeedStr(seedInput); setStep(0); setScreen("setup"); } }}
           >Jugar</MBtn>
         </div>
         {vitrina.partidas > 0 && (
@@ -411,7 +425,11 @@ export default function Game() {
         {step === 0 ? paso1 : paso2}
         <div style={{ marginTop: 18 }}>
           <MBtn className="btn pri" disabled={!canNext} style={{ opacity: canNext ? 1 : 0.4 }}
-            onClick={() => { if (step === 0) setStep(1); else startGame(seedStr); }}>
+            onClick={() => {
+              if (step === 0) { setStep(1); return; }
+              track("setup_complete", { rubro: setup.rubro, capital: setup.capital });
+              startGame(seedStr, esDesafio.current ? "desafio" : "nueva");
+            }}>
             {step === 0 ? "Siguiente" : "Abrir en 1993 →"}
           </MBtn>
           <MBtn className="btn sec" onClick={() => (step > 0 ? setStep(0) : setScreen("landing"))}>Volver</MBtn>
@@ -676,7 +694,13 @@ export default function Game() {
           <div className="finaltxt">{e.emoji} {e.titulo}</div>
           {g.pat > 0 && <PatOdo pat={g.pat} />}
           <div className="sc-foot">
-            <span>Jugá la tuya · <b style={{ color: "var(--ink)" }}>Tu Carrera Emprendedora</b> por Parlyx AI</span>
+            <span>
+              Jugá la tuya · <b style={{ color: "var(--ink)" }}>Tu Carrera Emprendedora</b>{" "}
+              <a
+                className="plx-link" href="https://parlyx.ai?utm_source=carrera&utm_medium=juego&utm_content=tarjeta"
+                target="_blank" rel="noopener" onClick={() => track("outbound_parlyx", { desde: "tarjeta" })}
+              >por Parlyx AI</a>
+            </span>
             <span className="mono">seed {gs.seedStr}</span>
           </div>
         </div>
@@ -721,10 +745,10 @@ export default function Game() {
           <div className={"sw2" + (showName ? " on" : "")} onClick={() => setShowName(!showName)}><div className="dot" /></div>
         </div>
         <div style={{ marginTop: 12 }}>
-          <MBtn className="btn pri" onClick={() => startGame(randSeed())}>Otra carrera</MBtn>
-          <MBtn className="btn sec" onClick={() => copy(desafio, "desafio")}>{copied === "desafio" ? "✓ Copiado" : "Copiar desafío (con mi seed)"}</MBtn>
-          <MBtn className="btn sec" onClick={() => startGame(gs.seedStr)}>Revancha (misma seed)</MBtn>
-          <MBtn className="btn sec" onClick={() => { setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Cambiar marca</MBtn>
+          <MBtn className="btn pri" onClick={() => startGame(randSeed(), "otra")}>Otra carrera</MBtn>
+          <MBtn className="btn sec" onClick={() => { track("share_open", { formato }); copy(desafio, "desafio"); }}>{copied === "desafio" ? "✓ Copiado" : "Copiar desafío (con mi seed)"}</MBtn>
+          <MBtn className="btn sec" onClick={() => startGame(gs.seedStr, "revancha")}>Revancha (misma seed)</MBtn>
+          <MBtn className="btn sec" onClick={() => { esDesafio.current = false; setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Cambiar marca</MBtn>
         </div>
       </div></div>
       </MotionConfig>

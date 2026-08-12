@@ -229,3 +229,14 @@ button { font-family: inherit; }
 .impacto .grid div { text-align: center; }
 .impacto .k { font-size: 8.5px; letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase; }
 .impacto .v { font-family: var(--font-mono), monospace; font-weight: 700; font-size: 14px; color: var(--up); }
+
+/* ---------- Producción: link a Parlyx (doble embudo, PRD v0.3 §0) ---------- */
+.plx-link { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--dim); }
+.plx-link:hover { color: var(--up); border-bottom-color: var(--up); }
+
+/* ---------- Página 404 amigable ---------- */
+.err404 { min-height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; }
+.err404 .cod { font-family: var(--font-mono), monospace; font-size: 52px; font-weight: 700; color: var(--down); }
+.err404 h2 { font-size: 18px; }
+.err404 p { color: var(--dim); font-size: 13px; max-width: 300px; }
+.err404 a.btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; margin-top: 14px; width: auto; padding: 0 22px; }

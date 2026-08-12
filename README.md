@@ -4,7 +4,9 @@ Minijuego web viral estilo Copero/Remar: simulás una carrera de founder **1993 
 11 decisiones trienales, tarjeta final compartible para Twitter/X. Castellano rioplatense.
 Marketing de [Parlyx AI](https://parlyx.ai).
 
-**Fuente de verdad del producto:** [`docs/PRD-v0.2.md`](docs/PRD-v0.2.md) (decisiones D1-D6 cerradas).
+**Fuente de verdad del producto:** [`docs/PRD-v1.0-pivote-ecommerce.md`](docs/PRD-v1.0-pivote-ecommerce.md)
+(definitiva de concepto) sobre [`docs/PRD-v0.2.md`](docs/PRD-v0.2.md) (base) +
+[`docs/PRD-v0.3-lead-magnet.md`](docs/PRD-v0.3-lead-magnet.md) + anexos.
 
 ## Estructura
 
@@ -47,25 +49,46 @@ npm run validate:cards # validar el deck solo
 
 ## Estado (2026-08)
 
-- ✅ Motor v1 como módulo puro — salida verificada **idéntica** al `engine-v1.js` validado
-  (diff byte a byte sobre 20.000 partidas).
-- ✅ Deck completo: 102 cartas en JSON con schema Zod (fuente: `docs/deck-lote-*.md`).
-- ✅ Simulador como test de CI (golden check).
-- ✅ **F2: juego jugable** — setup, 11 turnos con el deck real, apuestas, emergencias,
-  exits/comeback/playa y tarjeta final con seed compartible (`/?s=SEED`). La economía
-  de cada trienio es el `simulateTrienio()` del motor, sin tocar. Smoke de CI:
-  `npm run smoke` auto-juega 300 partidas.
-- ⚠️ Pendiente F3: modo ejecutivo (D6), condiciones en prosa del deck, y recalibración
-  de `BAL` contra targets §17 (la sim de CI usa la política proxy; al recalibrar,
-  activar `--strict-targets`).
-- 🔲 F4: og:image dinámica (edge function) + arte final de tarjeta.
+- ✅ Motor como módulo puro (validado contra el original) + sim/golden/invariante en CI.
+- ✅ Deck 111 cartas con schema Zod (102 base + capa e-commerce en lenguaje humano).
+- ✅ Juego completo: setup 2 pantallas, 11 turnos, emergencias, Parlyx desbloqueado
+  (regla de oro 60-70% verificada), sin finales tempranos, tarjeta compartible con
+  seed-desafío (`/?s=SEED`), vitrina, arquetipos y UI v2 "Densidad Copero".
+- ✅ FIX-PACK "el techo es una pendiente": talentFactor, rachas, amortiguador Parlyx
+  con contrafactual (detalle en `docs/FIX-PACK-techo-pendiente-parlyx.md`).
+- ✅ **Listo para producción:** analytics Plausible (9 eventos del PRD §2, sin cookies),
+  og:image estática + meta tags completos, favicon/app icons, 404 propia, robots.txt,
+  Lighthouse mobile ≥90 (transferencia ~283KB gzip).
+- ⚠️ Pendiente F3: modo ejecutivo completo (D6) y recalibración de `BAL` contra §17.
+- 🔲 v1.1 "El juego que vende" (Seed del Día, informes, tienda) y F4 (og:image dinámica).
 
-## Deploy (Vercel)
+## Deploy (Vercel) → carrera.parlyx.ai
 
-Proyecto listo para Vercel sin configuración extra:
+Proyecto listo para Vercel sin configuración extra (`output: export` — 100% estático):
 
-1. [vercel.com/new](https://vercel.com/new) → importar `Leimus/Parlyx`.
-2. Framework preset: **Next.js** (auto-detectado; `output: export` genera `out/`).
-3. Deploy. Cada push a `main` redeploya; los PRs generan previews.
+1. **Importar:** [vercel.com/new](https://vercel.com/new) → `Leimus/Parlyx`. Framework
+   preset **Next.js** (auto-detectado), build `npm run build`, salida `out/`. Deploy.
+   Cada push a `main` redeploya; los PRs generan previews.
+2. **Dominio:** en el proyecto → Settings → Domains → agregar `carrera.parlyx.ai`.
+   En el DNS de `parlyx.ai`, crear el registro:
 
-Dominio corto (D7, abierta): candidatos `tucarrera.app` / `carrera.parlyx.ai`.
+   ```
+   Tipo    Nombre     Valor
+   CNAME   carrera    cname.vercel-dns.com
+   ```
+
+   Vercel emite el certificado TLS solo una vez que el CNAME propaga (minutos, hasta
+   ~1h según el TTL del DNS).
+
+**Post-deploy (una vez):**
+
+- **Analytics:** dar de alta el sitio `carrera.parlyx.ai` en [plausible.io](https://plausible.io)
+  (el script ya está integrado en `app/layout.tsx`, sin cookies). Eventos custom del
+  PRD §2 que van a aparecer solos: `game_start`, `setup_complete`, `turn_decision`
+  (carta + opción), `game_end` (final + arquetipo), `share_open`, `share_complete`,
+  `seed_replay`, `parlyx_activado`, `outbound_parlyx`. Conviene marcarlos como *goals*
+  en Plausible para verlos en el dashboard.
+- **Verificar la og:image:** pasar `https://carrera.parlyx.ai` por el
+  [validador de cards de Twitter/X](https://cards-dev.twitter.com/validator) o
+  compartir la URL en un chat: tiene que aparecer la imagen "El 27% quiebra…"
+  (`public/og.png`, 1200×630). La og:image **dinámica por partida** queda para v1.1.

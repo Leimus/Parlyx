@@ -139,11 +139,19 @@ npm run build          # build estático (out/)
    del último trienio ya no simula un año 12 · beats/contrafactual/señal ARRIBA de
    la tabla (abajo quedaban tapados por el bottom-sheet con 10+ filas). Golden
    regenerado y commiteado con el cambio (recalibración intencional).
-7. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
+7. ✅ **Producción (carrera.parlyx.ai)**: Plausible sin cookies (`lib/game/analytics.js`,
+   9 eventos PRD §2: game_start · setup_complete · turn_decision · game_end · share_open ·
+   share_complete · seed_replay · parlyx_activado · outbound_parlyx — verificados por E2E
+   contra el build) · og.png estática 1200×630 + og/twitter meta completos
+   (`metadataBase carrera.parlyx.ai`) · favicon.ico + apple-icon + 404 propia + robots/
+   sitemap · "por Parlyx AI" ahora es link real (landing y tarjeta, con UTM) · Lighthouse
+   mobile 91 (build servido con gzip; transferencia ~283KB) · deploy: README §Deploy
+   (Vercel 2 pasos + CNAME). La og dinámica por partida sigue en F4.
+8. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
    racha · email/informe por arquetipo · tienda/powerups (4 items) · HubSpot.
-8. 🔲 F3 motor: modo ejecutivo D6 completo (el corpo de DD-01 es la versión light),
+9. 🔲 F3 motor: modo ejecutivo D6 completo (el corpo de DD-01 es la versión light),
    condiciones en prosa, retiro standalone, recalibrar `BAL` contra §17.
-9. 🔲 F4: og:image dinámica + arte final de tarjeta.
+10. 🔲 F4: og:image dinámica + arte final de tarjeta.
 
 ## Contexto de negocio
 
