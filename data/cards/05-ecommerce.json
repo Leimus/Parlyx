@@ -1,0 +1,1278 @@
+{
+  "bloque": "ecommerce",
+  "fuente": "docs/PRD-v1.0-pivote-ecommerce.md §3 — capa e-commerce (reemplaza la capa de verticales tech)",
+  "cartas": [
+    {
+      "id": "EC-01",
+      "bloque": "ecommerce",
+      "titulo": "La feria del gremio",
+      "flavor": "Tres días de stand, tarjetas personales y mate. Los mayoristas caminan mirando de reojo. Uno frenó en el tuyo.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1993,
+          1999
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Venderle al mayorista grande",
+          "raw": "ventas +30% ya · pero él pone las condiciones",
+          "efectos": {
+            "arrMul": 1.3,
+            "tend": -1
+          },
+          "notas": "El precio de crecer con el canal de otro."
+        },
+        {
+          "id": "B",
+          "label": "Vender directo, de a poco",
+          "raw": "crece lento · pero la marca es tuya",
+          "efectos": {
+            "tendLenta": 2
+          }
+        },
+        {
+          "id": "C",
+          "label": "Un poco y un poco",
+          "raw": "ventas +10% · sin casarte con nadie",
+          "efectos": {
+            "arrMul": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-02",
+      "bloque": "ecommerce",
+      "titulo": "El sobrino y la página web",
+      "flavor": "\"Tío, tenés que tener página web.\" Te muestra una pantalla gris con letras azules. Nadie de tus clientes tiene internet. Todavía.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1999,
+          2002
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pagarle la página al sobrino",
+          "raw": "2 meses menos de caja · 65%: llegás antes que todos / 35%: una página que no visita nadie",
+          "efectos": {
+            "rw": -2
+          },
+          "apuesta": {
+            "p": 0.65,
+            "gana": {
+              "texto": "llegás antes que todos",
+              "efectos": {
+                "tend": 2
+              }
+            },
+            "pierde": {
+              "texto": "una página que no visita nadie (por ahora)",
+              "efectos": {}
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "\"Mi negocio funciona sin internet\"",
+          "raw": "sin cambios hoy · el futuro toma nota",
+          "efectos": {
+            "tendLenta": -1
+          },
+          "notas": "La frase que envejece peor del deck."
+        }
+      ]
+    },
+    {
+      "id": "EC-03",
+      "bloque": "ecommerce",
+      "titulo": "El primer carrito",
+      "flavor": "Ya se puede comprar desde la página. Hubo un pedido esta semana. Fue tu hermana, pero cuenta.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2002,
+          2005
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Apostarle en serio al online",
+          "raw": "4 meses menos de caja · 60%: te volvés pionero / 40%: muy temprano todavía",
+          "efectos": {
+            "rw": -4
+          },
+          "apuesta": {
+            "p": 0.6,
+            "gana": {
+              "texto": "te volvés pionero",
+              "efectos": {
+                "tend": 2,
+                "ovr": 1
+              }
+            },
+            "pierde": {
+              "texto": "muy temprano todavía",
+              "efectos": {
+                "tend": -1
+              }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Dejarlo andando, sin invertir",
+          "raw": "sin costo · aprendés despacio",
+          "efectos": {
+            "tendLenta": 1
+          }
+        },
+        {
+          "id": "C",
+          "label": "Bajarlo, \"esto no es para nosotros\"",
+          "raw": "OVR -1 · la frase te va a perseguir",
+          "efectos": {
+            "ovr": -1,
+            "tend": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-04",
+      "bloque": "ecommerce",
+      "titulo": "Ridículo o visionario",
+      "flavor": "En la cámara de comercio se ríen: \"¿vender por internet? ¿y el trato con el cliente?\". Tus ventas online ya son el 8%.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2005,
+          2008
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Contratar al primer empleado solo para el online",
+          "raw": "3 meses menos de caja · el canal crece en serio",
+          "efectos": {
+            "rw": -3,
+            "tend": 2
+          }
+        },
+        {
+          "id": "B",
+          "label": "Seguir atendiéndolo vos de noche",
+          "raw": "gratis · dormís cada vez menos",
+          "efectos": {
+            "tend": 1,
+            "ovr": -1
+          }
+        },
+        {
+          "id": "C",
+          "label": "El online se atiende solo",
+          "raw": "sin costo · los pedidos se enfrían",
+          "efectos": {
+            "arrMul": 0.9
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-05",
+      "bloque": "ecommerce",
+      "titulo": "Tu web no se ve en el celular",
+      "flavor": "Todo el mundo mira el teléfono en el bondi. Tu página, en un teléfono, parece una foto sacada de lejos.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2011,
+          2014
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Rehacer todo para el celular",
+          "raw": "4 meses menos de caja · el futuro es esa pantallita",
+          "efectos": {
+            "rw": -4,
+            "tend": 2
+          }
+        },
+        {
+          "id": "B",
+          "label": "Un parche \"para que se vea\"",
+          "raw": "1 mes menos de caja · zafás por ahora",
+          "efectos": {
+            "rw": -1,
+            "tendLenta": -1
+          }
+        },
+        {
+          "id": "C",
+          "label": "\"El que quiere comprar, compra igual\"",
+          "raw": "ventas -15% · no, no compra igual",
+          "efectos": {
+            "arrMul": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-06",
+      "bloque": "ecommerce",
+      "titulo": "¿Marketplace o tienda propia?",
+      "flavor": "El gigante del e-commerce regional te abre la puerta: millones de compradores. A cambio: su comisión, sus reglas, y tus clientes son de él.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2014,
+          2020
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Entrar al marketplace con todo",
+          "raw": "ventas +40% · tu marca queda en segundo plano",
+          "efectos": {
+            "arrMul": 1.4,
+            "tend": -1
+          },
+          "notas": "Volumen hoy a cambio de canal ajeno mañana."
+        },
+        {
+          "id": "B",
+          "label": "Defender tu tienda propia",
+          "raw": "crece más lento · cada cliente es tuyo para siempre",
+          "efectos": {
+            "tendLenta": 2,
+            "ovr": 1
+          }
+        },
+        {
+          "id": "C",
+          "label": "Las dos canchas a la vez",
+          "raw": "2 meses menos de caja · ventas +20% · doble laburo",
+          "efectos": {
+            "rw": -2,
+            "arrMul": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-07",
+      "bloque": "ecommerce",
+      "titulo": "Vender por Instagram",
+      "flavor": "Subiste tres fotos con buena luz y cayeron diez consultas. Los DMs empiezan. Todavía son manejables. Todavía.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2017,
+          2020
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Meterle con todo a las redes",
+          "raw": "2 meses menos de caja · ventas +25% · los DMs se multiplican",
+          "efectos": {
+            "rw": -2,
+            "arrMul": 1.25
+          }
+        },
+        {
+          "id": "B",
+          "label": "Presencia prolija, sin obsesión",
+          "raw": "ventas +10% · dormís tranquilo",
+          "efectos": {
+            "arrMul": 1.1
+          }
+        },
+        {
+          "id": "C",
+          "label": "\"Mi cliente no está en Instagram\"",
+          "raw": "sin cambios · sí que está",
+          "efectos": {
+            "tend": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-08",
+      "bloque": "ecommerce",
+      "titulo": "El influencer",
+      "flavor": "Alguien con medio millón de seguidores subió un video usando tu producto. No le pagaste. Quinientas personas escribieron en una hora.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2017,
+          2023
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Surfear la ola: stock, respuestas, todo YA",
+          "raw": "3 meses menos de caja · 70%: ventas +50% y quedás instalado / 30%: la ola pasa de largo",
+          "efectos": {
+            "rw": -3
+          },
+          "apuesta": {
+            "p": 0.7,
+            "gana": {
+              "texto": "ventas +50% y tu marca queda instalada",
+              "efectos": {
+                "arrMul": 1.5,
+                "tend": 1
+              }
+            },
+            "pierde": {
+              "texto": "la ola pasa de largo",
+              "efectos": {}
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Contratarlo oficialmente",
+          "raw": "4 meses menos de caja · ventas +30% seguras",
+          "efectos": {
+            "rw": -4,
+            "arrMul": 1.3
+          }
+        },
+        {
+          "id": "C",
+          "label": "Responder lo que se pueda y seguir",
+          "raw": "gratis · la mitad de esas ventas se pierde",
+          "efectos": {
+            "arrMul": 1.1,
+            "tend": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-09",
+      "bloque": "ecommerce",
+      "titulo": "Los DMs no paran",
+      "flavor": "Doscientas consultas por día entre Instagram y WhatsApp. La mitad se responde tarde. Los que esperan, no compran.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2017,
+          2026
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Contratar dos personas para responder",
+          "raw": "4 meses menos de caja · las consultas se atienden",
+          "efectos": {
+            "rw": -4,
+            "tend": 1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Responder vos hasta las 3 AM",
+          "raw": "gratis · vos pagás el precio",
+          "efectos": {
+            "ovr": -1,
+            "tend": -1
+          }
+        },
+        {
+          "id": "C",
+          "label": "Que esperen: el que quiere, insiste",
+          "raw": "ventas -20% · no insisten: compran en otro lado",
+          "efectos": {
+            "arrMul": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-10",
+      "bloque": "ecommerce",
+      "titulo": "La ola de reclamos",
+      "flavor": "Cincuenta pedidos llegaron rotos por un error del embalaje nuevo. Las redes ya lo saben. Tu reputación cuelga de cómo respondas hoy.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Devolver la plata y reponer, a todos",
+          "raw": "3 meses menos de caja · OVR +2 · se acuerdan para siempre",
+          "efectos": {
+            "rw": -3,
+            "ovr": 2,
+            "tend": 1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Reponer solo a los que reclamaron fuerte",
+          "raw": "1 mes menos de caja · 50%: pasa desapercibido / 50%: el escándalo crece",
+          "efectos": {
+            "rw": -1
+          },
+          "apuesta": {
+            "p": 0.5,
+            "gana": {
+              "texto": "pasa desapercibido",
+              "efectos": {}
+            },
+            "pierde": {
+              "texto": "el escándalo crece",
+              "efectos": {
+                "ovr": -2,
+                "arrMul": 0.85
+              }
+            }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Hacerte el distraído",
+          "raw": "gratis hoy · carísimo siempre",
+          "efectos": {
+            "ovr": -2,
+            "tend": -2
+          },
+          "notas": "Spoiler del PRD: no."
+        }
+      ]
+    },
+    {
+      "id": "EC-11",
+      "bloque": "ecommerce",
+      "titulo": "Se acabó el stock",
+      "flavor": "Tu producto estrella, agotado en plena temporada alta. El proveedor tarda seis semanas. La gente sigue haciendo clic en comprar.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Subir el precio de lo que queda",
+          "raw": "ventas +15% ahora · algunos no te lo perdonan",
+          "efectos": {
+            "arrMul": 1.15,
+            "ovr": -1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Buscar otro proveedor volando",
+          "raw": "2 meses menos de caja · 60%: llega a tiempo / 40%: llega peor calidad",
+          "efectos": {
+            "rw": -2
+          },
+          "apuesta": {
+            "p": 0.6,
+            "gana": {
+              "texto": "llega a tiempo",
+              "efectos": {
+                "arrMul": 1.2
+              }
+            },
+            "pierde": {
+              "texto": "llega con peor calidad",
+              "efectos": {
+                "ovr": -1
+              }
+            }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Priorizar a los clientes de siempre",
+          "raw": "ventas -10% hoy · lealtad para años",
+          "efectos": {
+            "arrMul": 0.9,
+            "tend": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-12",
+      "bloque": "ecommerce",
+      "titulo": "El que rompe precios",
+      "flavor": "Un competidor nuevo vende casi lo mismo, 20% más barato. Tus clientes te mandan el link \"para que sepas\".",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Bajar precios y aguantar la sangría",
+          "raw": "3 meses menos de caja · 50%: él se funde primero / 50%: se funden los dos un poco",
+          "efectos": {
+            "rw": -3
+          },
+          "apuesta": {
+            "p": 0.5,
+            "gana": {
+              "texto": "se funde él primero",
+              "efectos": {
+                "arrMul": 1.3
+              }
+            },
+            "pierde": {
+              "texto": "se funden los dos un poco",
+              "efectos": {
+                "tend": -1
+              }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Subir la calidad y contar la diferencia",
+          "raw": "ventas -10% hoy · tu marca vale más mañana",
+          "efectos": {
+            "arrMul": 0.9,
+            "ovr": 2,
+            "tend": 1
+          }
+        },
+        {
+          "id": "C",
+          "label": "No hacer nada: tu cliente sabe",
+          "raw": "60%: tenías razón / 40%: no sabía",
+          "apuesta": {
+            "p": 0.6,
+            "gana": {
+              "texto": "tenías razón: vuelven",
+              "efectos": {
+                "ovr": 1
+              }
+            },
+            "pierde": {
+              "texto": "no sabía: se fueron por precio",
+              "efectos": {
+                "arrMul": 0.85
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-13",
+      "bloque": "ecommerce",
+      "titulo": "El pedido de Brasil",
+      "flavor": "Un mail en portugués: quieren 5.000 unidades para una cadena de San Pablo. No tenés 5.000 unidades. No tenés ni 500.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Decir que sí y resolver después",
+          "raw": "5 meses menos de caja · 55%: entrás a Brasil por la puerta grande / 45%: no llegás y quedás pagando",
+          "efectos": {
+            "rw": -5
+          },
+          "apuesta": {
+            "p": 0.55,
+            "gana": {
+              "texto": "entrás a Brasil por la puerta grande",
+              "efectos": {
+                "arrMul": 1.5,
+                "tend": 2
+              }
+            },
+            "pierde": {
+              "texto": "no llegás con la entrega y quedás pagando",
+              "efectos": {
+                "ovr": -2,
+                "tend": -1
+              }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Negociar la mitad, entregar seguro",
+          "raw": "2 meses menos de caja · ventas +25%",
+          "efectos": {
+            "rw": -2,
+            "arrMul": 1.25
+          }
+        },
+        {
+          "id": "C",
+          "label": "\"Gracias, todavía no\"",
+          "raw": "sin cambios · la puerta no siempre vuelve a abrirse",
+          "efectos": {
+            "tend": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-14",
+      "bloque": "ecommerce",
+      "titulo": "El carrito abandonado",
+      "flavor": "De cada diez que llenan el carrito, siete se van sin pagar. Siete de cada diez. Está todo ahí, servido, y se van.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2011,
+          2026
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Investigar por qué se van",
+          "raw": "1 mes menos de caja · era el costo de envío (siempre es el costo de envío)",
+          "efectos": {
+            "rw": -1,
+            "tend": 2
+          }
+        },
+        {
+          "id": "B",
+          "label": "Mandar mails de \"te olvidaste algo\"",
+          "raw": "ventas +10% · algunos te puteán",
+          "efectos": {
+            "arrMul": 1.1
+          }
+        },
+        {
+          "id": "C",
+          "label": "Es lo normal del rubro",
+          "raw": "sin cambios · normal no es lo mismo que bien",
+          "efectos": {}
+        }
+      ]
+    },
+    {
+      "id": "EC-15",
+      "bloque": "ecommerce",
+      "titulo": "La pregunta de las 3 AM",
+      "flavor": "\"¿Hacen envíos a Ushuaia?\" Son las 3 de la mañana. Es la cuarta vez esta semana que contestás desde la cama.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2014,
+          2026
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Poner horarios y respetarlos",
+          "raw": "algunas ventas se pierden · vos te recuperás",
+          "efectos": {
+            "ovr": 1,
+            "arrMul": 0.95
+          }
+        },
+        {
+          "id": "B",
+          "label": "Seguir contestando siempre",
+          "raw": "ventas +5% · el precio lo pagás vos",
+          "efectos": {
+            "arrMul": 1.05,
+            "ovr": -1
+          }
+        },
+        {
+          "id": "C",
+          "label": "Armar respuestas listas y preguntas frecuentes",
+          "raw": "1 mes menos de caja · media solución honesta",
+          "efectos": {
+            "rw": -1,
+            "tend": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-16",
+      "bloque": "ecommerce",
+      "titulo": "El Hot Sale",
+      "flavor": "El evento de descuentos más grande del año. La última vez se te cayó la página a las 00:04 y quedaste en los memes.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2014,
+          2026
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Invertir antes en que la página aguante",
+          "raw": "2 meses menos de caja · 75%: récord de ventas / 25%: se cae igual",
+          "efectos": {
+            "rw": -2
+          },
+          "apuesta": {
+            "p": 0.75,
+            "gana": {
+              "texto": "récord de ventas",
+              "efectos": {
+                "arrMul": 1.3
+              }
+            },
+            "pierde": {
+              "texto": "se cae igual",
+              "efectos": {
+                "ovr": -1
+              }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Entrar con lo que hay",
+          "raw": "gratis · 40%: aguanta / 60%: memes otra vez",
+          "apuesta": {
+            "p": 0.4,
+            "gana": {
+              "texto": "aguanta y vendés",
+              "efectos": {
+                "arrMul": 1.25
+              }
+            },
+            "pierde": {
+              "texto": "se cae en hora pico: memes otra vez",
+              "efectos": {
+                "ovr": -2
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-17",
+      "bloque": "ecommerce",
+      "titulo": "El proveedor que te falla",
+      "flavor": "Veinte años laburando juntos y esta vez te dejó a pie: la mitad del pedido, tarde, y con otro precio. \"Está difícil todo\", dice.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Buscar proveedor nuevo ya",
+          "raw": "2 meses menos de caja · 65%: encontrás mejor / 35%: era el menos malo",
+          "efectos": {
+            "rw": -2
+          },
+          "apuesta": {
+            "p": 0.65,
+            "gana": {
+              "texto": "encontrás uno mejor",
+              "efectos": {
+                "tend": 2
+              }
+            },
+            "pierde": {
+              "texto": "era el menos malo",
+              "efectos": {
+                "tend": -1
+              }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Bancarlo esta vez, renegociar",
+          "raw": "ventas -10% este año · la relación sobrevive",
+          "efectos": {
+            "arrMul": 0.9,
+            "tend": 1
+          }
+        },
+        {
+          "id": "C",
+          "label": "Empezar a fabricar vos",
+          "raw": "6 meses menos de caja · nadie más te falla nunca",
+          "efectos": {
+            "rw": -6,
+            "tendLenta": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-18",
+      "bloque": "ecommerce",
+      "titulo": "Las devoluciones",
+      "flavor": "\"No era como en la foto.\" Una de cada cinco vuelve. Cada devolución cuesta el doble del envío y un pedazo de paciencia.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2011,
+          2026
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Devolución fácil y gratis, política de casa",
+          "raw": "1 mes menos de caja · compran sin miedo: ventas +15%",
+          "efectos": {
+            "rw": -1,
+            "arrMul": 1.15
+          }
+        },
+        {
+          "id": "B",
+          "label": "Ponerle fricción \"para filtrar vivos\"",
+          "raw": "ahorrás plata · ventas -10%: el miedo filtra a todos",
+          "efectos": {
+            "rw": 1,
+            "arrMul": 0.9
+          }
+        },
+        {
+          "id": "C",
+          "label": "Arreglar las fotos y las descripciones",
+          "raw": "1 mes menos de caja · ataca la causa, no el síntoma",
+          "efectos": {
+            "rw": -1,
+            "tend": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-19",
+      "bloque": "ecommerce",
+      "titulo": "El local",
+      "flavor": "El alquiler sube, el online ya es el 70% de tus ventas. Pero ese local fue el primero. Tu vieja atendió ahí.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2014,
+          2026
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Cerrarlo: los números mandan",
+          "raw": "+4 meses de caja · OVR -1 · duele",
+          "efectos": {
+            "rw": 4,
+            "ovr": -1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Convertirlo en showroom con historia",
+          "raw": "2 meses menos de caja · tu marca gana un templo",
+          "efectos": {
+            "rw": -2,
+            "ovr": 2,
+            "tend": 1
+          }
+        },
+        {
+          "id": "C",
+          "label": "Sostenerlo como está, por lo que significa",
+          "raw": "2 meses menos de caja por año · el corazón también factura (a veces)",
+          "efectos": {
+            "rw": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-20",
+      "bloque": "ecommerce",
+      "titulo": "Los ads cada vez más caros",
+      "flavor": "El mismo aviso que traía cien clientes ahora trae cuarenta, y sale el doble. Alquilaste tu crecimiento y te subieron el alquiler.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2020,
+          2026
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pagar igual: sin ads no hay ventas",
+          "raw": "3 meses menos de caja · ventas se sostienen · adicción confirmada",
+          "efectos": {
+            "rw": -3,
+            "tend": -1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Construir canal propio: mail, comunidad, contenido",
+          "raw": "2 meses menos de caja · lento pero es TUYO",
+          "efectos": {
+            "rw": -2,
+            "tendLenta": 2
+          }
+        },
+        {
+          "id": "C",
+          "label": "Cortar los ads de golpe",
+          "raw": "ventas -25% ya · 45%: la marca aguanta sola / 55%: no aguanta",
+          "efectos": {
+            "arrMul": 0.75
+          },
+          "apuesta": {
+            "p": 0.45,
+            "gana": {
+              "texto": "la marca aguanta sola: sos libre",
+              "efectos": {
+                "tend": 2,
+                "ovr": 1
+              }
+            },
+            "pierde": {
+              "texto": "no aguanta: a comprar ads de vuelta",
+              "efectos": {
+                "tend": -1
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-21",
+      "bloque": "ecommerce",
+      "titulo": "La temporada baja",
+      "flavor": "Febrero. El local vacío, la web quieta, los costos puntuales como siempre. Todos los años pasa y todos los años sorprende.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Liquidar stock con descuentos agresivos",
+          "raw": "+2 meses de caja · tu producto se malacostumbra al descuento",
+          "efectos": {
+            "rw": 2,
+            "tend": -1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Usar la calma: mejorar producto y procesos",
+          "raw": "1 mes menos de caja · marzo te encuentra mejor",
+          "efectos": {
+            "rw": -1,
+            "tend": 2
+          }
+        },
+        {
+          "id": "C",
+          "label": "Lanzar algo nuevo fuera de temporada",
+          "raw": "2 meses menos de caja · 50%: te inventás tu propia temporada / 50%: febrero es febrero",
+          "efectos": {
+            "rw": -2
+          },
+          "apuesta": {
+            "p": 0.5,
+            "gana": {
+              "texto": "te inventás tu propia temporada",
+              "efectos": {
+                "arrMul": 1.25
+              }
+            },
+            "pierde": {
+              "texto": "febrero es febrero",
+              "efectos": {}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-22",
+      "bloque": "ecommerce",
+      "titulo": "Las fotos del producto",
+      "flavor": "Tus fotos las sacás con el celular arriba de una sábana. Las del competidor parecen de revista. El producto tuyo es mejor. No parece.",
+      "tipo": "T1",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2005,
+          2020
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Contratar un fotógrafo en serio",
+          "raw": "1 mes menos de caja · ventas +15%: la gente compra con los ojos",
+          "efectos": {
+            "rw": -1,
+            "arrMul": 1.15
+          }
+        },
+        {
+          "id": "B",
+          "label": "Aprender vos, tutorial mediante",
+          "raw": "gratis · sale decente y sabés para siempre",
+          "efectos": {
+            "tend": 1
+          }
+        },
+        {
+          "id": "C",
+          "label": "\"El producto habla solo\"",
+          "raw": "sin cambios · el producto no habla: se ve",
+          "efectos": {}
+        }
+      ]
+    },
+    {
+      "id": "EC-23",
+      "bloque": "ecommerce",
+      "titulo": "El courier pierde paquetes",
+      "flavor": "Tres pedidos \"en camino\" hace veinte días. El courier no atiende. Para el cliente, el que desapareció sos vos.",
+      "tipo": "T2",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2005,
+          2026
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Cambiar de courier, aunque sea más caro",
+          "raw": "1 mes menos de caja · las entregas llegan",
+          "efectos": {
+            "rw": -1,
+            "tend": 1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Reponer los pedidos de tu bolsillo y reclamar",
+          "raw": "1 mes menos de caja · OVR +1 · el cliente no paga tus problemas",
+          "efectos": {
+            "rw": -1,
+            "ovr": 1
+          }
+        },
+        {
+          "id": "C",
+          "label": "\"Señora, el correo no depende de mí\"",
+          "raw": "gratis · para ella sí dependía",
+          "efectos": {
+            "ovr": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-24",
+      "bloque": "ecommerce",
+      "titulo": "Quinientos mensajes en una hora",
+      "flavor": "El país entero se encerró y compra online. Tu teléfono no para de vibrar: 500 consultas en una hora. Esto ya no se responde a mano.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2020,
+          2020
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Responder vos, día y noche",
+          "raw": "gratis · llegás a la mitad · el resto compra en otro lado",
+          "efectos": {
+            "arrMul": 1.15,
+            "ovr": -2,
+            "tend": -1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Contratar cuatro personas ya",
+          "raw": "6 meses menos de caja · humano, caro, y funciona",
+          "efectos": {
+            "rw": -6,
+            "arrMul": 1.35,
+            "ovr": 1
+          }
+        },
+        {
+          "id": "C",
+          "label": "🤖 Activar Parlyx: agentes que responden por vos",
+          "raw": "4 meses menos de caja · las conversaciones se atienden solas, a toda hora, para siempre",
+          "efectos": {
+            "rw": -4,
+            "arrMul": 1.35,
+            "special": "parlyxActivar"
+          },
+          "notas": "El beat estructural (PRD v1.0 §4). No es gratis ni obligatorio, y no siempre es lo óptimo: la regla de oro se verifica en sim (target 60-70%). El beneficio persistente vive en el special (prodMul ×1.35 + amortiguador de caídas ×0.6, FIX-PACK §5) — sin tend extra para no contarlo dos veces."
+        }
+      ],
+      "notas": "Anclada al 2020 por deck.js (garantizada por estructura, como los años ancla)."
+    },
+    {
+      "id": "EC-25",
+      "bloque": "ecommerce",
+      "titulo": "El tiempo que recuperaste",
+      "flavor": "Los agentes responden solos desde hace tres años. Las horas que antes se iban en el teléfono ahora son tuyas. ¿Qué hacés con ellas?",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2023,
+          2023
+        ],
+        "condicion": "Parlyx activado (ancla de deck.js)"
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Marketing: que la marca suene",
+          "raw": "ventas +25% este tramo",
+          "efectos": {
+            "arrMul": 1.25
+          }
+        },
+        {
+          "id": "B",
+          "label": "Productos nuevos",
+          "raw": "1 mes menos de caja · el catálogo se agranda para el futuro",
+          "efectos": {
+            "rw": -1,
+            "tendLenta": 2
+          }
+        },
+        {
+          "id": "C",
+          "label": "Abrir otro mercado",
+          "raw": "2 meses menos de caja · ventas +15% · el mapa se agranda",
+          "efectos": {
+            "rw": -2,
+            "arrMul": 1.15,
+            "tend": 1
+          }
+        },
+        {
+          "id": "D",
+          "label": "Experiencia del cliente: que volver sea obvio",
+          "raw": "OVR +2 · los que compran, vuelven",
+          "efectos": {
+            "ovr": 2,
+            "tend": 1
+          }
+        }
+      ],
+      "notas": "La mejor carta del feedback externo, adoptada tal cual (PRD v1.0 §1). Solo aparece si activaste Parlyx."
+    }
+  ]
+}

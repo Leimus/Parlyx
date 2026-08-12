@@ -1,0 +1,11 @@
+{
+  "_comentario": "Arcos narrativos (PRD v0.3 §5): cada seed sortea UN arco que sesga el momentum por fases vía momentumBias (aditivo, motor intacto). El jugador nunca ve el nombre: siente la forma. 'El Pase a la Corpo' (15%) queda fuera de v1 (necesita modo ejecutivo, F3): su probabilidad se suma a 'ninguno'. turnos son 1-11; crash sortea un turno dentro de la ventana; alternancia invierte el signo cada `periodo` turnos; techoMax recorta el techo oculto (Artesano: PyME de oro).",
+  "arcos": [
+    { "id": "promesa", "nombre": "La Promesa", "prob": 0.15, "fases": [{ "desde": 1, "hasta": 3, "bias": 2 }] },
+    { "id": "meteoro", "nombre": "El Meteoro", "prob": 0.1, "fases": [{ "desde": 1, "hasta": 3, "bias": 2 }], "crash": { "ventana": [4, 6], "bias": -4 } },
+    { "id": "desierto", "nombre": "La Travesía del Desierto", "prob": 0.15, "fases": [{ "desde": 3, "hasta": 6, "bias": -2 }, { "desde": 7, "hasta": 9, "bias": 2 }] },
+    { "id": "artesano", "nombre": "El Artesano", "prob": 0.2, "fases": [], "techoMax": 85 },
+    { "id": "montanarusa", "nombre": "La Montaña Rusa", "prob": 0.15, "alternancia": { "periodo": 2, "bias": 2 } },
+    { "id": "ninguno", "nombre": "Caos puro", "prob": 0.25, "fases": [] }
+  ]
+}

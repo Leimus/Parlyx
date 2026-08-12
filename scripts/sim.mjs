@@ -43,18 +43,24 @@ const TARGETS = {
   unicornio: { min: 7, max: 9 },
   ipo: { min: 3, max: 5 },
 };
-const OVR_PEAK_TARGET = { min: 74, max: 78 };
+const OVR_PEAK_TARGET = { min: 73, max: 77 }; // FIX-PACK §1 (antes 74-78 en §17)
 const EMERG_MAX = 1.2;
 
 function pct(n, t) { return ((100 * n) / t).toFixed(1) + "%"; }
 
 const dist = {};
 let emergTot = 0, rescTot = 0, ovrPeakTot = 0, rondasTot = 0;
+let pico80 = 0, pico85 = 0, pico90 = 0, pico95 = 0, racha3 = 0;
 const ejemplos = {};
 for (let i = 0; i < N; i++) {
   const { end, g } = runOne("SIM" + i);
   dist[end] = (dist[end] || 0) + 1;
   emergTot += g.emergencias; rescTot += g.rescates; ovrPeakTot += g.ovrPeak; rondasTot += g.rondas;
+  if (g.ovrPeak >= 80) pico80++;
+  if (g.ovrPeak >= 85) pico85++;
+  if (g.ovrPeak >= 90) pico90++;
+  if (g.ovrPeak >= 95) pico95++;
+  if (g.rachaMax >= 3) racha3++;
   if (!ejemplos[end]) ejemplos[end] = { ovrSerie: g.ovrSerie, arrSerie: g.arrSerie, vertical: g.vertical };
 }
 
@@ -67,7 +73,13 @@ for (const k of ["quiebra", "remando", "pyme", "grande", "unicornio", "ipo", "ip
 console.log("\nEmergencias promedio/partida:", (emergTot / N).toFixed(2), " (target ≤ 1.2)");
 console.log("Rescates promedio/partida:  ", (rescTot / N).toFixed(2));
 console.log("Rondas promedio/partida:    ", (rondasTot / N).toFixed(2));
-console.log("OVR pico promedio:          ", (ovrPeakTot / N).toFixed(1), " (target 74-78)");
+console.log("OVR pico promedio:          ", (ovrPeakTot / N).toFixed(1), " (target 73-77)");
+console.log("\n=== OVR PICO — el techo es una pendiente (FIX-PACK §1) ===");
+console.log("pico ≥ 80:", pct(pico80, N).padStart(7), "  target: 20-26%");
+console.log("pico ≥ 85:", pct(pico85, N).padStart(7), "  target: 12-16%");
+console.log("pico ≥ 90:", pct(pico90, N).padStart(7), "  target: 5-8%");
+console.log("pico ≥ 95:", pct(pico95, N).padStart(7), "  target: 1.5-3%");
+console.log("racha 3+: ", pct(racha3, N).padStart(7), "  target: ≥30% (FIX-PACK §3)");
 console.log("\n=== EJEMPLOS DE CURVAS OVR (altos y bajos) ===");
 for (const k in ejemplos) console.log(k.padEnd(10), ejemplos[k].vertical.padEnd(12), ejemplos[k].ovrSerie.join(" → "));
 
