@@ -97,7 +97,7 @@
 - **C. Aguantar sin tocar nada** → 60%: ARR +50% / 40%: RW -10m
 
 **M-13 · "La plata era gratis"** · T4 · Ventana 2020-2023 · TE PASÓ: todos
-*Rondas a 100x ARR, term sheets en 48 horas, todos contratan a todos. Nada de esto es normal.*
+*Te ofrecen cien veces lo que vendés, ofertas de inversión en 48 horas, todos contratan a todos. Nada de esto es normal.*
 - **A. Levantar a valuación absurda** → RW +36m · EQ -12% (dilución baja: el múltiplo te protege) · ⚑ valuación_inflada (si cae M-14: down round forzado)
 - **B. Levantar razonable** → RW +18m · EQ -12%
 - **C. Vender la empresa en el pico** → habilita final Exit con múltiplo ×1.5 (la salida del sabio)
@@ -235,19 +235,19 @@
 - **C. Seguir siendo vos el CTO** → OVR -1 por trienio desde Serie A (no escala)
 
 **G-07 · "Reescribir todo de cero"** · T2 · Etapa: Serie A en adelante
-*Tu CTO dice que el código viejo no aguanta más. Quiere seis meses y cero features nuevas.*
+*El que te maneja los sistemas dice que ya no aguantan más. Quiere seis meses y ninguna novedad para vender.*
 - **A. Dale, reescriban** → ARR -10% este trienio · 60%: TEND +2 / 40%: tarda el doble, RW -6m
 - **B. Parches y a seguir vendiendo** → ARR +10% · ⚑ deuda_técnica (próxima crisis: efectos ×1.5)
 - **C. Mitad y mitad** → sin efectos (la peor decisión posible, y el juego te lo dice)
 
-**G-08 · "Dos term sheets"** · T7 · Etapa: cualquier ronda
+**G-08 · "Dos ofertas sobre la mesa"** · T7 · Etapa: cualquier ronda
 *El fondo top del Valle y el fondo regional de siempre. Mismo día, distinta letra chica.*
 - **A. El fondo top** → RW +20m · EQ -20% · TEND +1 · ⚑ presión_growth
 - **B. El fondo regional paciente** → RW +14m · EQ -15%
 - **C. Los dos (ronda más grande)** → RW +28m · EQ -26% · board complicado: TEND -1
 
 **G-09 · "Plata prestada"** · T7 · Etapa: Serie A+, ARR > 0
-*Venture debt: plata sin ceder equity. El interés se paga igual, llueva o truene.*
+*Plata prestada, sin ceder un pedazo de tu empresa. El interés se paga igual, llueva o truene.*
 - **A. Tomar la deuda** → RW +10m · EQ 0% · ⚑ deuda (si llega era ⛈: RW -6m extra)
 - **B. Pasar** → sin cambios
 

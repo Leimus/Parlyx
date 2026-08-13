@@ -1273,6 +1273,353 @@
         }
       ],
       "notas": "La mejor carta del feedback externo, adoptada tal cual (PRD v1.0 §1). Solo aparece si activaste Parlyx."
+    },
+    {
+      "id": "EC-26",
+      "bloque": "ecommerce",
+      "titulo": "Cuarenta mil consultas por día",
+      "flavor": "El gigante vende como nunca y el call center se cayó entero. Cuarenta mil consultas por día sin responder. En la reunión del lunes todos te miran a vos.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "corpo"
+        ],
+        "ventana": [
+          2020,
+          2020
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Tercerizar todo a un call center gigante",
+          "raw": "se descomprime en una semana · si la atención sale mala te la facturan a vos",
+          "apuesta": {
+            "p": 0.55,
+            "gana": {
+              "texto": "Descomprimió rápido y quedaste como el que apagó el incendio.",
+              "efectos": {
+                "pat": 380000,
+                "ovr": 1
+              }
+            },
+            "pierde": {
+              "texto": "Atienden pésimo. La queja llegó al directorio, con tu nombre.",
+              "efectos": {
+                "pat": 150000,
+                "ovr": -3
+              }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Contratar doscientas personas",
+          "raw": "seis meses de buscar y entrenar · funciona · el costo te lo comés vos",
+          "efectos": {
+            "pat": -150000,
+            "ovr": 4
+          }
+        },
+        {
+          "id": "C",
+          "label": "🤖 Llevar Parlyx a toda la compañía",
+          "raw": "dos meses de pelearla puertas adentro · las conversaciones se atienden solas, en toda la compañía, para siempre",
+          "efectos": {
+            "patPct": -0.06,
+            "ovr": 2,
+            "special": "parlyxActivar"
+          },
+          "notas": "Beat 2020 de la silla B (SPEC v3 §2.3). Mismo special que EC-24: el beneficio persistente vive ahí (en corpo entra por playaTurn)."
+        }
+      ],
+      "notas": "Anclada al 2020 por deck.js para la silla corpo. Garantiza el beat Parlyx a quien no es fundador (SPEC v3 §2.3)."
+    },
+    {
+      "id": "EC-27",
+      "bloque": "ecommerce",
+      "titulo": "Te vienen a buscar",
+      "flavor": "Café en el centro. El gigante del comercio regional quiere que manejes toda su operación. Sueldo que no viste nunca, y tu marca queda atrás.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "turnoMin": 4,
+        "turnoMax": 8,
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Agradecer y seguir con lo tuyo",
+          "raw": "gratis · te queda la duda · tu gente te ve quedarte",
+          "efectos": {
+            "ovr": 1,
+            "tend": 1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Pedir el doble a ver qué pasa",
+          "raw": "mitad de chance de que acepten · si no, seguís igual",
+          "apuesta": {
+            "p": 0.5,
+            "gana": {
+              "texto": "Aceptaron sin pestañear. Firmaste el lunes.",
+              "efectos": {
+                "pat": 900000,
+                "special": "corpo"
+              }
+            },
+            "pierde": {
+              "texto": "Se rieron. Seguís siendo dueño de lo tuyo.",
+              "efectos": {
+                "tend": 1
+              }
+            }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Aceptar y colgar los guantes de dueño",
+          "raw": "sueldo grande y estabilidad · dejás de ser dueño",
+          "efectos": {
+            "pat": 500000,
+            "special": "corpo"
+          }
+        }
+      ],
+      "notas": "El camino VOLUNTARIO a la silla B (SPEC v3 §2.1: \"te ficha el gigante\"). Hasta ahora corpo solo se alcanzaba quebrando o por acquihire."
+    },
+    {
+      "id": "EC-28",
+      "bloque": "ecommerce",
+      "titulo": "El reporte de los lunes",
+      "flavor": "Cuarenta diapositivas para decir que las ventas subieron 3%. Tu jefe quiere el número más grande; vos sabés de dónde sale de verdad.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "corpo"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Poner el número que quieren ver",
+          "raw": "todos contentos este trimestre · el agujero aparece después",
+          "efectos": {
+            "pat": 150000,
+            "ovr": -2
+          }
+        },
+        {
+          "id": "B",
+          "label": "Mostrar el número real",
+          "raw": "reunión incómoda · te ganás el respeto de los que saben",
+          "efectos": {
+            "ovr": 2
+          }
+        },
+        {
+          "id": "C",
+          "label": "Mostrar el real y traer un plan",
+          "raw": "te lleva dos fines de semana · te dan presupuesto",
+          "efectos": {
+            "ovr": 3,
+            "pat": 80000
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-29",
+      "bloque": "ecommerce",
+      "titulo": "Tu marca en la góndola",
+      "flavor": "Recorriendo el depósito lo ves: un pallet con lo que fue tu marca, ahora una etiqueta más del catálogo de otro.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "corpo"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pedir manejarla vos",
+          "raw": "te la dan sin discutir · más horas, misma plata",
+          "efectos": {
+            "ovr": 2
+          }
+        },
+        {
+          "id": "B",
+          "label": "Proponer relanzarla en grande",
+          "raw": "presupuesto de la compañía detrás · si sale mal es tu nombre",
+          "apuesta": {
+            "p": 0.55,
+            "gana": {
+              "texto": "Relanzada, vende más que nunca. Y la firmaste vos.",
+              "efectos": {
+                "pat": 400000,
+                "ovr": 3
+              }
+            },
+            "pierde": {
+              "texto": "No enganchó. Quedó como el capricho del que la fundó.",
+              "efectos": {
+                "ovr": -2
+              }
+            }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Dejarla ir",
+          "raw": "gratis · seguís de largo · algo se cierra adentro",
+          "efectos": {
+            "pat": 100000
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-30",
+      "bloque": "ecommerce",
+      "titulo": "Te ofrecen la región",
+      "flavor": "Toda la operación de tres países. Más plata, más gente a cargo, y una mudanza que no estaba en los planes.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "corpo"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptar y mudarte",
+          "raw": "sueldo mucho más grande · tu vida se muda con vos",
+          "efectos": {
+            "pat": 700000,
+            "ovr": 3
+          }
+        },
+        {
+          "id": "B",
+          "label": "Aceptar pidiendo quedarte acá",
+          "raw": "te lo dan a medias · viajás una semana por mes",
+          "efectos": {
+            "pat": 350000,
+            "ovr": 1
+          }
+        },
+        {
+          "id": "C",
+          "label": "Decir que no",
+          "raw": "gratis · te quedás donde estás · el tren pasa una vez",
+          "efectos": {
+            "pat": 80000
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-31",
+      "bloque": "ecommerce",
+      "titulo": "El pasillo",
+      "flavor": "Dos directores en guerra y los dos te quieren de su lado. En esta compañía la carrera se decide en los pasillos, no en las planillas.",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "corpo"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Jugar para el que va ganando",
+          "raw": "mitad de chance de pegarle al ganador · si perdés, quedás marcado",
+          "apuesta": {
+            "p": 0.5,
+            "gana": {
+              "texto": "Ganó el tuyo. Subiste con él.",
+              "efectos": {
+                "pat": 600000,
+                "ovr": 3
+              }
+            },
+            "pierde": {
+              "texto": "Perdió el tuyo. Ahora sos del bando equivocado.",
+              "efectos": {
+                "pat": -100000,
+                "ovr": -3
+              }
+            }
+          }
+        },
+        {
+          "id": "B",
+          "label": "No meterte y hacer tu trabajo",
+          "raw": "gratis · nadie te asciende · nadie te echa",
+          "efectos": {
+            "pat": 120000
+          }
+        },
+        {
+          "id": "C",
+          "label": "Hablar con los dos y proponer una tregua",
+          "raw": "te cuesta dos meses de desgaste · te ganás a los dos",
+          "efectos": {
+            "ovr": 3,
+            "pat": 200000
+          }
+        }
+      ]
+    },
+    {
+      "id": "EC-32",
+      "bloque": "ecommerce",
+      "titulo": "Colgar los guantes",
+      "flavor": "Veinte años de abrir el local antes que nadie. Anoche te quedaste dormido en el escritorio y nadie te extrañó hasta las once. La marca vale plata y vos tenés una duda: ¿para qué seguís?",
+      "tipo": "T3",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "turnoMin": 4,
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Seguir: esto es lo que sabés hacer",
+          "raw": "gratis · volvés con más ganas · el cansancio queda para después",
+          "efectos": {
+            "ovr": 2,
+            "tend": 1
+          }
+        },
+        {
+          "id": "B",
+          "label": "Bajar un cambio y delegar",
+          "raw": "la marca crece más despacio · dormís de noche",
+          "efectos": {
+            "tend": -1,
+            "ovr": 1,
+            "patPct": 0.1
+          }
+        },
+        {
+          "id": "C",
+          "label": "Soltar, cobrar tu parte y bancar a los que arrancan",
+          "raw": "cobrás lo que vale tu parte · dejás de ser dueño · te volvés el que banca a otros",
+          "efectos": {
+            "special": "angel"
+          },
+          "notas": "Camino VOLUNTARIO a la silla C (SPEC v3 §2.2: retiro por venta O por cansancio). El special cobra tu parte y te sienta de Ángel sin pasar por PX-01."
+        }
+      ],
+      "notas": "Entrada voluntaria a la silla del Ángel. Gate del §2.4 en la elegibilidad (turno ≥4 y etapa ≥ Seed: el patrimonio de un fundador vive en la empresa, no en el bolsillo)."
     }
   ]
 }

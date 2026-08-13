@@ -306,7 +306,7 @@
       "id": "G-07",
       "bloque": "generales",
       "titulo": "Reescribir todo de cero",
-      "flavor": "Tu CTO dice que el código viejo no aguanta más. Quiere seis meses y cero features nuevas.",
+      "flavor": "El que te maneja los sistemas dice que ya no aguantan más. Quiere seis meses y ninguna novedad para vender.",
       "tipo": "T2",
       "elegibilidad": {
         "modos": [
@@ -361,7 +361,7 @@
     {
       "id": "G-08",
       "bloque": "generales",
-      "titulo": "Dos term sheets",
+      "titulo": "Dos ofertas sobre la mesa",
       "flavor": "El fondo top del Valle y el fondo regional de siempre. Mismo día, distinta letra chica.",
       "tipo": "T7",
       "elegibilidad": {
@@ -408,7 +408,7 @@
       "id": "G-09",
       "bloque": "generales",
       "titulo": "Plata prestada",
-      "flavor": "Venture debt: plata sin ceder equity. El interés se paga igual, llueva o truene.",
+      "flavor": "Plata prestada, sin ceder un pedazo de tu empresa. El interés se paga igual, llueva o truene.",
       "tipo": "T7",
       "elegibilidad": {
         "modos": [

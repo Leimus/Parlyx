@@ -28,7 +28,10 @@ Principio rector v0.3 §0 sigue: el juego primero.
 | `lib/engine/` | Motor económico puro, módulo importable | Fuente de verdad de la economía |
 | `data/balance.json` | `BAL` — el ÚNICO lugar de tuneo económico | — |
 | `data/eras.json` | Eras/múltiplos por año (generada de la eraFor original) | — |
-| `docs/UI-SPEC-v2-densidad-copero.md` | Spec de UI vigente (tabla siempre visible, píldora OVR, Framer Motion) | **Manda sobre cualquier spec de UI anterior** (incl. anexo §10) |
+| `docs/SPEC-v3-legibilidad-sillas-epocas-portada.md` | Legibilidad · tres sillas · marcos de época · portada | **Manda sobre UI-SPEC v2 en tipografía y densidad** |
+| `docs/UI-SPEC-v2-densidad-copero.md` | Spec de UI (tabla siempre visible, píldora OVR, Framer Motion) | Vigente salvo donde v3 contradiga |
+| `scripts/check-legibilidad.mjs` | Contraste WCAG + piso de 13px (SPEC v3 §1) | Traba de CI |
+| `scripts/test-beat-parlyx.mjs` | 100% de partidas ven el beat 2020 + distribución de sillas | Traba de CI (SPEC v3 §2.5) |
 | `data/arcos.json` | Arcos narrativos (sesgos de momentum por fase, PRD v0.3 §5) | Tuneo de arcos acá |
 | `data/tags-ejes.json` | Tags de eje por opción → arquetipos (PRD v0.3 §2) | Tuneo del perfil acá |
 | `reference/engine-v1.original.js` | El motor original INTACTO (validado 20.000 sims) | Referencia para diff |
@@ -147,11 +150,32 @@ npm run build          # build estático (out/)
    sitemap · "por Parlyx AI" ahora es link real (landing y tarjeta, con UTM) · Lighthouse
    mobile 91 (build servido con gzip; transferencia ~283KB) · deploy: README §Deploy
    (Vercel 2 pasos + CNAME). La og dinámica por partida sigue en F4.
-8. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
+8. ✅ **SPEC v3 (playtest con usuarios reales)** — `docs/SPEC-v3-legibilidad-sillas-epocas-portada.md`,
+   manda sobre UI-SPEC v2 en tipografía y densidad:
+   §1 **legibilidad**: escala completa (piso 13px, fila 38px, flavor 17px, título 26px,
+   OVR 17px), `--dim` → `#A8B0BE` (≥7:1) y `scripts/check-legibilidad.mjs` en CI (contraste
+   WCAG + piso de 13px, 96 declaraciones auditadas). Halló 3 fallas que la spec no
+   anticipaba: las píldoras bronce/plata/violeta daban 2.5-3.3:1 en el stop oscuro ·
+   §2 **las tres sillas**: el retiro pasa a rol ACTIVO de Ángel (portfolio de 2 marcas,
+   cartas de consejo), corpo y ángel juegan turno a turno (murió el fast-forward que
+   dejaba al 13% sin ver 2020), beat 2020 anclado en las 3 sillas (EC-24/EC-26/P-09),
+   gate de retiro turno ≥4, HUD e IMPACTO por silla. 11 cartas nuevas (EC-26→EC-32, P-09→P-12),
+   deck 122. Toda la economía de sillas vive en `playaTurn` (lib/game/) → **golden intacto** ·
+   §3 **marcos de época**: diario/CRT/navegador/celular/chat envolviendo SOLO la carta
+   (cromo DENTRO del .sheet: envolverlo rompía el position:fixed y el auto-scroll),
+   cartel de transición 900ms, ticker evolutivo · §4 **portada**: tapa de diario 1993 con
+   mini-preview de tabla llenándose en loop y apertura de 900ms al setup.
+   **Verificado:** 100% de 10k partidas ven el beat (`scripts/test-beat-parlyx.mjs`, en CI) ·
+   sillas 68.9/16.3/14.8 (las 3 en banda) · regla de oro 65.0% ∈ [60-70] · Lighthouse 96 ·
+   E2E de los 5 marcos + los 3 beats a 390px.
+   **Bugs encontrados de paso:** `check-lenguaje` validaba el flavor HUMANIZADO pero la UI
+   lo pintaba crudo → 7 fugas reales en pantalla ("term sheets", "ARR", "⚑"), corregidas en
+   JSON y en los `.md`; el checker ahora audita la prosa tal como se renderiza.
+9. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
    racha · email/informe por arquetipo · tienda/powerups (4 items) · HubSpot.
-9. 🔲 F3 motor: modo ejecutivo D6 completo (el corpo de DD-01 es la versión light),
+10. 🔲 F3 motor: modo ejecutivo D6 completo (el corpo de DD-01 es la versión light),
    condiciones en prosa, retiro standalone, recalibrar `BAL` contra §17.
-10. 🔲 F4: og:image dinámica + arte final de tarjeta.
+11. 🔲 F4: og:image dinámica + arte final de tarjeta.
 
 ## Contexto de negocio
 
