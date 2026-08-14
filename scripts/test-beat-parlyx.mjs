@@ -21,7 +21,7 @@
    dejaría el beat sin efecto en silencio.
    ============================================================ */
 import { createGame, chooseOption, advanceTurn } from "../lib/game/state.js";
-import { BEAT_2020 } from "../lib/game/deck.js";
+import { BEAT_2020, VARIANTES_2020, cardById } from "../lib/game/deck.js";
 import { rng, mulberry32, hashStr } from "../lib/engine/index.js";
 import { RUBROS_META, ISOTIPOS, COLORS } from "../lib/game/meta.js";
 
@@ -57,6 +57,27 @@ function jugar(seed, setup, forzarParlyx = false) {
   }
   return gs;
 }
+
+/* ---------- Traba estructural: en 2020 SIEMPRE se puede activar Parlyx.
+   Toda carta que pueda salir como beat de 2020 —las tres sillas y todas
+   sus variantes por rubro— tiene que ofrecer exactamente una opción con
+   `special: "parlyxActivar"`. Sin esto, agregar una variante nueva podría
+   dejar al jugador sin la puerta, en silencio. ---------- */
+console.log("=== EN 2020 SIEMPRE SE PUEDE ACTIVAR PARLYX ===");
+let sinPuerta = 0;
+const todasLasDelBeat = new Set([
+  ...Object.values(BEAT_2020),
+  ...Object.values(VARIANTES_2020 || {}).flatMap((v) => Object.values(v)),
+]);
+for (const id of [...todasLasDelBeat].sort()) {
+  const c = cardById(id);
+  if (!c) { console.error(`  ✗ ${id}: no existe en el deck`); sinPuerta++; continue; }
+  const puertas = c.opciones.filter((o) => o.efectos?.special === "parlyxActivar");
+  const ok = puertas.length === 1;
+  if (!ok) sinPuerta++;
+  console.log(`  ${ok ? "✓" : "✗"} ${id} "${c.titulo}" — ${puertas.length} opción(es) para activar Parlyx`);
+}
+console.log(`${todasLasDelBeat.size} cartas de beat auditadas\n`);
 
 console.log(`=== BEAT PARLYX EN LAS TRES SILLAS (N=${N}) ===`);
 const sillas = { A: 0, B: 0, C: 0 };
@@ -104,6 +125,10 @@ console.log(`Forzando la opción Parlyx en ${M} partidas, gs.parlyx quedó activ
 console.log(`Ids de beat esperados: ${Object.entries(BEAT_2020).map(([m, id]) => `${m}→${id}`).join(" · ")}`);
 
 let malo = false;
+if (sinPuerta) {
+  console.error(`\n✗ ${sinPuerta} carta(s) del beat 2020 no ofrecen exactamente una opción para activar Parlyx.`);
+  malo = true;
+}
 if (fallas.length) {
   console.error(`\n✗ ${fallas.length} partida(s) NO alcanzaron el beat Parlyx. Primeras 5:`);
   for (const f of fallas.slice(0, 5)) console.error(`   seed ${f.seed} · modo ${f.mode} · ${f.rows} filas`);

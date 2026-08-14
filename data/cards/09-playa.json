@@ -169,7 +169,8 @@
             "flags": [
               "red_de_founders"
             ]
-          }
+          },
+          "linea": "consejo sí, cheque no"
         }
       ]
     },
@@ -212,7 +213,8 @@
             "tend": 1,
             "special": "modoInversor"
           },
-          "notas": "El \"modo inversor\" es solo un cambio de flavor de cartas, no un modo mecánico nuevo."
+          "notas": "El \"modo inversor\" es solo un cambio de flavor de cartas, no un modo mecánico nuevo.",
+          "linea": "meterte a laburar de nuevo"
         },
         {
           "id": "C",
@@ -301,7 +303,8 @@
           "efectos": {
             "patPct": -0.08,
             "ovr": -1
-          }
+          },
+          "linea": "tu plata -8% · gastarte un poco en vivir"
         },
         {
           "id": "B",
@@ -310,7 +313,8 @@
           "efectos": {
             "ovr": 1
           },
-          "notas": "\"TEND +1 si hay comeback\" es condicional: no va en efectos, queda en raw."
+          "notas": "\"TEND +1 si hay comeback\" es condicional: no va en efectos, queda en raw.",
+          "linea": "llenar los días con algo tuyo"
         },
         {
           "id": "C",
@@ -343,7 +347,8 @@
               "red_de_founders"
             ]
           },
-          "notas": "\"OVR estable (seguís vigente)\" es narrativo."
+          "notas": "\"OVR estable (seguís vigente)\" es narrativo.",
+          "linea": "decir que sí a todo"
         },
         {
           "id": "B",
@@ -352,7 +357,8 @@
           "efectos": {
             "patPct": 0.05,
             "ovr": -1
-          }
+          },
+          "linea": "elegir solo lo que paga"
         },
         {
           "id": "C",
@@ -396,7 +402,8 @@
             "flags": [
               "reputación_intacta"
             ]
-          }
+          },
+          "linea": "contarla con la suerte incluida"
         },
         {
           "id": "B",
@@ -462,7 +469,8 @@
             "flags": [
               "doble_apuesta"
             ]
-          }
+          },
+          "linea": "poner de tu bolsillo y quedarte con más"
         },
         {
           "id": "C",
@@ -525,7 +533,8 @@
             "flags": [
               "doble_apuesta"
             ]
-          }
+          },
+          "linea": "quedarte con casi toda la marca"
         }
       ]
     },

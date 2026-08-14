@@ -54,7 +54,8 @@
           "efectos": {
             "special": "sellStrategic"
           },
-          "notas": "Venta al ×1.1 de la valuación, sin riesgo de mercado: special sellStrategic (mismo nombre que usa el prototipo de referencia)."
+          "notas": "Venta al ×1.1 de la valuación, sin riesgo de mercado: special sellStrategic (mismo nombre que usa el prototipo de referencia).",
+          "linea": "cobrar sin exponerte al mercado"
         }
       ]
     },
@@ -98,7 +99,8 @@
           "efectos": {
             "ovr": -1,
             "tend": 1
-          }
+          },
+          "linea": "quedarte adentro sin la silla grande"
         },
         {
           "id": "C",
@@ -132,7 +134,8 @@
             "rw": -4,
             "tend": 1
           },
-          "notas": "\"Requisito para F-01 y F-04\" es una relación entre cartas aún no mecanizada: queda en raw."
+          "notas": "\"Requisito para F-01 y F-04\" es una relación entre cartas aún no mecanizada: queda en raw.",
+          "linea": "4 meses menos de caja · traer a alguien que ordene los números"
         },
         {
           "id": "B",
@@ -156,7 +159,8 @@
           "id": "C",
           "label": "Seguir con el Excel",
           "raw": "bloquea F-01 · en due diligence: efectos ×1.5",
-          "notas": "Ambos efectos son cruzados con otras cartas (bloquea F-01; multiplica los efectos de F-04): no mecanizados, quedan en raw."
+          "notas": "Ambos efectos son cruzados con otras cartas (bloquea F-01; multiplica los efectos de F-04): no mecanizados, quedan en raw.",
+          "linea": "seguir contando vos con la planilla"
         }
       ]
     },
@@ -177,7 +181,8 @@
           "id": "A",
           "label": "Abrir todo, sin sorpresas",
           "raw": "si no hay flags negativos: TEND +1, cierre rápido · si hay (balde_agujereado, deuda_técnica, margen_negativo): valuación -15% por flag",
-          "notas": "Todo el efecto es condicional a los flags acumulados: no va en efectos, queda en raw hasta que el motor lo mecanice."
+          "notas": "Todo el efecto es condicional a los flags acumulados: no va en efectos, queda en raw hasta que el motor lo mecanice.",
+          "linea": "abrir todo y bancar lo que aparezca"
         },
         {
           "id": "B",
@@ -239,7 +244,8 @@
           "id": "B",
           "label": "Pasar",
           "raw": "OVR +1 cuando pase la moda",
-          "notas": "El OVR +1 es diferido (\"cuando pase la moda\"): no va en efectos, queda en raw."
+          "notas": "El OVR +1 es diferido (\"cuando pase la moda\"): no va en efectos, queda en raw.",
+          "linea": "dejar pasar la moda"
         }
       ],
       "notas": "El asterisco en la tarjeta es un chiste que el ecosistema va a entender al toque."

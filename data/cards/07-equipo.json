@@ -22,7 +22,8 @@
           "efectos": {
             "eq": -2,
             "tend": 2
-          }
+          },
+          "linea": "cedés el 2% de tu empresa · atarlo con papeles y tiempo"
         },
         {
           "id": "B",
@@ -85,7 +86,8 @@
           "efectos": {
             "rw": -5,
             "tend": 1
-          }
+          },
+          "linea": "5 meses menos de caja · traer oficio caro"
         },
         {
           "id": "B",
@@ -114,7 +116,8 @@
             "rw": -4,
             "tend": 1
           },
-          "notas": "\"sostenido\" es un matiz de duración no mecanizado: queda en raw."
+          "notas": "\"sostenido\" es un matiz de duración no mecanizado: queda en raw.",
+          "linea": "4 meses menos de caja · que uno solo enseñe a los demás"
         }
       ]
     },
@@ -209,7 +212,8 @@
             "ovr": 2,
             "tend": 2
           },
-          "notas": "\"un trienio\" acota el ARR -15% al trienio en curso (arrMul ya es por trienio)."
+          "notas": "\"un trienio\" acota el ARR -15% al trienio en curso (arrMul ya es por trienio).",
+          "linea": "cortar aunque duela"
         },
         {
           "id": "B",
@@ -280,7 +284,8 @@
             "tend": -1,
             "tendLenta": 2
           },
-          "notas": "tendLenta: el +2 llega en el próximo trienio."
+          "notas": "tendLenta: el +2 llega en el próximo trienio.",
+          "linea": "que crezca el de adentro"
         },
         {
           "id": "C",
@@ -289,7 +294,8 @@
           "efectos": {
             "ovr": -1
           },
-          "notas": "\"igual se los llevan\" es narrativo; el flavor queda en raw."
+          "notas": "\"igual se los llevan\" es narrativo; el flavor queda en raw.",
+          "linea": "hacer ruido con el que te lo sacó"
         }
       ]
     },
@@ -315,7 +321,8 @@
             "rw": -3,
             "tend": 1
           },
-          "notas": "\"sostenido\" es un matiz de duración no mecanizado: queda en raw."
+          "notas": "\"sostenido\" es un matiz de duración no mecanizado: queda en raw.",
+          "linea": "3 meses menos de caja · poner a alguien a cuidar a la gente"
         },
         {
           "id": "B",
@@ -380,7 +387,8 @@
           "raw": "TEND -2 · encontrarlo no arregla nada y el juego te lo dice",
           "efectos": {
             "tend": -2
-          }
+          },
+          "linea": "buscar al que habló de más"
         }
       ]
     },
@@ -404,7 +412,8 @@
           "efectos": {
             "rw": -4,
             "tend": 2
-          }
+          },
+          "linea": "4 meses menos de caja · repartir de la buena"
         },
         {
           "id": "B",
@@ -422,7 +431,8 @@
               "texto": "guerra fría interna"
             }
           },
-          "notas": "Ninguna rama está cuantificada en el .md: quedan como texto."
+          "notas": "Ninguna rama está cuantificada en el .md: quedan como texto.",
+          "linea": "2 meses menos de caja · premiar solo a los que empujan"
         },
         {
           "id": "C",
@@ -431,7 +441,8 @@
           "efectos": {
             "tend": -1
           },
-          "notas": "\"OVR -1 si lo repetís dos veces\" es condicional: no va en efectos, queda en raw."
+          "notas": "\"OVR -1 si lo repetís dos veces\" es condicional: no va en efectos, queda en raw.",
+          "linea": "que el premio sea el papel"
         }
       ]
     }

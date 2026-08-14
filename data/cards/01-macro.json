@@ -50,7 +50,8 @@
           "efectos": {
             "ovr": 1
           },
-          "notas": "Condicional en raw (no mecanizado): TEND +1 si sobrevivís el trienio."
+          "notas": "Condicional en raw (no mecanizado): TEND +1 si sobrevivís el trienio.",
+          "linea": "esperar a que baje la espuma"
         }
       ]
     },
@@ -81,7 +82,8 @@
             "rw": 6,
             "ovr": -1,
             "tend": -1
-          }
+          },
+          "linea": "+6 meses de caja · achicarte y aguantar el invierno"
         },
         {
           "id": "B",
@@ -161,7 +163,8 @@
             "flags": [
               "dolarizado"
             ]
-          }
+          },
+          "linea": "4 meses menos de caja · mover la venta a otra moneda"
         },
         {
           "id": "B",
@@ -170,7 +173,8 @@
           "efectos": {
             "arrMul": 0.7,
             "ovr": 1
-          }
+          },
+          "linea": "confiar en los que ya te compran"
         },
         {
           "id": "C",
@@ -182,7 +186,8 @@
             "tend": 1,
             "special": "cambiaHQ"
           },
-          "notas": "cambiaHQ: mudanza del HQ a Miami (mia)."
+          "notas": "cambiaHQ: mudanza del HQ a Miami (mia).",
+          "linea": "6 meses menos de caja · cedés el 2% de tu empresa · empezar de nuevo en otro país"
         }
       ]
     },
@@ -233,7 +238,8 @@
           "id": "B",
           "label": "Esperar a ver si prende",
           "raw": "sin cambios · si tu vertical es consumer: TEND -1",
-          "notas": "Condicional en raw (no mecanizado): si tu vertical es consumer (gaming), TEND -1."
+          "notas": "Condicional en raw (no mecanizado): si tu vertical es consumer (gaming), TEND -1.",
+          "linea": "sin cambios · dejar que otros prueben primero"
         },
         {
           "id": "C",
@@ -242,7 +248,8 @@
           "efectos": {
             "ovr": -2,
             "tend": -1
-          }
+          },
+          "linea": "plantarte en lo que sabés hacer"
         }
       ]
     },
@@ -272,7 +279,8 @@
           "efectos": {
             "rw": 5,
             "ovr": -1
-          }
+          },
+          "linea": "+5 meses de caja · achicar para llegar a fin de mes"
         },
         {
           "id": "B",
@@ -304,7 +312,8 @@
             "rw": 18,
             "tend": 1
           },
-          "condicion": "solo aparece si OVR ≥ 75"
+          "condicion": "solo aparece si OVR ≥ 75",
+          "linea": "cedés el 22% de tu empresa · +18 meses de caja · plata cara en el peor momento"
         }
       ]
     },
@@ -334,7 +343,8 @@
           "efectos": {
             "rw": -5,
             "tend": 2
-          }
+          },
+          "linea": "5 meses menos de caja · rehacerlo todo pensando en el celular"
         },
         {
           "id": "B",
@@ -344,13 +354,15 @@
             "arrMul": 1.1,
             "tend": -1
           },
-          "notas": "\"(deuda técnica)\" es paréntesis explicativo, no ⚑: no prende el flag deuda_técnica."
+          "notas": "\"(deuda técnica)\" es paréntesis explicativo, no ⚑: no prende el flag deuda_técnica.",
+          "linea": "una solución de compromiso"
         },
         {
           "id": "C",
           "label": "Seguir en la web",
           "raw": "sin cambios · si consumer: ARR -20%",
-          "notas": "Condicional en raw (no mecanizado): si consumer (gaming), ARR -20%."
+          "notas": "Condicional en raw (no mecanizado): si consumer (gaming), ARR -20%.",
+          "linea": "sin cambios · apostar a que el cambio no te alcanza"
         }
       ]
     },
@@ -384,7 +396,8 @@
             "flags": [
               "presión_growth"
             ]
-          }
+          },
+          "linea": "cedés el 18% de tu empresa · +20 meses de caja · crecer con plata ajena y a los gritos"
         },
         {
           "id": "B",
@@ -393,7 +406,8 @@
           "efectos": {
             "ovr": 1,
             "multMul": 0.8
-          }
+          },
+          "linea": "crecer con lo que entra por la puerta"
         },
         {
           "id": "C",
@@ -446,7 +460,8 @@
               "aliado_gigante"
             ]
           },
-          "notas": "⚑ aliado_gigante habilita EJ-02 con mejores términos."
+          "notas": "⚑ aliado_gigante habilita EJ-02 con mejores términos.",
+          "linea": "atar tu suerte a la de otro"
         },
         {
           "id": "C",
@@ -523,7 +538,8 @@
           "id": "C",
           "label": "Ni loco",
           "raw": "OVR +1 si después cae M-10 en la partida",
-          "notas": "Condicional en raw (no mecanizado): OVR +1 solo si después cae M-10 en la partida."
+          "notas": "Condicional en raw (no mecanizado): OVR +1 solo si después cae M-10 en la partida.",
+          "linea": "quedarte afuera de la fiebre"
         }
       ]
     },
@@ -554,7 +570,8 @@
             "rw": -8
           },
           "condicion": "solo crypto",
-          "notas": "Condicional en raw (no mecanizado): TEND +2 si sobrevivís."
+          "notas": "Condicional en raw (no mecanizado): TEND +2 si sobrevivís.",
+          "linea": "8 meses menos de caja · aguantar de pie hasta que pase"
         },
         {
           "id": "B",
@@ -583,7 +600,8 @@
           "efectos": {
             "ovr": 1,
             "tend": 1
-          }
+          },
+          "linea": "cortar por lo sano"
         }
       ]
     },
@@ -623,7 +641,8 @@
             "flags": [
               "presión_growth"
             ]
-          }
+          },
+          "linea": "+30 meses de caja · cedés el 25% de tu empresa · no volver a pensar en la caja por años"
         },
         {
           "id": "B",
@@ -683,7 +702,8 @@
           "efectos": {
             "ovr": 2,
             "tend": 2
-          }
+          },
+          "linea": "leer el año antes que el resto"
         },
         {
           "id": "B",
@@ -693,7 +713,8 @@
             "marker": "↓",
             "rw": 8,
             "tend": -1
-          }
+          },
+          "linea": "+8 meses de caja · cortar hondo y de una sola vez"
         },
         {
           "id": "C",
@@ -765,7 +786,8 @@
           "efectos": {
             "special": "sellPeak"
           },
-          "notas": "sellPeak: habilita el final Exit con múltiplo ×1.5 (la salida del sabio)."
+          "notas": "sellPeak: habilita el final Exit con múltiplo ×1.5 (la salida del sabio).",
+          "linea": "vender cuando todos están comprando"
         }
       ]
     },
@@ -796,7 +818,8 @@
             "marker": "↓",
             "rw": 10,
             "ovr": -1
-          }
+          },
+          "linea": "+10 meses de caja · cortar poco y temprano"
         },
         {
           "id": "B",
@@ -816,7 +839,8 @@
           "efectos": {
             "arrMul": 0.85,
             "tend": 2
-          }
+          },
+          "linea": "quedarte con lo único que no se toca"
         }
       ]
     },
@@ -889,7 +913,8 @@
           "id": "C",
           "label": "\"Lo nuestro es distinto\"",
           "raw": "si vertical ≠ AI: TEND -2 · múltiplo -30%",
-          "notas": "Todo el efecto es condicional (si vertical ≠ AI): queda en raw, sin efectos incondicionales."
+          "notas": "Todo el efecto es condicional (si vertical ≠ AI): queda en raw, sin efectos incondicionales.",
+          "linea": "confiar en que lo tuyo es distinto"
         }
       ]
     }

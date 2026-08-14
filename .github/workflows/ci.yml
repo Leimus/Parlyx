@@ -31,6 +31,9 @@ jobs:
       - name: Legibilidad (contraste WCAG + piso de 13px, SPEC v3 §1)
         run: node scripts/check-legibilidad.mjs
 
+      - name: Regla de información (costo visible, resultado oculto, SPEC v4 §1)
+        run: node scripts/check-informacion.mjs
+
       - name: Invariante Parlyx (nunca caés más CON que SIN)
         run: node scripts/test-parlyx-invariante.mjs
 

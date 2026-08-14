@@ -44,7 +44,8 @@
           "efectos": {
             "rw": -5,
             "ovr": 1
-          }
+          },
+          "linea": "5 meses menos de caja · no salir hasta que esté impecable"
         },
         {
           "id": "C",
@@ -53,7 +54,8 @@
           "efectos": {
             "rw": -2,
             "tend": 2
-          }
+          },
+          "linea": "2 meses menos de caja · vender antes de terminar de construir"
         }
       ]
     },
@@ -78,7 +80,8 @@
           "efectos": {
             "rw": -2,
             "ovr": 1
-          }
+          },
+          "linea": "2 meses menos de caja · sostener la sociedad a la distancia"
         },
         {
           "id": "B",
@@ -131,7 +134,8 @@
             "flags": [
               "dependencia"
             ]
-          }
+          },
+          "linea": "atar tu suerte a un solo cliente"
         },
         {
           "id": "B",
@@ -157,7 +161,8 @@
           "efectos": {
             "ovr": 1,
             "arrMul": 1.05
-          }
+          },
+          "linea": "mantener las manos libres"
         }
       ]
     },
@@ -201,7 +206,8 @@
           "raw": "mitad del efecto, sin riesgo: ARR +10%",
           "efectos": {
             "arrMul": 1.1
-          }
+          },
+          "linea": "sin riesgo · avanzar sin quemar a nadie"
         }
       ]
     },
@@ -226,7 +232,8 @@
             "rw": -6,
             "eq": 8,
             "ovr": -1
-          }
+          },
+          "linea": "6 meses menos de caja · quedarte solo al mando"
         },
         {
           "id": "B",
@@ -238,7 +245,8 @@
               "dead_equity"
             ]
           },
-          "notas": "\"El equity se lo lleva\": no hay delta de EQ en el .md; queda representado por el ⚑ dead_equity."
+          "notas": "\"El equity se lo lleva\": no hay delta de EQ en el .md; queda representado por el ⚑ dead_equity.",
+          "linea": "pagar la salida en el papel"
         },
         {
           "id": "C",
@@ -282,7 +290,8 @@
           "efectos": {
             "rw": -6,
             "tend": 2
-          }
+          },
+          "linea": "6 meses menos de caja · traer a alguien mejor que vos"
         },
         {
           "id": "B",
@@ -292,13 +301,15 @@
             "rw": -1,
             "tendLenta": 1
           },
-          "notas": "tendLenta: el TEND +1 llega recién en 2 trienios."
+          "notas": "tendLenta: el TEND +1 llega recién en 2 trienios.",
+          "linea": "1 meses menos de caja · formar puertas adentro, sin apuro"
         },
         {
           "id": "C",
           "label": "Seguir siendo vos el CTO",
           "raw": "OVR -1 por trienio desde Serie A (no escala)",
-          "notas": "Efecto recurrente/condicional (OVR -1 por trienio desde Serie A): queda en raw, no en efectos."
+          "notas": "Efecto recurrente/condicional (OVR -1 por trienio desde Serie A): queda en raw, no en efectos.",
+          "linea": "seguir haciéndolo vos"
         }
       ]
     },
@@ -349,7 +360,8 @@
               "deuda_técnica"
             ]
           },
-          "notas": "Condicional en raw (no mecanizado): con ⚑ deuda_técnica, la próxima crisis tiene efectos ×1.5."
+          "notas": "Condicional en raw (no mecanizado): con ⚑ deuda_técnica, la próxima crisis tiene efectos ×1.5.",
+          "linea": "parchar y seguir vendiendo"
         },
         {
           "id": "C",
@@ -381,7 +393,8 @@
             "flags": [
               "presión_growth"
             ]
-          }
+          },
+          "linea": "+20 meses de caja · cedés el 20% de tu empresa · el nombre que abre puertas"
         },
         {
           "id": "B",
@@ -400,7 +413,8 @@
             "rw": 28,
             "eq": -26,
             "tend": -1
-          }
+          },
+          "linea": "+28 meses de caja · cedés el 26% de tu empresa · juntar a los dos en la misma mesa"
         }
       ]
     },
@@ -457,7 +471,8 @@
           "efectos": {
             "ovr": 1
           },
-          "notas": "Condicional en raw (no mecanizado): TEND +1 si terminás el trienio cash-flow positivo."
+          "notas": "Condicional en raw (no mecanizado): TEND +1 si terminás el trienio cash-flow positivo.",
+          "linea": "un tramo más con lo tuyo"
         },
         {
           "id": "B",
@@ -493,7 +508,8 @@
             "eq": -4,
             "special": "habilitaRetiro"
           },
-          "notas": "PAT +2M o proporcional a valuación (el .md deja las dos lecturas). habilitaRetiro: habilita el retiro (gate PAT ≥ 2M)."
+          "notas": "PAT +2M o proporcional a valuación (el .md deja las dos lecturas). habilitaRetiro: habilita el retiro (gate PAT ≥ 2M).",
+          "linea": "cedés el 4% de tu empresa · sacar un poco de la mesa"
         },
         {
           "id": "B",
@@ -501,7 +517,8 @@
           "raw": "OVR +1 · los VCs lo cuentan en los asados",
           "efectos": {
             "ovr": 1
-          }
+          },
+          "linea": "cobrar cuando cobren todos"
         },
         {
           "id": "C",
@@ -511,7 +528,8 @@
             "patMul": 2,
             "eq": -8,
             "tend": -1
-          }
+          },
+          "linea": "cedés el 8% de tu empresa · asegurarte la tranquilidad"
         }
       ]
     },
@@ -539,7 +557,8 @@
             "rw": -5,
             "tend": 1
           },
-          "notas": "Efecto diferido no mecanizado (no hay campo arrLenta): ARR +20% recién en 2 trienios, queda en raw."
+          "notas": "Efecto diferido no mecanizado (no hay campo arrLenta): ARR +20% recién en 2 trienios, queda en raw.",
+          "linea": "5 meses menos de caja · abrir de verdad, no de mentira"
         },
         {
           "id": "B",
@@ -613,7 +632,8 @@
             "arrMul": 0.85,
             "ovr": 2,
             "tend": 1
-          }
+          },
+          "linea": "cobrar más y vender a menos gente"
         },
         {
           "id": "C",
@@ -666,7 +686,8 @@
           "efectos": {
             "tend": 1
           },
-          "notas": "Efecto narrativo condicional (flavor recordatorio si después quebrás): queda en raw."
+          "notas": "Efecto narrativo condicional (flavor recordatorio si después quebrás): queda en raw.",
+          "linea": "seguir siendo dueño"
         },
         {
           "id": "C",
@@ -754,7 +775,8 @@
             "quitaFlags": [
               "dependencia"
             ]
-          }
+          },
+          "linea": "3 meses menos de caja · no depender de una sola cosa"
         }
       ]
     },
@@ -834,7 +856,8 @@
           "raw": "OVR +1",
           "efectos": {
             "ovr": 1
-          }
+          },
+          "linea": "ir y no hacer olas"
         },
         {
           "id": "B",
@@ -862,7 +885,8 @@
           "efectos": {
             "tend": 1
           },
-          "notas": "El 20% (la rompe y ahora es la cara visible) es narrativo, sin efecto numérico en el .md: no se modela como apuesta."
+          "notas": "El 20% (la rompe y ahora es la cara visible) es narrativo, sin efecto numérico en el .md: no se modela como apuesta.",
+          "linea": "mandar a tu socio en tu lugar"
         }
       ]
     },
@@ -907,7 +931,8 @@
           "raw": "OVR +1 (madurez)",
           "efectos": {
             "ovr": 1
-          }
+          },
+          "linea": "guardártelo"
         },
         {
           "id": "C",
@@ -990,7 +1015,8 @@
           "efectos": {
             "arrMul": 1.05
           },
-          "notas": "Efecto condicional/recurrente (OVR -1 desde Serie B): queda en raw, no en efectos."
+          "notas": "Efecto condicional/recurrente (OVR -1 desde Serie B): queda en raw, no en efectos.",
+          "linea": "vender vos, como siempre"
         }
       ]
     },

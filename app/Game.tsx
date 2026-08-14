@@ -744,7 +744,10 @@ export default function Game() {
                       whileTap={{ scale: 0.96 }} whileHover={{ scale: 1.02 }} transition={SPRING}>
                       <span className="l"><span className="letra">{String.fromCharCode(65 + i)}</span>{o.label}</span>
                       <span className="d">
-                        {humanizar(o.raw, card.id, o.id)}
+                        {/* SPEC v4 §1: se muestra lo que PAGÁS, se esconde lo
+                            que GANÁS. `linea` ya viene escrita con esa regla;
+                            humanizar(raw) es el fallback del deck viejo. */}
+                        {o.linea || humanizar(o.raw, card.id, o.id)}
                         {o.apuesta && (
                           <span className="betpill">
                             <span className="g">{Math.round(o.apuesta.p * 100)}%</span> / <span className="r">{Math.round((1 - o.apuesta.p) * 100)}%</span>

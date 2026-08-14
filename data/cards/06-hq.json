@@ -45,7 +45,8 @@
             "flags": [
               "favor_debido"
             ]
-          }
+          },
+          "linea": "ir sin agenda"
         },
         {
           "id": "C",
@@ -80,7 +81,8 @@
             "flags": [
               "dolarizado"
             ]
-          }
+          },
+          "linea": "3 meses menos de caja · cobrar en una moneda que no se derrita"
         },
         {
           "id": "B",
@@ -145,7 +147,8 @@
             "arrMul": 1.3,
             "tend": 1
           },
-          "notas": "\"te casaste con un bando\" es narrativo, sin efecto mecánico: queda en raw."
+          "notas": "\"te casaste con un bando\" es narrativo, sin efecto mecánico: queda en raw.",
+          "linea": "juntarte con el enemigo de tu enemigo"
         },
         {
           "id": "B",
@@ -154,7 +157,8 @@
           "efectos": {
             "tend": 2,
             "rw": -4
-          }
+          },
+          "linea": "4 meses menos de caja · ganarles por velocidad"
         },
         {
           "id": "C",
@@ -239,7 +243,8 @@
             "rw": -10,
             "eq": -5,
             "tend": 1
-          }
+          },
+          "linea": "10 meses menos de caja · cedés el 5% de tu empresa · comprar en vez de construir"
         }
       ]
     },
@@ -286,7 +291,8 @@
           "efectos": {
             "ovr": 1
           },
-          "notas": "\"te enterás tarde de todo\" es narrativo, sin efecto mecánico: queda en raw."
+          "notas": "\"te enterás tarde de todo\" es narrativo, sin efecto mecánico: queda en raw.",
+          "linea": "no meterte"
         }
       ]
     },
@@ -312,7 +318,8 @@
           "efectos": {
             "rw": -4,
             "tend": 2
-          }
+          },
+          "linea": "4 meses menos de caja · probar acá y salir rápido afuera"
         },
         {
           "id": "B",
@@ -322,7 +329,8 @@
             "arrMul": 1.2,
             "techoDelta": -3
           },
-          "notas": "El techo -3 aplica de inmediato; la reversión \"mientras no salgas\" (recuperarlo al salir a la región) no está mecanizada y queda en raw."
+          "notas": "El techo -3 aplica de inmediato; la reversión \"mientras no salgas\" (recuperarlo al salir a la región) no está mecanizada y queda en raw.",
+          "linea": "ser el dueño de tu barrio primero"
         }
       ],
       "notas": "Refleja el trade-off real de los mercados chicos: piso alto, techo corto."
@@ -349,7 +357,8 @@
           "efectos": {
             "tend": 2,
             "rw": 4
-          }
+          },
+          "linea": "+4 meses de caja · un pie de cada lado del charco"
         },
         {
           "id": "B",
@@ -380,7 +389,8 @@
             "special": "cambiaHQ",
             "ovr": 1
           },
-          "notas": "cambia HQ → special cambiaHQ; el HQ de destino no está especificado en el .md."
+          "notas": "cambia HQ → special cambiaHQ; el HQ de destino no está especificado en el .md.",
+          "linea": "volver a lo conocido"
         }
       ]
     },

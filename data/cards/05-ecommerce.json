@@ -26,7 +26,8 @@
             "arrMul": 1.3,
             "tend": -1
           },
-          "notas": "El precio de crecer con el canal de otro."
+          "notas": "El precio de crecer con el canal de otro.",
+          "linea": "volumen ya, margen después"
         },
         {
           "id": "B",
@@ -42,7 +43,8 @@
           "raw": "ventas +10% · sin casarte con nadie",
           "efectos": {
             "arrMul": 1.1
-          }
+          },
+          "linea": "un pie en cada cancha"
         }
       ]
     },
@@ -149,7 +151,8 @@
           "efectos": {
             "ovr": -1,
             "tend": -1
-          }
+          },
+          "linea": "que lo tuyo siga siendo tuyo"
         }
       ]
     },
@@ -237,7 +240,8 @@
           "raw": "ventas -15% · no, no compra igual",
           "efectos": {
             "arrMul": 0.85
-          }
+          },
+          "linea": "que el que quiera comprar se arregle"
         }
       ]
     },
@@ -265,7 +269,8 @@
             "arrMul": 1.4,
             "tend": -1
           },
-          "notas": "Volumen hoy a cambio de canal ajeno mañana."
+          "notas": "Volumen hoy a cambio de canal ajeno mañana.",
+          "linea": "entrar donde está toda la gente"
         },
         {
           "id": "B",
@@ -283,7 +288,8 @@
           "efectos": {
             "rw": -2,
             "arrMul": 1.2
-          }
+          },
+          "linea": "2 meses menos de caja · pelear en dos canchas a la vez"
         }
       ]
     },
@@ -310,7 +316,8 @@
           "efectos": {
             "rw": -2,
             "arrMul": 1.25
-          }
+          },
+          "linea": "2 meses menos de caja · meterle todo a que te vean"
         },
         {
           "id": "B",
@@ -318,7 +325,8 @@
           "raw": "ventas +10% · dormís tranquilo",
           "efectos": {
             "arrMul": 1.1
-          }
+          },
+          "linea": "estar sin vivir de eso"
         },
         {
           "id": "C",
@@ -376,7 +384,8 @@
           "efectos": {
             "rw": -4,
             "arrMul": 1.3
-          }
+          },
+          "linea": "4 meses menos de caja · blanquear a alguien que ya está"
         },
         {
           "id": "C",
@@ -430,7 +439,8 @@
           "raw": "ventas -20% · no insisten: compran en otro lado",
           "efectos": {
             "arrMul": 0.8
-          }
+          },
+          "linea": "hacerte desear"
         }
       ]
     },
@@ -455,7 +465,8 @@
             "rw": -3,
             "ovr": 2,
             "tend": 1
-          }
+          },
+          "linea": "3 meses menos de caja · poner la cara y bancar el costo"
         },
         {
           "id": "B",
@@ -511,7 +522,8 @@
           "efectos": {
             "arrMul": 1.15,
             "ovr": -1
-          }
+          },
+          "linea": "cobrar lo que vale cuando escasea"
         },
         {
           "id": "B",
@@ -543,7 +555,8 @@
           "efectos": {
             "arrMul": 0.9,
             "tend": 2
-          }
+          },
+          "linea": "cuidar a los de siempre"
         }
       ]
     },
@@ -591,7 +604,8 @@
             "arrMul": 0.9,
             "ovr": 2,
             "tend": 1
-          }
+          },
+          "linea": "cobrar más y explicar por qué"
         },
         {
           "id": "C",
@@ -660,7 +674,8 @@
           "efectos": {
             "rw": -2,
             "arrMul": 1.25
-          }
+          },
+          "linea": "2 meses menos de caja · prometer poco y cumplirlo"
         },
         {
           "id": "C",
@@ -704,7 +719,8 @@
           "raw": "ventas +10% · algunos te puteán",
           "efectos": {
             "arrMul": 1.1
-          }
+          },
+          "linea": "insistirle al que casi compra"
         },
         {
           "id": "C",
@@ -746,7 +762,8 @@
           "efectos": {
             "arrMul": 1.05,
             "ovr": -1
-          }
+          },
+          "linea": "atender vos, siempre"
         },
         {
           "id": "C",
@@ -863,7 +880,8 @@
           "efectos": {
             "arrMul": 0.9,
             "tend": 1
-          }
+          },
+          "linea": "darle una mano y renegociar"
         },
         {
           "id": "C",
@@ -900,7 +918,8 @@
           "efectos": {
             "rw": -1,
             "arrMul": 1.15
-          }
+          },
+          "linea": "que devolver sea facilísimo"
         },
         {
           "id": "B",
@@ -909,7 +928,8 @@
           "efectos": {
             "rw": 1,
             "arrMul": 0.9
-          }
+          },
+          "linea": "poner trabas para filtrar"
         },
         {
           "id": "C",
@@ -946,7 +966,8 @@
           "efectos": {
             "rw": 4,
             "ovr": -1
-          }
+          },
+          "linea": "+4 meses de caja · cerrar lo que no da"
         },
         {
           "id": "B",
@@ -1105,7 +1126,8 @@
           "efectos": {
             "rw": -1,
             "arrMul": 1.15
-          }
+          },
+          "linea": "que se vea como lo que es"
         },
         {
           "id": "B",
@@ -1156,7 +1178,8 @@
           "efectos": {
             "rw": -1,
             "ovr": 1
-          }
+          },
+          "linea": "poner de lo tuyo y reclamar después"
         },
         {
           "id": "C",
@@ -1241,7 +1264,8 @@
           "raw": "ventas +25% este tramo",
           "efectos": {
             "arrMul": 1.25
-          }
+          },
+          "linea": "que la marca suene en todos lados"
         },
         {
           "id": "B",
@@ -1260,7 +1284,8 @@
             "rw": -2,
             "arrMul": 1.15,
             "tend": 1
-          }
+          },
+          "linea": "2 meses menos de caja · abrir una cancha nueva"
         },
         {
           "id": "D",
@@ -1269,7 +1294,8 @@
           "efectos": {
             "ovr": 2,
             "tend": 1
-          }
+          },
+          "linea": "que volver a comprarte sea obvio"
         }
       ],
       "notas": "La mejor carta del feedback externo, adoptada tal cual (PRD v1.0 §1). Solo aparece si activaste Parlyx."
