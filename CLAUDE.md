@@ -35,6 +35,7 @@ Principio rector v0.3 §0 sigue: el juego primero.
 | `docs/SPEC-v4-misterio-y-variantes.md` | Regla de información · variantes por turno · diario | **Manda sobre el contenido de las opciones** |
 | `scripts/check-informacion.mjs` | Ninguna opción anuncia lo que ganás (SPEC v4 §1) | Traba de CI |
 | `scripts/test-cobertura.mjs` | Pools por turno: nadie domina, dos partidas no se parecen | Traba de CI (SPEC v4 §2.4) |
+| `scripts/check-vercel-json.mjs` | `vercel.json` dentro del esquema de Vercel (sin claves extra, sin regex) | Traba de CI — ver README §vercel.json |
 | `lib/game/aprendizajes.js` | Los 24 aprendizajes del diario (SPEC v4 §3) | Contenido del diario acá |
 | `data/arcos.json` | Arcos narrativos (sesgos de momentum por fase, PRD v0.3 §5) | Tuneo de arcos acá |
 | `data/tags-ejes.json` | Tags de eje por opción → arquetipos (PRD v0.3 §2) | Tuneo del perfil acá |
@@ -154,6 +155,14 @@ npm run build          # build estático (out/)
    sitemap · "por Parlyx AI" ahora es link real (landing y tarjeta, con UTM) · Lighthouse
    mobile 91 (build servido con gzip; transferencia ~283KB) · deploy: README §Deploy
    (Vercel 2 pasos + CNAME). La og dinámica por partida sigue en F4.
+   **En vivo desde ago-2026 en `parlyx.vercel.app`** con dos analytics sin cookies:
+   Plausible (script v6 del sitio — el id del archivo YA identifica al sitio, por eso no
+   lleva `data-domain` y sirve para los dos dominios) + Vercel Web Analytics
+   (`<Analytics />`, tráfico crudo). **Gotcha que costó 14h de producción clavada:**
+   `vercel.json` no admite claves fuera del esquema (había una `"comment"` por regla) y
+   Vercel lo valida ANTES de compilar — el deploy muere sin llegar al build, mientras
+   `npm ci && npm run build` sale exit 0 local y CI queda toda en verde. De ahí
+   `scripts/check-vercel-json.mjs`. Falta: CNAME de `carrera.parlyx.ai`.
 8. ✅ **SPEC v3 (playtest con usuarios reales)** — `docs/SPEC-v3-legibilidad-sillas-epocas-portada.md`,
    manda sobre UI-SPEC v2 en tipografía y densidad:
    §1 **legibilidad**: escala completa (piso 13px, fila 38px, flavor 17px, título 26px,
