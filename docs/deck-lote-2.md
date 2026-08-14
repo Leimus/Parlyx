@@ -145,7 +145,7 @@ Misma notación que el lote 1 (OVR, TEND, RW, EQ, ARR, PAT, ⚑, apuestas %/%).
 ---
 
 **H-01 · "El asado con el inversor"** · T5 · HQ: Buenos Aires
-*Un fondo local te invita a un asado "para conocerse". Acá los term sheets se cocinan a las brasas.*
+*Un fondo local te invita a un asado "para conocerse". Acá las ofertas de inversión se cocinan a las brasas.*
 - **A. Ir y hablar de negocios** → 50%: term sheet el lunes, RW +12m, EQ -12% / 50%: era solo un asado
 - **B. Ir y NO hablar de negocios** → TEND +1 (leyeron el juego) · ⚑ favor_debido
 - **C. "Estoy a full, otro día"** → los fondos locales te bajan el pulgar un trienio
@@ -197,7 +197,7 @@ Misma notación que el lote 1 (OVR, TEND, RW, EQ, ARR, PAT, ⚑, apuestas %/%).
 ---
 
 **T-01 · "El empleado número uno"** · T6 · Etapa: garage/seed
-*Trabaja como socio, cobra como junior. Te pide equity. Tiene razón.*
+*Trabaja como socio y cobra como el que recién empieza. Te pide una parte de la empresa. Tiene razón.*
 - **A. Darle 2% con vesting** → EQ -2% · TEND +2 (lealtad de hierro)
 - **B. Subirle el sueldo, sin equity** → RW -2m · 55%: se queda / 45%: se va al año, TEND -1
 - **C. "Más adelante lo vemos"** → 70%: se va cuando más lo necesitás, TEND -2
@@ -268,7 +268,7 @@ Misma notación que el lote 1 (OVR, TEND, RW, EQ, ARR, PAT, ⚑, apuestas %/%).
 - **C. Seguir con el Excel** → bloquea F-01 · en due diligence: efectos ×1.5
 
 **F-04 · "La due diligence"** · T2 · Trigger: antes de rondas Serie B+ o exit
-*Un ejército de analistas revisa tu empresa con lupa. Todos los ⚑ que juntaste están por cobrar peaje.*
+*Un ejército de analistas revisa tu empresa con lupa. Todas las manchas que juntaste están por cobrar peaje.*
 - **A. Abrir todo, sin sorpresas** → si no hay flags negativos: TEND +1, cierre rápido · si hay (balde_agujereado, deuda_técnica, margen_negativo): valuación -15% por flag
 - **B. Maquillar lo justo** → 45%: cuela / 55%: encuentran todo, la ronda se cae, OVR -2
 - *(Esta carta es el cobrador del karma: hace que los flags de todo el deck importen.)*

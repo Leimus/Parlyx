@@ -6,25 +6,42 @@
       "id": "T-01",
       "bloque": "equipo",
       "titulo": "El empleado número uno",
-      "flavor": "Trabaja como socio, cobra como junior. Te pide equity. Tiene razón.",
+      "flavor": "Trabaja como socio y cobra como el que recién empieza. Te pide una parte de la empresa. Tiene razón.",
       "tipo": "T6",
-      "elegibilidad": { "modos": ["founder"], "etapaMax": 1 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMax": 1
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Darle 2% con vesting",
           "raw": "EQ -2% · TEND +2 (lealtad de hierro)",
-          "efectos": { "eq": -2, "tend": 2 }
+          "efectos": {
+            "eq": -2,
+            "tend": 2
+          }
         },
         {
           "id": "B",
           "label": "Subirle el sueldo, sin equity",
           "raw": "RW -2m · 55%: se queda / 45%: se va al año, TEND -1",
-          "efectos": { "rw": -2 },
+          "efectos": {
+            "rw": -2
+          },
           "apuesta": {
             "p": 0.55,
-            "gana": { "texto": "se queda" },
-            "pierde": { "texto": "se va al año, TEND -1", "efectos": { "tend": -1 } }
+            "gana": {
+              "texto": "se queda"
+            },
+            "pierde": {
+              "texto": "se va al año, TEND -1",
+              "efectos": {
+                "tend": -1
+              }
+            }
           }
         },
         {
@@ -33,8 +50,15 @@
           "raw": "70%: se va cuando más lo necesitás, TEND -2",
           "apuesta": {
             "p": 0.3,
-            "gana": { "texto": "sin efecto" },
-            "pierde": { "texto": "se va cuando más lo necesitás, TEND -2", "efectos": { "tend": -2 } }
+            "gana": {
+              "texto": "sin efecto"
+            },
+            "pierde": {
+              "texto": "se va cuando más lo necesitás, TEND -2",
+              "efectos": {
+                "tend": -2
+              }
+            }
           },
           "notas": "Apuesta de riesgo puro: el .md solo da la rama mala (70%); p = 0.3 es la rama buena (sin efecto, texto agregado)."
         }
@@ -46,23 +70,39 @@
       "titulo": "Seniors o pibes",
       "flavor": "Podés contratar dos seniors caros o cinco juniors con hambre. No hay plata para las dos cosas.",
       "tipo": "T1",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 1, "etapaMax": 2 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 1,
+        "etapaMax": 2
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Los dos seniors",
           "raw": "RW -5m · TEND +1 inmediato",
-          "efectos": { "rw": -5, "tend": 1 }
+          "efectos": {
+            "rw": -5,
+            "tend": 1
+          }
         },
         {
           "id": "B",
           "label": "Los cinco juniors",
           "raw": "RW -3m · TEND +2 pero recién en 2 trienios · 30%: el gigante te los roba formados",
-          "efectos": { "rw": -3, "tendLenta": 2 },
+          "efectos": {
+            "rw": -3,
+            "tendLenta": 2
+          },
           "apuesta": {
             "p": 0.7,
-            "gana": { "texto": "sin efecto" },
-            "pierde": { "texto": "el gigante te los roba formados" }
+            "gana": {
+              "texto": "sin efecto"
+            },
+            "pierde": {
+              "texto": "el gigante te los roba formados"
+            }
           },
           "notas": "tendLenta: el TEND +2 llega recién en 2 trienios. Apuesta de riesgo puro (el .md solo da la rama mala, 30%, sin cuantificar): p = 0.7 es la rama buena."
         },
@@ -70,7 +110,10 @@
           "id": "C",
           "label": "Un senior que forme juniors",
           "raw": "RW -4m · TEND +1 sostenido (el equilibrio, si lo encontrás)",
-          "efectos": { "rw": -4, "tend": 1 },
+          "efectos": {
+            "rw": -4,
+            "tend": 1
+          },
           "notas": "\"sostenido\" es un matiz de duración no mecanizado: queda en raw."
         }
       ]
@@ -81,28 +124,58 @@
       "titulo": "Oficina o remoto",
       "flavor": "La mitad del equipo no quiere volver. La otra mitad no quiere trabajar solo. Vos querés no decidir.",
       "tipo": "T1",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 2, "ventana": [2020, 2026] },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 2,
+        "ventana": [
+          2020,
+          2026
+        ]
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Full remoto, oficina mínima",
           "raw": "RW +3m · 60%: TEND +1 (contratás en todo el continente) / 40%: la cultura se diluye, TEND -1",
-          "efectos": { "rw": 3 },
+          "efectos": {
+            "rw": 3
+          },
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "TEND +1 (contratás en todo el continente)", "efectos": { "tend": 1 } },
-            "pierde": { "texto": "la cultura se diluye, TEND -1", "efectos": { "tend": -1 } }
+            "gana": {
+              "texto": "TEND +1 (contratás en todo el continente)",
+              "efectos": {
+                "tend": 1
+              }
+            },
+            "pierde": {
+              "texto": "la cultura se diluye, TEND -1",
+              "efectos": {
+                "tend": -1
+              }
+            }
           }
         },
         {
           "id": "B",
           "label": "Todos a la oficina",
           "raw": "RW -3m · 50%: cohesión, TEND +1 / 50%: renuncias de los mejores",
-          "efectos": { "rw": -3 },
+          "efectos": {
+            "rw": -3
+          },
           "apuesta": {
             "p": 0.5,
-            "gana": { "texto": "cohesión, TEND +1", "efectos": { "tend": 1 } },
-            "pierde": { "texto": "renuncias de los mejores" }
+            "gana": {
+              "texto": "cohesión, TEND +1",
+              "efectos": {
+                "tend": 1
+              }
+            },
+            "pierde": {
+              "texto": "renuncias de los mejores"
+            }
           },
           "notas": "\"renuncias de los mejores\" no está cuantificado: queda como texto."
         },
@@ -120,13 +193,22 @@
       "titulo": "El tóxico que factura",
       "flavor": "Tu mejor vendedor es el peor compañero. Los números lo aman. El equipo lo odia.",
       "tipo": "T6",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 2 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 2
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Echarlo igual",
           "raw": "ARR -15% un trienio · OVR +2 · TEND +2 (el mensaje que queda)",
-          "efectos": { "arrMul": 0.85, "ovr": 2, "tend": 2 },
+          "efectos": {
+            "arrMul": 0.85,
+            "ovr": 2,
+            "tend": 2
+          },
           "notas": "\"un trienio\" acota el ARR -15% al trienio en curso (arrMul ya es por trienio)."
         },
         {
@@ -135,8 +217,12 @@
           "raw": "ARR estable · 50%: funciona / 50%: la isla se agranda",
           "apuesta": {
             "p": 0.5,
-            "gana": { "texto": "funciona" },
-            "pierde": { "texto": "la isla se agranda" }
+            "gana": {
+              "texto": "funciona"
+            },
+            "pierde": {
+              "texto": "la isla se agranda"
+            }
           },
           "notas": "\"ARR estable\" y ambas ramas son narrativas, sin efecto cuantificado en el .md."
         },
@@ -144,11 +230,18 @@
           "id": "C",
           "label": "Bancarlo por los números",
           "raw": "ARR +10% · TEND -2 · 40%: se te van dos buenos por cada trimestre",
-          "efectos": { "arrMul": 1.1, "tend": -2 },
+          "efectos": {
+            "arrMul": 1.1,
+            "tend": -2
+          },
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "sin efecto" },
-            "pierde": { "texto": "se te van dos buenos por cada trimestre" }
+            "gana": {
+              "texto": "sin efecto"
+            },
+            "pierde": {
+              "texto": "se te van dos buenos por cada trimestre"
+            }
           },
           "notas": "Apuesta de riesgo puro (rama mala 40%, sin cuantificar): p = 0.6 es la rama buena."
         }
@@ -160,27 +253,42 @@
       "titulo": "La fuga al gigante",
       "flavor": "El gigante del e-commerce regional está reclutando. Le ofreció el doble a tres de los tuyos.",
       "tipo": "T6",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 3 },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 3
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Igualar las ofertas",
           "raw": "RW -5m · se quedan · ⚑ inflación_salarial",
-          "efectos": { "rw": -5, "flags": ["inflación_salarial"] },
+          "efectos": {
+            "rw": -5,
+            "flags": [
+              "inflación_salarial"
+            ]
+          },
           "notas": "\"se quedan\" es narrativo (evita la fuga), sin efecto numérico."
         },
         {
           "id": "B",
           "label": "Dejar ir, ascender de adentro",
           "raw": "TEND -1 ya, +2 en el próximo trienio (los que suben responden)",
-          "efectos": { "tend": -1, "tendLenta": 2 },
+          "efectos": {
+            "tend": -1,
+            "tendLenta": 2
+          },
           "notas": "tendLenta: el +2 llega en el próximo trienio."
         },
         {
           "id": "C",
           "label": "Llamar al gigante y quejarte",
           "raw": "OVR -1 · igual se los llevan · flavor: \"no fue tu mejor llamada\"",
-          "efectos": { "ovr": -1 },
+          "efectos": {
+            "ovr": -1
+          },
           "notas": "\"igual se los llevan\" es narrativo; el flavor queda en raw."
         }
       ]
@@ -191,13 +299,22 @@
       "titulo": "El head de People",
       "flavor": "Pasaste de 15 a 80 personas. Los quilombos ya no se arreglan con un asado.",
       "tipo": "T1",
-      "elegibilidad": { "modos": ["founder"], "etapaMin": 3, "condicion": "50+ empleados" },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "etapaMin": 3,
+        "condicion": "50+ empleados"
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Contratar un head de People en serio",
           "raw": "RW -3m · TEND +1 sostenido",
-          "efectos": { "rw": -3, "tend": 1 },
+          "efectos": {
+            "rw": -3,
+            "tend": 1
+          },
           "notas": "\"sostenido\" es un matiz de duración no mecanizado: queda en raw."
         },
         {
@@ -206,8 +323,12 @@
           "raw": "OVR -1 por trienio desde 100 empleados · 40%: crisis interna pública",
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "sin efecto" },
-            "pierde": { "texto": "crisis interna pública" }
+            "gana": {
+              "texto": "sin efecto"
+            },
+            "pierde": {
+              "texto": "crisis interna pública"
+            }
           },
           "notas": "\"OVR -1 por trienio desde 100 empleados\" es condicional y recurrente: no va en efectos, queda en raw. Apuesta de riesgo puro (rama mala 40%, sin cuantificar)."
         }
@@ -219,7 +340,12 @@
       "titulo": "Sueldos a la vista",
       "flavor": "Se filtró la planilla de sueldos. Todos saben lo de todos. Hay caras largas en la cocina.",
       "tipo": "T2",
-      "elegibilidad": { "modos": ["founder"], "condicion": "20+ empleados" },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "condicion": "20+ empleados"
+      },
       "opciones": [
         {
           "id": "A",
@@ -227,8 +353,15 @@
           "raw": "60%: TEND +2, empleador imán / 40%: se van dos que estaban fuera de banda",
           "apuesta": {
             "p": 0.6,
-            "gana": { "texto": "TEND +2, empleador imán", "efectos": { "tend": 2 } },
-            "pierde": { "texto": "se van dos que estaban fuera de banda" }
+            "gana": {
+              "texto": "TEND +2, empleador imán",
+              "efectos": {
+                "tend": 2
+              }
+            },
+            "pierde": {
+              "texto": "se van dos que estaban fuera de banda"
+            }
           },
           "notas": "La rama mala no está cuantificada: queda como texto."
         },
@@ -236,14 +369,18 @@
           "id": "B",
           "label": "Emparejar en silencio",
           "raw": "RW -4m · se calma",
-          "efectos": { "rw": -4 },
+          "efectos": {
+            "rw": -4
+          },
           "notas": "\"se calma\" es narrativo."
         },
         {
           "id": "C",
           "label": "Cazar al que filtró",
           "raw": "TEND -2 · encontrarlo no arregla nada y el juego te lo dice",
-          "efectos": { "tend": -2 }
+          "efectos": {
+            "tend": -2
+          }
         }
       ]
     },
@@ -253,23 +390,37 @@
       "titulo": "El bonus pool",
       "flavor": "Fue un año espectacular. La pregunta de diciembre: ¿cuánto se reparte?",
       "tipo": "T1",
-      "elegibilidad": { "modos": ["founder"], "condicion": "año bueno (ARR +30% o más)" },
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "condicion": "año bueno (ARR +30% o más)"
+      },
       "opciones": [
         {
           "id": "A",
           "label": "Bonus generoso para todos",
           "raw": "RW -4m · TEND +2",
-          "efectos": { "rw": -4, "tend": 2 }
+          "efectos": {
+            "rw": -4,
+            "tend": 2
+          }
         },
         {
           "id": "B",
           "label": "Bonus solo a los top performers",
           "raw": "RW -2m · 50%: meritocracia sana / 50%: guerra fría interna",
-          "efectos": { "rw": -2 },
+          "efectos": {
+            "rw": -2
+          },
           "apuesta": {
             "p": 0.5,
-            "gana": { "texto": "meritocracia sana" },
-            "pierde": { "texto": "guerra fría interna" }
+            "gana": {
+              "texto": "meritocracia sana"
+            },
+            "pierde": {
+              "texto": "guerra fría interna"
+            }
           },
           "notas": "Ninguna rama está cuantificada en el .md: quedan como texto."
         },
@@ -277,7 +428,9 @@
           "id": "C",
           "label": "Reinvertir todo, \"el bonus es el equity\"",
           "raw": "TEND -1 · OVR -1 si lo repetís dos veces",
-          "efectos": { "tend": -1 },
+          "efectos": {
+            "tend": -1
+          },
           "notas": "\"OVR -1 si lo repetís dos veces\" es condicional: no va en efectos, queda en raw."
         }
       ]

@@ -7,6 +7,7 @@
 
    Uso: node scripts/smoke-game.mjs [N]   (default 300)              */
 import { createGame, chooseOption, advanceTurn } from "../lib/game/state.js";
+import { BEAT_2020, ALL_CARDS } from "../lib/game/deck.js";
 import { rng } from "../lib/engine/index.js";
 import { RUBROS_META, HQS_META, CAPITALES_META, EMOJIS, COLORS, NOMBRES } from "../lib/game/meta.js";
 import { hashStr, mulberry32 } from "../lib/engine/prng.js";
@@ -77,7 +78,7 @@ for (let i = 0; i < N; i++) {
 console.log(`\n=== SMOKE (${N} partidas auto-jugadas) ===`);
 console.log("Finales:", Object.entries(finals).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}:${((100 * v) / N).toFixed(1)}%`).join(" · "));
 console.log("Motes:  ", Object.entries(motes).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}:${((100 * v) / N).toFixed(1)}%`).join(" · "));
-console.log(`Filas promedio: ${(turnosTot / (N - fallas)).toFixed(1)} · Cartas distintas vistas: ${cartasVistas.size}/111 (+sintéticas)`);
+console.log(`Filas promedio: ${(turnosTot / (N - fallas)).toFixed(1)} · Cartas distintas vistas: ${cartasVistas.size}/${ALL_CARDS.length} (+sintéticas)`);
 
 if (porArco) {
   console.log("\n=== DISTRIBUCIÓN POR ARCO (recalibración v0.3 §12.5) ===");
@@ -103,22 +104,26 @@ console.log("✓ Todas las partidas terminaron sin errores.");
 
 /* ---- REGLA DE ORO (PRD v1.0 §4.2): activar Parlyx debe ser óptimo en
    ~60-70% de los contextos, NO en el 100%. Cada seed se juega tres veces
-   con la misma política (solo cambia la decisión de EC-24) y se compara
-   el resultado final (plata del jugador + valor de su parte). ---- */
+   con la misma política (solo cambia la decisión del beat 2020) y se
+   compara el resultado final (plata del jugador + valor de su parte).
+   SPEC v3 §2.5: el beat existe en las tres sillas, así que el universo
+   pasó a ser el 100% de las seeds — antes se descartaban las que nunca
+   lo veían. ---- */
 if (modoParlyx) {
   const score = (gs) => {
     const g = gs.g;
     const parte = !g.dead && (gs.mode === "founder" || gs.retired === false) ? g.val * (g.eq / 100) : 0;
     return g.pat + parte;
   };
-  const jugar = (seed, setup, opcionEC24) => {
+  const BEAT_IDS = new Set(Object.values(BEAT_2020));
+  const jugar = (seed, setup, opcionBeat) => {
     const gs = createGame(seed, setup);
     let guard = 0;
-    while (gs.phase !== "end" && guard++ < 200) {
+    while (gs.phase !== "end" && guard++ < 300) {
       if (gs.phase === "decision") {
         const ops = gs.card.opciones;
-        const op = gs.card.id === "EC-24"
-          ? ops.find((o) => o.id === opcionEC24) || ops[0]
+        const op = BEAT_IDS.has(gs.card.id)
+          ? ops.find((o) => o.id === opcionBeat) || ops[0]
           : ops[Math.floor(rng(gs.g) * ops.length)];
         chooseOption(gs, op.id);
       } else advanceTurn(gs);
@@ -137,8 +142,8 @@ if (modoParlyx) {
       hq: HQS_META[Math.floor(rs() * HQS_META.length)].id,
       capital: CAPITALES_META[Math.floor(rs() * CAPITALES_META.length)].id,
     };
-    const a = jugar(seed, setup, "A"); // responder vos
-    if (!a.used.has("EC-24")) continue; // no llegó al beat (quiebra temprana)
+    const a = jugar(seed, setup, "A"); // resolverlo a mano
+    if (!a.beatParlyx) continue; // imposible desde SPEC v3 §2.5, pero la traba queda
     const b = jugar(seed, setup, "B"); // contratar
     const c = jugar(seed, setup, "C"); // activar Parlyx
     conBeat++;

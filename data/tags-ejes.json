@@ -1,5 +1,5 @@
 {
-  "_comentario": "Tags de eje por opción (PRD v0.3 §2): hasta 2 por opción, invisibles al jugador. Ejes: capital (diluidor/dueño) · motor (ventas/producto) · gestion (delegador/pulpo) · riesgo (apostador/arquitecto). Solo se taggean opciones donde hay elección real entre polos; el mote se calcula con estas decisiones (mín. 6 con tag, si no: El Enigma). El bloque ejecutivo no se taggea (fuera de v1). Pivote v1.0: la capa vertical (V-*) fue reemplazada por la e-commerce (EC-*), taggeada completa. Validado por scripts/validate-cards.mjs.",
+  "_comentario": "Tags de eje por opción (PRD v0.3 §2): hasta 2 por opción, invisibles al jugador. Ejes: capital (diluidor/dueño) · motor (ventas/producto) · gestion (delegador/pulpo) · riesgo (apostador/arquitecto). Solo se taggean opciones donde hay elección real entre polos; el mote se calcula con estas decisiones (mín. 6 con tag, si no: El Enigma). El bloque ejecutivo no se taggea (fuera de v1). Pivote v1.0: la capa vertical (V-*) fue reemplazada por la e-commerce (EC-*), taggeada completa. SPEC v3 §2: las cartas de las sillas B (corpo) y C (ángel) también se taggean — si no, las partidas que no son de fundador disparan El Enigma. Validado por scripts/validate-cards.mjs.",
   "tags": {
     "M-01": {
       "A": [
@@ -862,6 +862,127 @@
       ],
       "D": [
         "motor:producto"
+      ]
+    },
+    "EC-26": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "gestion:pulpo"
+      ],
+      "C": [
+        "gestion:delegador"
+      ]
+    },
+    "EC-27": {
+      "A": [
+        "capital:dueño"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "capital:diluidor"
+      ]
+    },
+    "EC-28": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "motor:producto"
+      ]
+    },
+    "EC-29": {
+      "A": [
+        "gestion:pulpo"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "gestion:delegador"
+      ]
+    },
+    "EC-30": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "capital:dueño"
+      ]
+    },
+    "EC-31": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "gestion:delegador"
+      ]
+    },
+    "EC-32": {
+      "A": [
+        "capital:dueño"
+      ],
+      "B": [
+        "gestion:delegador"
+      ],
+      "C": [
+        "capital:diluidor"
+      ]
+    },
+    "P-09": {
+      "A": [
+        "gestion:delegador"
+      ],
+      "B": [
+        "capital:dueño"
+      ],
+      "C": [
+        "gestion:delegador"
+      ]
+    },
+    "P-10": {
+      "A": [
+        "riesgo:arquitecto"
+      ],
+      "B": [
+        "riesgo:apostador"
+      ],
+      "C": [
+        "capital:dueño"
+      ]
+    },
+    "P-11": {
+      "A": [
+        "riesgo:apostador"
+      ],
+      "B": [
+        "riesgo:arquitecto"
+      ],
+      "C": [
+        "capital:dueño"
+      ]
+    },
+    "P-12": {
+      "A": [
+        "capital:diluidor"
+      ],
+      "B": [
+        "capital:dueño"
+      ],
+      "C": [
+        "riesgo:arquitecto"
       ]
     }
   }

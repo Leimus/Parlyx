@@ -8,11 +8,11 @@
 import { useEffect, useReducer, useRef, useState } from "react";
 import { AnimatePresence, MotionConfig, animate, motion, useReducedMotion } from "framer-motion";
 import {
-  createGame, chooseOption, advanceTurn, hudData, cardTePaso, TURN_YEARS, shareDesafio,
+  createGame, chooseOption, advanceTurn, hudData, cardTePaso, TURN_YEARS, shareDesafio, impactoSujeto,
 } from "@/lib/game/state.js";
 import {
   RUBROS_META, ISOTIPOS, MARCAS_PLACEHOLDER, CAPITALES_META, COLORS, NOMBRES,
-  fmtUSD, ovrTier, ERA_NOMBRES, climaEmoji, ETAPAS,
+  fmtUSD, fmtCompacto, ovrTier, ERA_NOMBRES, climaEmoji, ETAPAS, marcoDe, cartelDe,
 } from "@/lib/game/meta.js";
 import { humanizar } from "@/lib/game/humano.js";
 import { track } from "@/lib/game/analytics.js";
@@ -54,19 +54,76 @@ function useOdometer(value: number, fmt: (n: number) => string, fromZero = false
   return txt;
 }
 
-function Ticker({ clima, frozen }: { clima: number; frozen?: boolean }) {
+/* El ticker también evoluciona con la era (SPEC v3 §3): cinta de
+   cotizaciones impresa en el diario, fósforo verde en el CRT, y de 2008
+   en adelante el ticker actual. */
+function Ticker({ clima, frozen, marco = "laptop" }: { clima: number; frozen?: boolean; marco?: string }) {
   const up = clima >= 0;
   const syms = ["PLYX", "PMPA", "YNTA", "CRDO", "LATM", "MODA", "DECO", "MATE", "BELL", "ALIM"];
+  const impreso = marco === "diario";
   const items = syms.map((s, i) => {
     const pos = up ? i % 3 !== 0 : i % 3 === 0;
     const n = ((i * 7 + 3) % 40) / 10 + 0.4;
     return (
-      <span key={s} style={{ color: pos ? "var(--up)" : "var(--down)" }}>
+      <span key={s} style={impreso ? undefined : { color: pos ? "var(--up)" : "var(--down)" }}>
         {s} {pos ? "▲" : "▼"}{n.toFixed(1)}%
       </span>
     );
   });
-  return <div className="ticker"><div className={"tape" + (frozen ? " frozen" : "")}>{items}{items}</div></div>;
+  return (
+    <div className={"ticker tk-" + marco}>
+      <div className={"tape" + (frozen ? " frozen" : "")}>{items}{items}</div>
+    </div>
+  );
+}
+
+/* ---------- El cromo de cada marco de época (§3) ----------
+   Es decoración pura: pointer-events:none para no robarle taps a las
+   opciones, y jamás toca .opt a un nivel de clase (la señal de
+   ganaste/perdiste tiene que seguir ganando). */
+function MarcoChrome({ marco, year }: { marco: string; year: number }) {
+  const cromo: Record<string, React.ReactNode> = {
+    diario: (
+      <div className="cr-diario">
+        <span className="sec">EL COMERCIO</span>
+        <span className="fecha">Buenos Aires · {year}</span>
+      </div>
+    ),
+    crt: (
+      <div className="cr-crt">
+        <span className="tit">C:\MARCA\{year}</span>
+        <span className="btns"><i /><i /><i /></span>
+      </div>
+    ),
+    laptop: (
+      <div className="cr-laptop">
+        <span className="tab">tu marca</span>
+        <span className="url">tumarca.com.ar/{year}</span>
+      </div>
+    ),
+    movil: (
+      <div className="cr-movil">
+        <span className="hora">9:41</span>
+        <span className="icons">
+          <svg width="46" height="12" viewBox="0 0 46 12" aria-hidden>
+            <rect x="0" y="7" width="3" height="5" rx="1" fill="currentColor" />
+            <rect x="5" y="5" width="3" height="7" rx="1" fill="currentColor" />
+            <rect x="10" y="2.5" width="3" height="9.5" rx="1" fill="currentColor" />
+            <path d="M20 4.4a7 7 0 018 0M22 7a4 4 0 014 0M24 9.6h.01" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <rect x="33" y="3" width="11" height="7" rx="2" fill="none" stroke="currentColor" strokeWidth="1.3" />
+            <rect x="34.5" y="4.5" width="7" height="4" rx="1" fill="currentColor" />
+          </svg>
+        </span>
+      </div>
+    ),
+    chat: (
+      <div className="cr-chat">
+        <span className="av" />
+        <span className="quien">tu negocio<i>en línea</i></span>
+      </div>
+    ),
+  };
+  return <div className="marco-chrome" aria-hidden>{cromo[marco] || cromo.laptop}</div>;
 }
 
 function Spark({ hist }: { hist: number[] }) {
@@ -111,15 +168,16 @@ function IsotipoSVG({ id, color = "#fff", size = 22 }: { id: string; color?: str
 }
 
 /* Logo de fila: isotipo propio (marca) o emoji (playa/corpo/gigantes) */
-function Logo({ value, color, size = 18 }: { value: string; color?: string; size?: number }) {
+function Logo({ value, color, size = 22 }: { value: string; color?: string; size?: number }) {
   if (ISOTIPOS.includes(value)) {
     return (
       <span className="logo" style={{ background: (color || "#333") + "26", width: size, height: size }}>
-        <IsotipoSVG id={value} color={color || "#fff"} size={size - 6} />
+        <IsotipoSVG id={value} color={color || "#fff"} size={size - 7} />
       </span>
     );
   }
-  return <span className="logo" style={{ background: (color || "#333") + "26", width: size, height: size, fontSize: size - 7 }}>{value}</span>;
+  // El emoji de fila es texto: nunca por debajo del piso de 13px (§1).
+  return <span className="logo" style={{ background: (color || "#333") + "26", width: size, height: size, fontSize: Math.max(13, size - 7) }}>{value}</span>;
 }
 
 /* ---------- Los 6 rubros ilustrados (§6) ---------- */
@@ -160,7 +218,8 @@ function BolsaPreview({ nombre, isotipo, color }: { nombre: string; isotipo: str
 /* Chip de año coloreado por etapa (UI-SPEC v2 §1) */
 const ETAPA_CLASS: Record<string, string> = {
   Garage: "e-garage", Seed: "e-seed", "Serie A": "e-serieA", "Serie B": "e-serieB",
-  "Serie C": "e-serieC", Gigante: "e-serieC", "Pública": "e-publica", Retiro: "e-retiro", Corpo: "e-corpo",
+  "Serie C": "e-serieC", Gigante: "e-serieC", "Pública": "e-publica", Retiro: "e-retiro",
+  Corpo: "e-corpo", "Ángel": "e-retiro",
 };
 
 function Fila({ row, delay = 0 }: { row: any; delay?: number }) {
@@ -176,13 +235,13 @@ function Fila({ row, delay = 0 }: { row: any; delay?: number }) {
         <Logo value={row.emoji} color={row.color} />
         {row.name}{" "}
         {row.markers.map((m: string) => (
-          <span key={m} style={{ color: m === "🔁" ? "var(--up)" : "var(--down)", fontSize: 11 }}>{m}</span>
+          <span key={m} style={{ color: m === "🔁" ? "var(--up)" : "var(--down)", fontSize: 13 }}>{m}</span>
         ))}
         <span className="hito-inline">{row.hitos.join(" ")}</span>
       </span>
       <span style={{ textAlign: "center" }}>{row.playa ? "" : <OvrPill v={row.ovr} />}</span>
       <span className="arrv">
-        {row.playa ? fmtUSD(row.pat) : row.arr ? fmtUSD(row.arr) : "—"}
+        {row.playa ? fmtCompacto(row.pat) : row.arr ? fmtCompacto(row.arr) : "—"}
         {row.down && <span style={{ color: "var(--down)" }}>▼</span>}
       </span>
     </motion.div>
@@ -218,7 +277,7 @@ function EscudoSVG({ ticker, on, size = 44 }: { ticker: string; on: boolean; siz
   return (
     <svg width={size} height={size * 1.14} viewBox="0 0 44 50" aria-hidden>
       <path d="M22 2L40 8v16c0 12-8 19-18 24C12 43 4 36 4 24V8z" fill={on ? "rgba(167,139,250,.10)" : "rgba(58,65,80,.12)"} stroke={c} strokeWidth="2.4" strokeLinejoin="round" />
-      <text x="22" y="29" textAnchor="middle" fontSize="10.5" fontWeight="800" fill={c} fontFamily="var(--font-mono), monospace">{ticker}</text>
+      <text x="22" y="29.5" textAnchor="middle" fontSize="13" fontWeight="800" fill={c} fontFamily="var(--font-mono), monospace">{ticker}</text>
     </svg>
   );
 }
@@ -227,7 +286,7 @@ function HudValuacion({ val, hist, publica }: { val: number; hist: number[]; pub
   const odo = useOdometer(val, fmtUSD);
   return (
     <div className="stat">
-      <div className="k">{publica ? "Mkt cap" : "Tu marca vale"}</div>
+      <div className="k">{publica ? "Mkt cap" : "Tu marca"}</div>
       <div className="v">{odo}</div>
       <Spark hist={hist} />
     </div>
@@ -237,6 +296,47 @@ function HudValuacion({ val, hist, publica }: { val: number; hist: number[]; pub
 function PatOdo({ pat }: { pat: number }) {
   const odo = useOdometer(pat, fmtUSD, true);
   return <p className="mini mono">Tu bolsillo: {odo}</p>;
+}
+
+/* La pieza visual que faltaba (§4.4): una carrera llenándose sola en loop.
+   Reusa las clases de la tabla real — muestra el producto en 3 segundos
+   sin explicar nada, y hereda gratis la tipografía del §1. */
+const PREVIEW_FILAS = [
+  { year: 1993, name: "Pampa Viva", emoji: "hoja", color: "#F0B90B", ovr: 58, arr: 120000, etapa: "Garage" },
+  { year: 1999, name: "Pampa Viva", emoji: "hoja", color: "#F0B90B", ovr: 66, arr: 890000, etapa: "Seed" },
+  { year: 2008, name: "Pampa Viva", emoji: "hoja", color: "#F0B90B", ovr: 78, arr: 6200000, etapa: "Serie A" },
+  // Sin emojis: la portada usa los isotipos propios del juego (§4, prohibido)
+  { year: 2020, name: "+ Parlyx", emoji: "rayo", color: "#16C784", ovr: 84, arr: 21000000, etapa: "Serie B" },
+  { year: 2026, name: "Tocó la campana", emoji: "estrella", color: "#A78BFA", ovr: 91, arr: 74000000, etapa: "Pública" },
+];
+
+function PreviewTabla() {
+  const [n, setN] = useState(0);
+  const reduced = useReducedMotion();
+  useEffect(() => {
+    if (reduced) { setN(PREVIEW_FILAS.length); return; }
+    const t = setInterval(() => setN((x) => (x >= PREVIEW_FILAS.length ? 0 : x + 1)), 900);
+    return () => clearInterval(t);
+  }, [reduced]);
+  return (
+    <div className="pt-preview" aria-hidden>
+      <div className="tabla">
+        <div className="thead"><span>Año</span><span>Marca</span><span style={{ textAlign: "center" }}>OVR</span><span style={{ textAlign: "right" }}>Ventas</span></div>
+        {PREVIEW_FILAS.map((f, i) =>
+          i < n ? (
+            <motion.div className="trow" key={f.year} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={SPRING}>
+              <span className={"yrchip " + (ETAPA_CLASS[f.etapa] || "")}>{f.year}</span>
+              <span className="empresa"><Logo value={f.emoji} color={f.color} size={20} />{f.name}</span>
+              <span style={{ textAlign: "center" }}><span className={"pill p-" + ovrTier(f.ovr)}>{f.ovr}</span></span>
+              <span className="arrv">{fmtCompacto(f.arr)}</span>
+            </motion.div>
+          ) : (
+            <div className="trow ghost" key={f.year}><span className="yrchip">{f.year}</span><span /><span /><span /></div>
+          )
+        )}
+      </div>
+    </div>
+  );
 }
 
 const SETUP_DEFAULT = { empresa: "", apellido: "", isotipo: "rombo", color: COLORS[0], rubro: "", capital: "" };
@@ -252,6 +352,8 @@ export default function Game() {
   const [copied, setCopied] = useState<string | null>(null);
   const [pendingOp, setPendingOp] = useState<string | null>(null);
   const [parlyxFlash, setParlyxFlash] = useState(false);
+  const [seedAbierto, setSeedAbierto] = useState(false); // CTA secundario colapsado (§4.6)
+  const [saliendo, setSaliendo] = useState(false); // la tapa se abre hacia el setup (§4.8)
   const [formato, setFormato] = useState<"45" | "916">("45");
   const [vitrina, setVitrina] = useState<{ copas: string[]; arquetipos: string[]; partidas: number }>({ copas: [], arquetipos: [], partidas: 0 });
   const gsRef = useRef<GS>(null);
@@ -262,7 +364,13 @@ export default function Game() {
   useEffect(() => {
     setSeedStr(randSeed());
     const s = new URLSearchParams(window.location.search).get("s");
-    if (s && /^[A-Z2-9]{6}$/.test(s.toUpperCase())) setSeedInput(s.toUpperCase());
+    // Si venís de un desafío, el CTA secundario NO puede estar colapsado:
+    // ese flujo es el K-factor, o sea el KPI norte del PRD §2.
+    if (s && /^[A-Z2-9]{6}$/.test(s.toUpperCase())) {
+      setSeedInput(s.toUpperCase());
+      setSeedAbierto(true);
+      esDesafio.current = true;
+    }
     const v = cargarVitrina();
     setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas });
     if (v.setup?.empresa) setSetup({ ...SETUP_DEFAULT, ...v.setup });
@@ -326,44 +434,77 @@ export default function Game() {
     });
   };
 
-  /* ---------- Landing ---------- */
-  if (screen === "landing")
+  /* ---------- Portada: la tapa del diario de 1993 (SPEC v3 §4) ---------- */
+  if (screen === "landing") {
+    const abrirTapa = (accion: () => void) => {
+      if (reduced) return accion();
+      setSaliendo(true);
+      window.setTimeout(accion, 900);
+    };
     return (
       <MotionConfig reducedMotion="user">
-      <div className="app"><div className="col">
-        <Ticker clima={1} />
-        <div className="brand">
-          <h1>Tu Carrera Emprendedora</h1>
-          <a
-            className="plx-link" href="https://parlyx.ai?utm_source=carrera&utm_medium=juego&utm_content=landing"
-            target="_blank" rel="noopener" onClick={() => track("outbound_parlyx", { desde: "landing" })}
-          >por Parlyx AI</a>
-        </div>
-        <div style={{ marginTop: 26 }}>
-          <div className="statline">El <span className="down">27%</span> quiebra.</div>
-          <div className="statline">El <span className="up">3%</span> toca la campana.</div>
-          <div className="vos">¿Vos?</div>
-        </div>
-        <p className="landquote">33 años de tu marca a través de la historia del comercio.<br />11 decisiones. Una carrera que es toda tuya.</p>
-        <MBtn className="btn pri" onClick={() => { esDesafio.current = false; setSeedStr(randSeed()); setStep(0); setScreen("setup"); }}>Fundar mi marca →</MBtn>
-        <div className="seedbox">
-          <input
-            className="input mono" placeholder="¿Te retaron? Pegá la seed" maxLength={6} value={seedInput}
-            onChange={(e) => setSeedInput(e.target.value.toUpperCase())} style={{ flex: 1 }}
-          />
+      <div className="app">
+        <motion.div
+          className="col portada"
+          animate={saliendo ? { rotateX: -22, opacity: 0, y: -30 } : { rotateX: 0, opacity: 1, y: 0 }}
+          transition={{ duration: reduced ? 0 : 0.9, ease: [0.4, 0, 0.2, 1] }}
+          style={{ transformOrigin: "top center", perspective: 1200 }}
+        >
+          <Ticker clima={1} marco="diario" />
+          <header className="pt-cabecera">
+            <h1>Tu Carrera Emprendedora</h1>
+            <div className="pt-filete" />
+            <p className="pt-fecha">Buenos Aires · 1993 · Edición del fundador</p>
+          </header>
+
+          <h2 className="pt-titular">
+            El <span className="down">27%</span> quiebra.<br />
+            El <span className="up">3%</span> toca la campana.
+          </h2>
+          <p className="pt-vos">¿VOS?</p>
+          <p className="pt-bajada">33 años de comercio argentino. 11 decisiones. Una marca: la tuya.</p>
+
+          <PreviewTabla />
+
           <MBtn
-            className="btn sec" style={{ width: "auto", padding: "0 18px" }}
-            onClick={() => { if (seedInput.length === 6) { esDesafio.current = true; setSeedStr(seedInput); setStep(0); setScreen("setup"); } }}
-          >Jugar</MBtn>
-        </div>
-        {vitrina.partidas > 0 && (
-          <p className="mini mono">
-            Vitrina {vitrina.copas.length}/{COPAS.length} · Formas de fundar {vitrina.arquetipos.length}/8 · {vitrina.partidas} carreras
-          </p>
-        )}
-      </div></div>
+            className="btn pri pt-cta"
+            onClick={() => abrirTapa(() => { esDesafio.current = false; setSeedStr(randSeed()); setStep(0); setScreen("setup"); })}
+          >Fundar mi marca →</MBtn>
+
+          {seedAbierto ? (
+            <div className="seedbox">
+              <input
+                className="input mono" placeholder="Código de 6 letras" maxLength={6} value={seedInput} autoFocus
+                onChange={(e) => setSeedInput(e.target.value.toUpperCase())} style={{ flex: 1 }}
+              />
+              <MBtn
+                className="btn sec" style={{ width: "auto", padding: "0 18px" }}
+                onClick={() => { if (seedInput.length === 6) abrirTapa(() => { esDesafio.current = true; setSeedStr(seedInput); setStep(0); setScreen("setup"); }); }}
+              >Jugar</MBtn>
+            </div>
+          ) : (
+            <button className="pt-seed-link" onClick={() => setSeedAbierto(true)}>¿Te retaron? Pegá el código</button>
+          )}
+
+          <footer className="pt-pie">
+            {vitrina.partidas > 0 && (
+              <p className="pt-vitrina">
+                Vitrina {vitrina.copas.length}/{COPAS.length} · Formas de fundar {vitrina.arquetipos.length}/8 · {vitrina.partidas} carreras
+              </p>
+            )}
+            <p>
+              un juego de{" "}
+              <a
+                className="plx-link" href="https://parlyx.ai?utm_source=carrera&utm_medium=juego&utm_content=landing"
+                target="_blank" rel="noopener" onClick={() => track("outbound_parlyx", { desde: "landing" })}
+              >Parlyx AI</a>
+            </p>
+          </footer>
+        </motion.div>
+      </div>
       </MotionConfig>
     );
+  }
 
   /* ---------- Setup (§6): 2 pantallas, preview vivo protagonista ---------- */
   if (screen === "setup") {
@@ -448,32 +589,85 @@ export default function Game() {
     const isPost = card?.sintetica && card.id === "PX-01";
     const isDiaDespues = card?.id === "DD-01";
     const isPlaya = card?.bloque === "playa";
-    const etapaActual = gs.mode === "corpo" ? "Corpo" : gs.mode !== "founder" ? "Retiro" : gs.g.public ? "Pública" : ETAPAS[etapaIdx(gs.g.val)];
+    const etapaActual =
+      hud.silla === "B" ? (gs.mode === "corpo" ? "Corpo" : "Retiro") : hud.silla === "C" ? "Ángel" : gs.g.public ? "Pública" : ETAPAS[etapaIdx(gs.g.val)];
+    const marco = marcoDe(hud.year);
     return (
       <MotionConfig reducedMotion="user">
       <div className="app"><div className="col ingame">
-        <Ticker clima={hud.era.clima} frozen={!!pendingOp} />
-        <div className="hudrow">
+        <Ticker clima={hud.era.clima} frozen={!!pendingOp} marco={marco} />
+        {/* El HUD cambia de sustantivos con la silla (SPEC v3 §2): fuera de
+            la silla del fundador, "tu marca vale" y "caja" son valores de una
+            empresa que ya no tenés. */}
+        <div className={"hudrow" + (hud.silla === "A" ? "" : " hud-otra")}>
           <div className="ovrwrap">
             <OvrPill v={hud.ovr} size="grande" />
-            {hud.racha >= 2 && <span className="racha">🔥×{hud.racha}</span>}
+            {/* La racha es del que maneja la marca: fuera de la silla A no
+                aplica, y encima pisaba la etiqueta de al lado. */}
+            {hud.racha >= 2 && hud.silla === "A" && <span className="racha">🔥×{hud.racha}</span>}
           </div>
-          <HudValuacion val={hud.val} hist={gs.hist} publica={hud.public} />
-          <div className="stat">
-            <div className="k">Caja</div>
-            <div className="v" style={{ color: hud.runway <= 6 && !hud.public && !hud.cfPositivo ? "var(--down)" : "inherit" }}>
-              {hud.public ? "—" : hud.cfPositivo ? "sobra" : hud.runway + "m"}
-            </div>
-          </div>
-          <div className="stat">
-            <div className="k">Tu parte</div>
-            <div className="v">{hud.eq}%</div>
-          </div>
+          {hud.silla === "A" ? (
+            <>
+              <HudValuacion val={hud.val} hist={gs.hist} publica={hud.public} />
+              <div className="stat">
+                <div className="k">Caja</div>
+                <div className="v" style={{ color: hud.runway <= 6 && !hud.public && !hud.cfPositivo ? "var(--down)" : "inherit" }}>
+                  {hud.public ? "—" : hud.cfPositivo ? "sobra" : hud.runway + "m"}
+                </div>
+              </div>
+              <div className="stat">
+                <div className="k">Tu parte</div>
+                <div className="v">{hud.eq}%</div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="stat">
+                <div className="k">Tu plata</div>
+                <div className="v">{fmtUSD(hud.pat)}</div>
+              </div>
+              {/* Dos stats, no tres: la silla ya se lee en el chip de la fila
+                  y en el sello de la carta — una tercera columna a 13px se
+                  pisaba con la de al lado. */}
+              <div className="stat" style={{ textAlign: "right" }}>
+                <div className="k">{hud.silla === "B" ? "Tu puesto" : "Tus marcas"}</div>
+                <div className="v">{hud.silla === "B" ? (gs.mode === "corpo" ? "Dirección" : "Sueldo") : (hud.portfolio?.length || 0)}</div>
+              </div>
+            </>
+          )}
         </div>
         <div className="era">
           <span><b>{climaEmoji(hud.era.clima)}</b> {ERA_NOMBRES.get(hud.year) || "…"}</span>
           <span className="mono">MULT {hud.era.mult}x · {hud.era.capital.toUpperCase()}</span>
         </div>
+        {/* Cartel de transición de era (§3): un micro-momento de 900ms
+            cuando cambia el medio por el que te enterás del mundo. */}
+        <AnimatePresence mode="wait">
+          {!parlyxFlash && (
+            <motion.div
+              className={"cartel-era ce-" + marco}
+              key={marco}
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 6 }}
+              transition={{ duration: reduced ? 0 : 0.9, ease: "easeOut" }}
+            >
+              {cartelDe(hud.year)}
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {/* La silla C muestra su portfolio: sos el que banca a otros (§2.2) */}
+        {hud.silla === "C" && hud.portfolio?.length > 0 && (
+          <div className="portfolio">
+            {hud.portfolio.map((m: any) => (
+              <span className="pf" key={m.name}>
+                <Logo value={m.emoji} color={m.color} size={18} />
+                {m.name}
+                <i style={{ color: m.tend >= 0 ? "var(--up)" : "var(--down)" }}>{m.tend >= 0 ? "▲" : "▼"}</i>
+              </span>
+            ))}
+          </div>
+        )}
         {/* Los beats van ARRIBA de la tabla: con 10+ filas, abajo quedaban
             tapados por el bottom-sheet (el contrafactual §5 DEBE verse). */}
         {gs.contrafactual && gs.phase === "decision" && (
@@ -508,13 +702,14 @@ export default function Game() {
           <AnimatePresence mode="popLayout" initial={false}>
             {card && !parlyxFlash && (
               <motion.div
-                className="sheet"
+                className={"sheet marco-" + marco}
                 key={card.id + ":" + gs.g.ti + ":" + gs.rows.length}
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 exit={{ x: -80, opacity: 0, pointerEvents: "none" }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
+                <MarcoChrome marco={marco} year={hud.year} />
                 <div className="top">
                   <span className="yearbig">{hud.year}</span>
                   {isEmergency ? (
@@ -524,11 +719,17 @@ export default function Game() {
                   ) : isPost ? (
                     <span className="tepaso" style={{ background: "#1F5C46", color: "#D7FFE9" }}>VENDISTE</span>
                   ) : isPlaya ? (
-                    <span className="tepaso" style={{ background: "#0E4C56", color: "#C8F4FF" }}>PLAYA</span>
+                    <span className="tepaso" style={{ background: "#0E4C56", color: "#C8F4FF" }}>ÁNGEL</span>
+                  ) : hud.silla === "B" ? (
+                    <span className="tepaso" style={{ background: "#4A3606", color: "#FCD34D" }}>CORPO</span>
                   ) : isTP ? (
                     <span className="tepaso">TE PASÓ</span>
                   ) : null}
                 </div>
+                {/* Título y flavor van CRUDOS a propósito: son prosa, y las
+                    reglas de humanizar() están hechas para notación (aplicarlas
+                    acá produce "La la revisación"). Que estén limpios en origen
+                    lo garantiza check-lenguaje, que los audita sin humanizar. */}
                 <h2>{card.titulo}</h2>
                 <p className="flavor">{card.flavor}</p>
                 {card.opciones.map((o: any, i: number) => {
@@ -635,15 +836,15 @@ export default function Game() {
                 <b style={{ fontSize: 17 }}>{gs.exits.length && gs.coN > 1 ? gs.exits[0].name + " → " + gs.coName : gs.coName}</b>
                 <span className="chip">{RUBROS_META.find((r) => r.id === gs.setup.rubro)?.label || "Comercio"}</span>
               </div>
-              <div className="mono" style={{ color: "var(--dim)", fontSize: 12, marginTop: 4 }}>
+              <div className="mono" style={{ color: "var(--dim)", fontSize: 13, marginTop: 4 }}>
                 TU MARCA VALIÓ <b style={{ color: "var(--up)" }}>{fmtUSD(g.valPeak)}</b>
               </div>
-              <div style={{ fontSize: 12, marginTop: 3 }}>
+              <div style={{ fontSize: 13, marginTop: 4, lineHeight: 1.35 }}>
                 <b style={{ color: "var(--viol)" }}>{gs.mote.nombre}</b>
                 <span style={{ color: "var(--dim)" }}> — {gs.moteLinea || gs.mote.linea}</span>
               </div>
               {showName && gs.setup.apellido && (
-                <div style={{ color: "var(--dim)", fontSize: 12, marginTop: 2 }}>Fundada por {gs.setup.apellido}</div>
+                <div style={{ color: "var(--dim)", fontSize: 13, marginTop: 3 }}>Fundada por {gs.setup.apellido}</div>
               )}
             </div>
             {/* El sello del mote vive EN el flujo del header (FIX-PACK §6):
@@ -670,7 +871,7 @@ export default function Game() {
           {/* IMPACTO de Parlyx (§4.3) */}
           {gs.parlyx && (
             <div className="impacto">
-              <div className="t">🤖 Impacto de Parlyx · desde {gs.parlyx.desde}</div>
+              <div className="t">🤖 Impacto de Parlyx en {impactoSujeto(gs)} · desde {gs.parlyx.desde}</div>
               <div className="grid">
                 <div><div className="k">Conversaciones</div><div className="v">{gs.parlyx.convos.toLocaleString("es-AR")}</div></div>
                 <div><div className="k">Ventas generadas</div><div className="v">{gs.parlyx.ventas.toLocaleString("es-AR")}</div></div>
@@ -687,7 +888,7 @@ export default function Game() {
           <div className="sc-sec">Trayectoria</div>
           <div className="tray">{camisetas.map((c, i) => (
             <span className="chip" key={i} style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
-              <Logo value={c.emoji} color={c.color} size={16} /> {c.name}
+              <Logo value={c.emoji} color={c.color} size={20} /> {c.name}
             </span>
           ))}</div>
 

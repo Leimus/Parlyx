@@ -13,14 +13,18 @@ const CARDS_DIR = path.join(__dirname, "..", "data", "cards");
 let fugas = 0;
 let revisadas = 0;
 
-function check(cardId, opId, campo, texto) {
+/* Los campos de PROSA (título, flavor) se renderizan crudos: las reglas de
+   humanizar() están hechas para notación y sobre prosa rompen la gramática
+   ("La due diligence" → "La la revisación de los números"). Se auditan tal
+   cual salen a pantalla — si no, el check valida un texto que nadie ve. */
+function check(cardId, opId, campo, texto, { prosa = false } = {}) {
   if (!texto) return;
-  const humano = humanizar(texto, cardId, opId);
+  const enPantalla = prosa ? texto : humanizar(texto, cardId, opId);
   revisadas++;
   for (const re of JERGA_PROHIBIDA) {
-    if (re.test(humano)) {
+    if (re.test(enPantalla)) {
       fugas++;
-      console.error(`  ✗ ${cardId}${opId ? "." + opId : ""} ${campo}: "${humano}" ← fuga de jerga (${re})`);
+      console.error(`  ✗ ${cardId}${opId ? "." + opId : ""} ${campo}: "${enPantalla}" ← fuga de jerga (${re})`);
       return;
     }
   }
@@ -30,8 +34,8 @@ for (const f of fs.readdirSync(CARDS_DIR).filter((x) => x.endsWith(".json")).sor
   const data = JSON.parse(fs.readFileSync(path.join(CARDS_DIR, f), "utf8"));
   if (data.bloque === "ejecutivo") continue; // fuera del pool de juego (F3)
   for (const c of data.cartas) {
-    check(c.id, null, "titulo", c.titulo);
-    check(c.id, null, "flavor", c.flavor);
+    check(c.id, null, "titulo", c.titulo, { prosa: true });
+    check(c.id, null, "flavor", c.flavor, { prosa: true });
     for (const o of c.opciones) {
       check(c.id, o.id, "label", o.label);
       check(c.id, o.id, "raw", o.raw);

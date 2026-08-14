@@ -28,6 +28,15 @@ jobs:
       - name: Simulador — golden check (la lógica económica no cambió)
         run: node scripts/sim.mjs 10000 --check
 
+      - name: Legibilidad (contraste WCAG + piso de 13px, SPEC v3 §1)
+        run: node scripts/check-legibilidad.mjs
+
+      - name: Invariante Parlyx (nunca caés más CON que SIN)
+        run: node scripts/test-parlyx-invariante.mjs
+
+      - name: Beat 2020 garantizado en las tres sillas (SPEC v3 §2.5)
+        run: node scripts/test-beat-parlyx.mjs 10000
+
       - name: Smoke del core loop (deck real + motor real)
         run: node scripts/smoke-game.mjs 300
 

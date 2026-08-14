@@ -1,10 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, IBM_Plex_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+/* Serif de la tapa de diario (SPEC v3 §3 marco diario + §4 portada).
+   Un solo peso, subset latin: el presupuesto de +40KB del §3 no se negocia. */
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -49,7 +58,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-AR" className={`${archivo.variable} ${plexMono.variable}`}>
+    <html lang="es-AR" className={`${archivo.variable} ${plexMono.variable} ${playfair.variable}`}>
       <body>
         {children}
         {/* Plausible: analytics sin cookies (PRD §2). El stub encola
