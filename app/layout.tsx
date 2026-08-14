@@ -70,15 +70,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             esto es el tráfico crudo, en el mismo lugar donde está el deploy.
             Hay que activarlo una vez en el dashboard del proyecto. */}
         <Analytics />
-        {/* Plausible: analytics sin cookies (PRD §2). El stub encola
-            eventos disparados antes de que cargue el script. */}
+        {/* Plausible (script v6 del sitio, sin cookies — PRD §2). El id del
+            script YA identifica al sitio: por eso no lleva data-domain, y
+            funciona igual en parlyx.vercel.app que en carrera.parlyx.ai.
+            El stub encola los eventos disparados antes de que cargue. */}
+        <script async src="https://plausible.io/js/pa-v6BF46gPeXkgsuWBh35n-.js" />
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}",
+              "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()",
           }}
         />
-        <script defer data-domain="carrera.parlyx.ai,parlyx.vercel.app" src="https://plausible.io/js/script.js" />
       </body>
     </html>
   );
