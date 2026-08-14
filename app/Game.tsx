@@ -358,6 +358,7 @@ export default function Game() {
   const [formato, setFormato] = useState<"45" | "916">("45");
   const [vitrina, setVitrina] = useState<{ copas: string[]; arquetipos: string[]; partidas: number; aprendizajes: string[] }>({ copas: [], arquetipos: [], partidas: 0, aprendizajes: [] });
   const [nuevosAp, setNuevosAp] = useState<any[]>([]); // §3: lo que dejó ESTA partida
+  const [cierre, setCierre] = useState(false); // ceremonia de cierre antes de la tarjeta
   const gsRef = useRef<GS>(null);
   const esDesafio = useRef(false);
   const [, bump] = useReducer((x: number) => x + 1, 0);
@@ -390,6 +391,7 @@ export default function Game() {
   const gs: GS = gsRef.current;
 
   const startGame = (sd: string, origen = "nueva", s = setup) => {
+    setCierre(false);
     // §2.3: las cartas de las últimas 2 partidas se despriorizan, para que la
     // segunda partida se sienta nueva sí o sí.
     gsRef.current = createGame(sd, s, cartasRecientes());
@@ -427,6 +429,7 @@ export default function Game() {
       const v = actualizarVitrina(gs);
       setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas, aprendizajes: v.aprendizajes || [] });
       setNuevosAp(v.nuevosAprendizajes || []);
+      setCierre(true); // primero el festejo, después la tarjeta
       setScreen("end");
     }
     bump();
@@ -803,6 +806,61 @@ export default function Game() {
   }
 
   /* ---------- Final ---------- */
+  /* ---------- Ceremonia de cierre (§3): la carrera termina, te muestra lo
+       que aprendiste, y recién después pasás a la tarjeta ---------- */
+  if (screen === "end" && gs && cierre) {
+    const e = gs.endInfo;
+    const nAp = nuevosAp.length;
+    const salida = 0.5 + nAp * 0.85 + 0.5;
+    return (
+      <MotionConfig reducedMotion="user">
+      <div className="app"><div className="col cierre">
+        <motion.div
+          className="ci-wrap"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+          transition={{ duration: reduced ? 0 : 0.5 }}
+        >
+          <motion.div
+            className="ci-cabecera"
+            initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 18, delay: reduced ? 0 : 0.15 }}
+          >
+            <div className="ci-emoji">{e.emoji}</div>
+            <div className="ci-anio">1993 — 2026</div>
+            <h2>{e.titulo}</h2>
+            <div className="ci-filete" />
+            <p className="ci-sub">Treinta y tres años. {gs.rows.length} decisiones. Esto te dejó:</p>
+          </motion.div>
+
+          <div className="ci-aps">
+            {nuevosAp.map((a: any, i: number) => (
+              <motion.div
+                className={"ci-ap" + (a.nuevo ? " es-nuevo" : "")}
+                key={a.id}
+                initial={{ opacity: 0, y: 18, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ type: "spring", stiffness: 220, damping: 20, delay: reduced ? 0 : 0.5 + i * 0.85 }}
+              >
+                <span className="ci-chispa">✦</span>
+                <p>{a.nuevo && <b>Ahora sabés:</b>} {a.texto}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            className="ci-pie"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ delay: reduced ? 0 : salida, duration: 0.4 }}
+          >
+            <p className="ci-cont">{vitrina.aprendizajes.length} de {TOTAL_APRENDIZAJES} aprendizajes</p>
+            <MBtn className="btn pri" onClick={() => setCierre(false)}>Ver mi tarjeta →</MBtn>
+          </motion.div>
+        </motion.div>
+      </div></div>
+      </MotionConfig>
+    );
+  }
+
   if (screen === "end" && gs) {
     const e = gs.endInfo;
     const g = gs.g;

@@ -422,3 +422,25 @@ button { font-family: inherit; }
 .ap.viejo { color: var(--dim); border-left-color: var(--line); background: transparent; padding: 7px 0 7px 12px; border-top: none; border-right: none; border-bottom: none; border-radius: 0; }
 .ap-todos { margin-top: 10px; }
 .ap-todos summary { font-size: 13px; color: var(--dim); cursor: pointer; text-align: center; }
+
+/* ---------- Ceremonia de cierre (SPEC v4 §3) ----------
+   La carrera termina, se muestra lo que aprendiste, y recién después
+   aparece la tarjeta. El diario sigue estando abajo en la pantalla final:
+   esto es el momento, aquello es el registro. */
+.col.cierre { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.ci-wrap { width: 100%; padding: 24px 0 34px; }
+.ci-cabecera { text-align: center; }
+.ci-emoji { font-size: 56px; line-height: 1; }
+.ci-anio { font-family: var(--font-mono), monospace; font-size: 13px; letter-spacing: 0.24em; color: var(--dim); margin-top: 12px; }
+.ci-cabecera h2 { font-family: var(--font-serif), Georgia, serif; font-weight: 700; font-size: 32px; line-height: 1.14; margin-top: 8px; letter-spacing: -0.01em; }
+.ci-filete { border-top: 3px double #4a4136; border-bottom: 1px solid var(--line); height: 4px; margin: 14px 34px 0; }
+.ci-sub { color: var(--dim); font-size: 15px; margin-top: 12px; line-height: 1.45; }
+
+.ci-aps { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+.ci-ap { display: flex; gap: 10px; align-items: flex-start; background: linear-gradient(120deg, rgba(240, 185, 11, 0.09), var(--panel2)); border: 1px solid rgba(240, 185, 11, 0.32); border-radius: 14px; padding: 13px 14px; }
+.ci-ap .ci-chispa { color: var(--gold); font-size: 15px; line-height: 1.5; flex: none; }
+.ci-ap p { font-size: 15px; line-height: 1.5; }
+.ci-ap b { color: var(--gold); }
+
+.ci-pie { margin-top: 26px; }
+.ci-cont { text-align: center; font-family: var(--font-mono), monospace; font-size: 13px; color: var(--dim); margin-bottom: 12px; letter-spacing: 0.08em; }
