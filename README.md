@@ -92,3 +92,25 @@ Proyecto listo para Vercel sin configuración extra (`output: export` — 100% e
   [validador de cards de Twitter/X](https://cards-dev.twitter.com/validator) o
   compartir la URL en un chat: tiene que aparecer la imagen "El 27% quiebra…"
   (`public/og.png`, 1200×630). La og:image **dinámica por partida** queda para v1.1.
+
+### `vercel.json` — el esquema es estricto
+
+Vercel valida `vercel.json` **antes** de compilar y rechaza cualquier propiedad que no
+esté en su esquema, con un error de deploy que no se parece en nada a un error de build:
+el proyecto compila local sin problemas y allá falla igual. Pasó de verdad — una clave
+`"comment"` puesta para documentar cada regla dejó producción clavada 14 horas en el
+commit anterior, mientras cada push nuevo fallaba en silencio.
+
+**Por eso el archivo no lleva comentarios ni regex.** Las reglas usan rutas literales
+(`/`, `/index.html`, `/404.html`, `/og.png`). El razonamiento va acá, no en el JSON:
+
+- **El HTML no se cachea** (`max-age=0, must-revalidate`): es lo que hace que un deploy
+  nuevo se vea al instante. Sin esto el browser puede servir el index viejo —con los
+  nombres de chunk viejos— durante horas.
+- **`/_next/static` no necesita regla**: Vercel ya le pone `immutable` por un año a los
+  assets con hash en el nombre.
+- **`/og.png`** lleva cache corto (1h) para poder reemplazarla sin esperar a que las
+  redes la refresquen.
+
+`scripts/check-vercel-json.mjs` corre en `npm test` y traba cualquier clave fuera del
+esquema antes de que llegue a un push.

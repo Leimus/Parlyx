@@ -17,7 +17,8 @@
     "test:informacion": "node scripts/check-informacion.mjs",
     "test:cobertura": "node scripts/test-cobertura.mjs 200",
     "test:info": "node scripts/check-informacion.mjs",
-    "test": "node scripts/validate-cards.mjs && node scripts/check-lenguaje.mjs && node scripts/check-legibilidad.mjs && node scripts/check-informacion.mjs && node scripts/sim.mjs 10000 --check && node scripts/test-parlyx-invariante.mjs && node scripts/test-beat-parlyx.mjs 10000 && node scripts/test-cobertura.mjs 200 && node scripts/smoke-game.mjs 300"
+    "test:vercel": "node scripts/check-vercel-json.mjs",
+    "test": "node scripts/check-vercel-json.mjs && node scripts/validate-cards.mjs && node scripts/check-lenguaje.mjs && node scripts/check-legibilidad.mjs && node scripts/check-informacion.mjs && node scripts/sim.mjs 10000 --check && node scripts/test-parlyx-invariante.mjs && node scripts/test-beat-parlyx.mjs 10000 && node scripts/test-cobertura.mjs 200 && node scripts/smoke-game.mjs 300"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
