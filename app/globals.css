@@ -444,3 +444,80 @@ button { font-family: inherit; }
 
 .ci-pie { margin-top: 26px; }
 .ci-cont { text-align: center; font-family: var(--font-mono), monospace; font-size: 13px; color: var(--dim); margin-bottom: 12px; letter-spacing: 0.08em; }
+
+/* ---------- El doble embudo en la pantalla final ----------
+   Arriba de la tarjeta, sin scroll: es la pantalla que convierte.
+   Verde mercado para que se distinga de todo lo demás del juego. */
+.oferta { margin-top: 12px; padding: 14px; border-radius: 16px; background: linear-gradient(150deg, rgba(22, 199, 132, 0.13), rgba(22, 199, 132, 0.04)); border: 1px solid rgba(22, 199, 132, 0.42); text-align: center; }
+.of-tit { font-size: 17px; font-weight: 800; line-height: 1.25; letter-spacing: -0.01em; }
+/* .btn.pri son dos clases: sin subir la especificidad acá, el botón se
+   pintaba blanco y perdía el color de Parlyx. */
+.btn.pri.of-cta { margin-top: 11px; background: var(--up); color: #04231a; text-decoration: none; display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 12px 14px; font-size: 15.5px; line-height: 1.25; text-wrap: balance; box-shadow: 0 6px 20px rgba(22, 199, 132, 0.28); }
+.btn.pri.of-cta:hover { background: #13b476; }
+.of-web { display: inline-block; margin-top: 10px; color: var(--dim); font-size: 14px; text-decoration: none; border-bottom: 1px dotted var(--dim); }
+.of-web:hover { color: var(--up); border-bottom-color: var(--up); }
+
+/* ============================================================
+   COMPATIBILIDAD DE DISPOSITIVOS
+   iPhone con notch, Android con barra de gestos, y escritorio.
+   Tres cosas: respetar las áreas seguras, no confiar en 100vh
+   (en iOS incluye la barra del navegador y recorta), y que nada
+   quede por debajo del ancho mínimo real (iPhone SE, 320px).
+   ============================================================ */
+:root {
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+}
+/* 100dvh sigue el alto real del viewport cuando la barra del navegador
+   aparece y desaparece; 100vh en iOS deja contenido cortado abajo. */
+.app { min-height: 100dvh; padding-left: var(--safe-l); padding-right: var(--safe-r); }
+.col { padding-bottom: calc(40px + var(--safe-b)); }
+.col.ingame { padding-bottom: calc(var(--sheet-h) + 14px + var(--safe-b)); }
+.col.portada, .col.cierre { min-height: 100dvh; }
+
+/* El bottom-sheet apoya sobre la barra de gestos, no debajo de ella */
+.sheet { padding-bottom: var(--safe-b); }
+
+/* Taps de 44px como mínimo (guía de Apple y de Android) */
+.btn, .formato-toggle button, .pt-seed-link, .iso, .sw { min-height: 44px; }
+.sw { min-width: 44px; }
+.iso { min-width: 44px; }
+
+/* Pantallas angostas de verdad (iPhone SE / Android chicos, 320-360px):
+   la tabla es lo primero que sufre, así que cede el chip y las ventas. */
+@media (max-width: 360px) {
+  .col { padding-left: 10px; padding-right: 10px; }
+  .thead, .trow { grid-template-columns: 40px 1fr 40px 56px; gap: 4px; padding-left: 8px; padding-right: 8px; }
+  .yrchip { width: 40px; font-size: 13px; }
+  .empresa { font-size: 15px; }
+  .yearbig { font-size: 46px; }
+  .sheet h2 { font-size: 23px; }
+  .pt-titular { font-size: 29px; }
+  .pt-vos { font-size: 48px; }
+  .ci-cabecera h2 { font-size: 27px; }
+}
+
+/* Escritorio y tablet: la columna sigue siendo la del juego (mobile-first),
+   pero deja de verse como una tira perdida sobre negro. */
+@media (min-width: 760px) {
+  body { background: radial-gradient(120% 80% at 50% 0%, #101319 0%, var(--bg) 60%); }
+  .col { border-left: 1px solid var(--line); border-right: 1px solid var(--line); box-shadow: 0 0 90px rgba(0, 0, 0, 0.6); min-height: 100dvh; }
+  /* el sheet acompaña a la columna, no al ancho de la pantalla */
+  .sheetwrap { padding: 0 14px; }
+}
+/* Con mouse, el hover de las opciones se nota; en touch no existe */
+@media (hover: hover) {
+  .opt:hover { border-color: #39404f; }
+}
+
+/* Pantallas bajas (Android chico, iPhone SE apaisado): la oferta tiene que
+   entrar sin scroll igual, así que cede aire, no tipografía. */
+@media (max-height: 700px) {
+  .brand { padding: 9px 0 4px; }
+  .oferta { margin-top: 9px; padding: 11px 12px; }
+  .btn.pri.of-cta { margin-top: 9px; min-height: 48px; padding: 10px 12px; font-size: 15px; }
+  .of-web { margin-top: 7px; }
+  .formato-toggle { margin-top: 8px; }
+}

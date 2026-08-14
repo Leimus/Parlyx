@@ -54,6 +54,9 @@ export const viewport: Viewport = {
   themeColor: "#0A0B0E",
   width: "device-width",
   initialScale: 1,
+  // viewport-fit=cover: la app pinta debajo del notch y de la barra de gestos
+  // del iPhone; el CSS recupera el espacio con env(safe-area-inset-*).
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -853,7 +853,15 @@ export default function Game() {
             transition={{ delay: reduced ? 0 : salida, duration: 0.4 }}
           >
             <p className="ci-cont">{vitrina.aprendizajes.length} de {TOTAL_APRENDIZAJES} aprendizajes</p>
-            <MBtn className="btn pri" onClick={() => setCierre(false)}>Ver mi tarjeta →</MBtn>
+            <MBtn
+              className="btn pri"
+              onClick={() => {
+                setCierre(false);
+                // La tarjeta arranca desde arriba: si no, en pantallas bajas
+                // se hereda el scroll de la ceremonia y la oferta queda fuera.
+                try { window.scrollTo({ top: 0, behavior: "auto" }); } catch { /* sandbox */ }
+              }}
+            >Ver mi tarjeta →</MBtn>
           </motion.div>
         </motion.div>
       </div></div>
@@ -882,6 +890,29 @@ export default function Game() {
       <div className="app"><div className="col">
         <Ticker clima={["digna", "escandalo", "playa0"].includes(e.key) ? -2 : 1} />
         <div className="brand"><h1>Carrera finalizada</h1><span>Compartí tu tarjeta</span></div>
+
+        {/* El doble embudo (PRD v0.3 §0): jugaste 33 años de comercio, ahora
+            la oferta real. Va ARRIBA de la tarjeta a propósito — abajo del
+            todo nadie la ve, y esta es la pantalla que convierte. */}
+        <div className="oferta">
+          <p className="of-tit">Implementá Parlyx en tu negocio</p>
+          <a
+            className="btn pri of-cta"
+            href="https://calendly.com/manuel-parlyx/30min"
+            target="_blank" rel="noopener"
+            onClick={() => track("outbound_parlyx", { desde: "final_agenda" })}
+          >
+            Obtené tu implementación gratuita&nbsp;→
+          </a>
+          <a
+            className="of-web"
+            href="https://parlyx.ai?utm_source=carrera&utm_medium=juego&utm_content=final"
+            target="_blank" rel="noopener"
+            onClick={() => track("outbound_parlyx", { desde: "final_web" })}
+          >
+            o conocé Parlyx en parlyx.ai
+          </a>
+        </div>
 
         <div className="formato-toggle">
           <button className={formato === "45" ? "on" : ""} onClick={() => setFormato("45")}>Feed 4:5</button>
