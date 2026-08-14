@@ -1,0 +1,26 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    {
+      "comment": "El HTML NUNCA se cachea: es lo que hace que un deploy nuevo se vea al instante. Sin esto, el browser puede seguir sirviendo el index viejo (con los nombres de chunk viejos) durante horas.",
+      "source": "/((?!_next/static).*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "comment": "Los assets de _next/static llevan hash en el nombre: si el contenido cambia, cambia la URL. Se pueden cachear para siempre sin riesgo de servir algo viejo.",
+      "source": "/_next/static/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "comment": "La og:image se comparte en redes: cache corto para poder reemplazarla sin esperar.",
+      "source": "/og.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    }
+  ]
+}

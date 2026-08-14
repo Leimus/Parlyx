@@ -18,7 +18,7 @@ import { humanizar } from "@/lib/game/humano.js";
 import { track } from "@/lib/game/analytics.js";
 import { etapaIdx } from "@/lib/engine/index.js";
 import { TODOS_ARQUETIPOS } from "@/lib/game/arquetipos.js";
-import { COPAS, copasDePartida, actualizarVitrina, cargarVitrina, cartasRecientes } from "@/lib/game/vitrina.js";
+import { COPAS, copasDePartida, actualizarVitrina, cargarVitrina, cartasRecientes, arcosRecientes } from "@/lib/game/vitrina.js";
 import { APRENDIZAJES, TOTAL_APRENDIZAJES } from "@/lib/game/aprendizajes.js";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -394,7 +394,7 @@ export default function Game() {
     setCierre(false);
     // §2.3: las cartas de las últimas 2 partidas se despriorizan, para que la
     // segunda partida se sienta nueva sí o sí.
-    gsRef.current = createGame(sd, s, cartasRecientes());
+    gsRef.current = createGame(sd, s, cartasRecientes(), arcosRecientes());
     try { window.history.replaceState(null, "", "?s=" + sd); } catch { /* sandbox */ }
     track("game_start", { seed: sd, origen, rubro: s.rubro, capital: s.capital });
     if (origen === "desafio" || origen === "revancha") track("seed_replay", { seed: sd, origen });
