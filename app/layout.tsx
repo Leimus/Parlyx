@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Archivo, IBM_Plex_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
@@ -64,6 +65,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es-AR" className={`${archivo.variable} ${plexMono.variable} ${playfair.variable}`}>
       <body>
         {children}
+        {/* Vercel Web Analytics: visitantes y páginas vistas, sin cookies.
+            No reemplaza a Plausible (los 9 eventos del PRD §2 viven ahí):
+            esto es el tráfico crudo, en el mismo lugar donde está el deploy.
+            Hay que activarlo una vez en el dashboard del proyecto. */}
+        <Analytics />
         {/* Plausible: analytics sin cookies (PRD §2). El stub encola
             eventos disparados antes de que cargue el script. */}
         <script
@@ -72,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}",
           }}
         />
-        <script defer data-domain="carrera.parlyx.ai" src="https://plausible.io/js/script.js" />
+        <script defer data-domain="carrera.parlyx.ai,parlyx.vercel.app" src="https://plausible.io/js/script.js" />
       </body>
     </html>
   );
