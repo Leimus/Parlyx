@@ -1,0 +1,2200 @@
+{
+  "bloque": "slots",
+  "fuente": "docs/SPEC-v4-misterio-y-variantes.md §2.2 — candidatas de slot por turno, escritas con la regla de información del §1",
+  "cartas": [
+    {
+      "id": "S-01",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El galpón del tío",
+      "flavor": "Tu tío tiene un galpón vacío en el fondo de la casa. Te lo presta sin contrato ni fecha: 'usalo hasta que puedas'. Huele a humedad y a oportunidad.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1993,
+          1993
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptarlo y arrancar mañana",
+          "raw": "sin alquiler que pagar · empezar debiéndole un favor a la familia",
+          "linea": "sin alquiler que pagar · empezar debiéndole un favor a la familia",
+          "efectos": {
+            "rw": 4,
+            "ovr": -1
+          },
+          "reveal": "Arrancaste sin pagar un peso de alquiler. También arrancaste con tu tío pasando a ver cómo va."
+        },
+        {
+          "id": "B",
+          "label": "Aceptarlo pero pagarle algo igual",
+          "raw": "2 meses menos de caja · dejar las cuentas claras desde el día uno",
+          "linea": "2 meses menos de caja · dejar las cuentas claras desde el día uno",
+          "efectos": {
+            "rw": -2,
+            "ovr": 1,
+            "tend": 1
+          },
+          "reveal": "Le pagaste lo que pudiste. En la familia nadie tuvo que hacerse el distraído en Navidad."
+        },
+        {
+          "id": "C",
+          "label": "Alquilar un local en la calle",
+          "raw": "6 meses menos de caja · que la gente te vea desde el primer día",
+          "linea": "6 meses menos de caja · que la gente te vea desde el primer día",
+          "efectos": {
+            "rw": -6,
+            "tend": 2
+          },
+          "reveal": "Vitrina a la calle desde el día uno. La caja quedó flaca, pero existís para el que pasa."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-02",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Vender lo que hace otro",
+      "flavor": "Todavía no tenés producto propio. Un fabricante del conurbano te ofrece revender lo suyo: vos ponés la cara, él pone la mercadería.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1993,
+          1993
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Revender y aprender el oficio",
+          "raw": "sin poner plata en producción · el margen es de él",
+          "linea": "sin poner plata en producción · el margen se lo lleva otro",
+          "efectos": {
+            "rw": 3,
+            "tend": -1
+          },
+          "reveal": "Vendiste sin fabricar nada. Aprendiste quién compra y por qué, que a esta altura vale más que el margen."
+        },
+        {
+          "id": "B",
+          "label": "Revender y copiarle el proveedor",
+          "raw": "sin costo hoy · jugar de vivo con quien te dio la mano",
+          "linea": "sin costo hoy · jugar de vivo con quien te dio una mano",
+          "efectos": {
+            "ovr": 1,
+            "tend": 1,
+            "flags": [
+              "manchado_gremio"
+            ]
+          },
+          "reveal": "Le sacaste el contacto del proveedor. Funcionó. En el gremio las cosas se saben."
+        },
+        {
+          "id": "C",
+          "label": "Fabricar algo tuyo desde el principio",
+          "raw": "5 meses menos de caja · que lo que vendas lleve tu nombre",
+          "linea": "5 meses menos de caja · que lo que vendas lleve tu nombre",
+          "efectos": {
+            "rw": -5,
+            "tend": 2,
+            "ovr": 1
+          },
+          "reveal": "Sale más caro y más lento. Pero lo que está en la caja lo hiciste vos."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-03",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "La feria americana de los domingos",
+      "flavor": "Un puesto en la feria cuesta poco y se cobra en efectivo. No es glamoroso: es domingo a las siete de la mañana cargando cajas.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1993,
+          1993
+        ]
+      },
+      "tePaso": {
+        "rubros": [
+          "moda",
+          "deco"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Todos los domingos, llueva o truene",
+          "raw": "sin inversión · el cuerpo lo paga",
+          "linea": "casi sin poner plata · el cuerpo lo paga",
+          "efectos": {
+            "rw": 2,
+            "ovr": 1,
+            "tend": -1
+          },
+          "reveal": "Cincuenta domingos seguidos. La plata entró en efectivo y vos aprendiste a mirar a la gente a los ojos mientras decide."
+        },
+        {
+          "id": "B",
+          "label": "Ir solo cuando hay evento grande",
+          "raw": "sin costo fijo · aparecer donde está la gente",
+          "linea": "sin costo fijo · aparecer solo donde está la gente",
+          "efectos": {
+            "rw": 1,
+            "tend": 1
+          },
+          "reveal": "Fuiste a los cinco domingos que valían la pena. Menos desgaste, menos cara conocida."
+        },
+        {
+          "id": "C",
+          "label": "Saltearla: buscar clientes de una vez",
+          "raw": "3 meses menos de caja · ir por el cliente que repite",
+          "linea": "3 meses menos de caja · ir directo por el cliente que repite",
+          "efectos": {
+            "rw": -3,
+            "tend": 2
+          },
+          "reveal": "Te salteaste la feria y fuiste a buscar clientes de verdad. Más lento al principio, más firme después."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-04",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El negocio de tu viejo",
+      "flavor": "Tu viejo tiene el local hace treinta años y está cansado. Te lo ofrece con todo adentro: clientela, proveedores y una forma de trabajar que no cambió nunca.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1993,
+          1993
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Tomarlo tal cual está",
+          "raw": "sin poner plata · heredás también las costumbres",
+          "linea": "sin poner plata · heredás también las costumbres",
+          "efectos": {
+            "rw": 6,
+            "tend": -2,
+            "ovr": 1
+          },
+          "reveal": "Entraste a un negocio que ya funcionaba. Y a una manera de hacer las cosas que no la discute nadie."
+        },
+        {
+          "id": "B",
+          "label": "Tomarlo y darlo vuelta",
+          "raw": "4 meses menos de caja · pelearte con la mitad de los clientes de siempre",
+          "linea": "4 meses menos de caja · pelearte con la mitad de los clientes de siempre",
+          "efectos": {
+            "rw": -4,
+            "tend": 2,
+            "ovr": -1
+          },
+          "reveal": "Cambiaste proveedores, vidriera y precios. Se fueron varios de los de toda la vida. Vinieron otros."
+        },
+        {
+          "id": "C",
+          "label": "Abrir el tuyo enfrente",
+          "raw": "5 meses menos de caja · empezar de cero al lado del que sabe",
+          "linea": "5 meses menos de caja · empezar de cero al lado del que sabe",
+          "efectos": {
+            "rw": -5,
+            "tend": 2,
+            "ovr": -1
+          },
+          "reveal": "Abriste a media cuadra. Tu viejo no te habló por seis meses, y después te mandó un cliente."
+        }
+      ],
+      "tono": "neutro"
+    },
+    {
+      "id": "S-05",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El primer empleado",
+      "flavor": "No das abasto. Entra plata, pero se te van las noches embalando. Un conocido te pide laburo y sabe hacerlo.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1996,
+          1996
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Tomarlo en blanco, como corresponde",
+          "raw": "4 meses menos de caja · dormir tranquilo",
+          "linea": "4 meses menos de caja · dormir tranquilo",
+          "efectos": {
+            "rw": -4,
+            "ovr": 2,
+            "tend": 1
+          },
+          "reveal": "Le hiciste los papeles. Cuesta más de lo que pensabas y no te lo agradece nadie, pero no tenés que mirar para atrás."
+        },
+        {
+          "id": "B",
+          "label": "Arreglar en negro por ahora",
+          "raw": "2 meses menos de caja · una bomba de tiempo chiquita",
+          "linea": "2 meses menos de caja · una bomba de tiempo chiquita",
+          "efectos": {
+            "rw": -2,
+            "tend": 1,
+            "flags": [
+              "informal"
+            ]
+          },
+          "reveal": "Arreglaron de palabra. Funciona hasta el día que deje de funcionar."
+        },
+        {
+          "id": "C",
+          "label": "Aguantar solo un tramo más",
+          "raw": "sin costo · el techo sos vos",
+          "linea": "sin gastar un peso · el techo lo ponés vos",
+          "efectos": {
+            "ovr": -1,
+            "tend": -1
+          },
+          "reveal": "Seguiste solo. La plata no se fue en sueldos; se fue en las cosas que no llegaste a hacer."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-06",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El primer cliente grande",
+      "flavor": "Una cadena te quiere comprar en volumen. Es diez veces lo que vendés por mes. También es una sola firma de la que vas a depender.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1996,
+          1996
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Darle todo lo que pida",
+          "raw": "sin poner plata · todos los huevos en una canasta ajena",
+          "linea": "sin poner plata · todos los huevos en una canasta ajena",
+          "efectos": {
+            "arrMul": 1.4,
+            "tend": -2
+          },
+          "reveal": "Facturaste como nunca. Y tu negocio pasó a depender del humor de un comprador que no conocés."
+        },
+        {
+          "id": "B",
+          "label": "Venderle, pero con un tope",
+          "raw": "sin costo · dejarle plata en la mesa a propósito",
+          "linea": "sin costo · dejar plata en la mesa a propósito",
+          "efectos": {
+            "arrMul": 1.15,
+            "ovr": 1,
+            "tend": 1
+          },
+          "reveal": "Le pusiste un límite a lo que le vendés. Se sorprendió. Vos dormís mejor."
+        },
+        {
+          "id": "C",
+          "label": "Usarlo de carta de presentación",
+          "raw": "2 meses menos de caja · convertir un cliente en cinco",
+          "linea": "2 meses menos de caja · convertir un cliente en cinco",
+          "efectos": {
+            "rw": -2,
+            "tend": 2
+          },
+          "reveal": "Con su nombre en la carpeta te atendieron en todos lados. Eso no se compra."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-07",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El proveedor te ofrece exclusividad",
+      "flavor": "Tu proveedor principal te propone ser el único que venda lo suyo en la zona. A cambio, no podés trabajar con nadie más.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1996,
+          1996
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Firmar la exclusividad",
+          "raw": "sin costo hoy · atarte de manos por si el viento cambia",
+          "linea": "sin costo hoy · atarte de manos por si cambia el viento",
+          "efectos": {
+            "arrMul": 1.25,
+            "tend": -1,
+            "flags": [
+              "atado_proveedor"
+            ]
+          },
+          "reveal": "Sos el único de la zona con ese producto. También sos el único que pierde si él decide otra cosa."
+        },
+        {
+          "id": "B",
+          "label": "Negociar exclusividad por dos años",
+          "raw": "sin costo · atarte, pero con fecha de vencimiento",
+          "linea": "sin costo · atarte, pero con fecha de vencimiento",
+          "efectos": {
+            "arrMul": 1.15,
+            "ovr": 1
+          },
+          "reveal": "Firmaste con vencimiento. Menos beneficio de arranque, y una puerta que vuelve a abrirse."
+        },
+        {
+          "id": "C",
+          "label": "Rechazar y trabajar con varios",
+          "raw": "sin costo · más laburo, menos dependencia",
+          "linea": "sin costo · más laburo, menos dependencia",
+          "efectos": {
+            "tend": 1,
+            "ovr": 1
+          },
+          "reveal": "Seguiste comprándole a cuatro. Cuesta más coordinar, y ninguno te puede apretar."
+        }
+      ],
+      "tono": "neutro"
+    },
+    {
+      "id": "S-08",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "La segunda sucursal",
+      "flavor": "El local va bien y ya te queda chico. Hay uno libre a veinte cuadras, en una zona que no conocés tanto.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1996,
+          1996
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Abrir la segunda ya",
+          "raw": "7 meses menos de caja · duplicar todo antes de estar listo",
+          "linea": "7 meses menos de caja · duplicar todo antes de estar listo",
+          "efectos": {
+            "rw": -7,
+            "arrMul": 1.3,
+            "ovr": -1
+          },
+          "reveal": "Dos locales, dos alquileres, dos problemas. Uno de los dos anda muy bien."
+        },
+        {
+          "id": "B",
+          "label": "Agrandar el que ya tenés",
+          "raw": "3 meses menos de caja · crecer sin partirte al medio",
+          "linea": "3 meses menos de caja · crecer sin partirte al medio",
+          "efectos": {
+            "rw": -3,
+            "arrMul": 1.15,
+            "ovr": 1
+          },
+          "reveal": "Tiraste una pared y ganaste espacio. Menos épico, más ordenado."
+        },
+        {
+          "id": "C",
+          "label": "Quedarte donde estás",
+          "raw": "sin gastar nada · guardar la pólvora",
+          "linea": "sin gastar nada · guardar la pólvora para después",
+          "efectos": {
+            "rw": 2,
+            "tend": -1
+          },
+          "reveal": "Te quedaste con un solo local y la caja intacta. La zona nueva la abrió otro."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-09",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Ponerle tu nombre",
+      "flavor": "Hasta ahora vendés lo que otros fabrican con la etiqueta de ellos. Podrías ponerle tu marca a todo, aunque salga del mismo galpón.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1996,
+          1996
+        ]
+      },
+      "tePaso": {
+        "rubros": [
+          "alimentos",
+          "belleza"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Marca propia en todo, ya",
+          "raw": "4 meses menos de caja · que la gente se acuerde de vos, no del fabricante",
+          "linea": "4 meses menos de caja · que se acuerden de vos y no del fabricante",
+          "efectos": {
+            "rw": -4,
+            "tend": 2,
+            "ovr": 1
+          },
+          "reveal": "Cambiaste todas las etiquetas. Al principio nadie notó nada. Dos años después, te piden por tu nombre."
+        },
+        {
+          "id": "B",
+          "label": "Marca propia solo en lo que más sale",
+          "raw": "2 meses menos de caja · probar sin jugarte entero",
+          "linea": "2 meses menos de caja · probar sin jugarte entero",
+          "efectos": {
+            "rw": -2,
+            "tend": 1
+          },
+          "reveal": "Pusiste tu nombre en los tres productos que más salen. Alcanzó para saber que funcionaba."
+        },
+        {
+          "id": "C",
+          "label": "Seguir vendiendo lo de otros",
+          "raw": "sin costo · el negocio es vender, no figurar",
+          "linea": "sin costo · el negocio es vender, no figurar",
+          "efectos": {
+            "ovr": -1,
+            "tend": -1
+          },
+          "reveal": "Seguiste con las etiquetas ajenas. Vendés igual. El día que el fabricante abra su propio local, arrancás de cero."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-10",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "¿Y si hacemos una página?",
+      "flavor": "Un cliente te comenta que su hijo le armó una página a la panadería. Vos todavía no sabés bien qué es una página.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1999,
+          1999
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pagar una en serio",
+          "raw": "5 meses menos de caja · plantar bandera antes que el resto",
+          "linea": "5 meses menos de caja · plantar bandera antes que el resto",
+          "efectos": {
+            "rw": -5,
+            "tend": 3
+          },
+          "reveal": "Gastaste una fortuna en algo que casi nadie visita. Los que la visitan te compran sin preguntar el precio dos veces."
+        },
+        {
+          "id": "B",
+          "label": "Una página hecha por un conocido",
+          "raw": "1 mes menos de caja · estar, aunque sea mal",
+          "linea": "1 mes menos de caja · estar, aunque sea a medias",
+          "efectos": {
+            "rw": -1,
+            "tend": 1
+          },
+          "reveal": "Quedó fea y tardaba en cargar. Igual apareciste en internet dos años antes que tu competencia."
+        },
+        {
+          "id": "C",
+          "label": "Ni loco, esto es para las grandes",
+          "raw": "sin gastar un peso · apostar a que la calle sigue mandando",
+          "linea": "sin gastar un peso · apostar a que la calle sigue mandando",
+          "efectos": {
+            "tend": -2
+          },
+          "reveal": "Te quedaste afuera. Por ahora no cambió nada, y esa es justamente la trampa."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-11",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Catálogo por correo electrónico",
+      "flavor": "Juntaste como doscientos mails de clientes en un cuaderno. Alguien te dice que podrías mandarles las novedades todos los meses.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1999,
+          1999
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Mandar novedades todos los meses",
+          "raw": "1 mes menos de caja · hablarle a los que ya te compraron",
+          "linea": "1 mes menos de caja · hablarle a los que ya te compraron",
+          "efectos": {
+            "rw": -1,
+            "tend": 2,
+            "ovr": 1
+          },
+          "reveal": "Doscientos mails, veinte respuestas, seis ventas. Y una lista que empezó a crecer sola."
+        },
+        {
+          "id": "B",
+          "label": "Mandar de todo a todo el mundo",
+          "raw": "sin costo · molestar a mucha gente de una",
+          "linea": "sin costo · molestar a mucha gente de una",
+          "efectos": {
+            "arrMul": 1.1,
+            "ovr": -2
+          },
+          "reveal": "Vendiste algo y te ganaste una tanda de gente que no quiere saber más nada con tu marca."
+        },
+        {
+          "id": "C",
+          "label": "Guardar el cuaderno para más adelante",
+          "raw": "sin costo · esperar a tener algo que contar",
+          "linea": "sin costo · esperar a tener algo que valga la pena contar",
+          "efectos": {
+            "tend": -1
+          },
+          "reveal": "El cuaderno quedó en el cajón. Los mails siguen ahí, cada vez más viejos."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-12",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El portal que vende de todo",
+      "flavor": "Apareció un sitio donde cualquiera publica lo que quiera vender. Está lleno de gente ofreciendo cosas usadas, y de curiosos.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1999,
+          1999
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Publicar todo tu catálogo ahí",
+          "raw": "sin costo de entrada · quedar mezclado con cualquiera",
+          "linea": "sin costo de entrada · quedar mezclado con cualquiera",
+          "efectos": {
+            "arrMul": 1.25,
+            "ovr": -1
+          },
+          "reveal": "Vendiste. También quedaste al lado de un tipo rematando la heladera de la abuela."
+        },
+        {
+          "id": "B",
+          "label": "Publicar solo dos o tres cosas de prueba",
+          "raw": "sin costo · meter un pie y mirar",
+          "linea": "sin costo · meter un pie y mirar qué pasa",
+          "efectos": {
+            "tend": 1,
+            "ovr": 1
+          },
+          "reveal": "Publicaste tres productos para ver. Aprendiste cómo compra la gente ahí sin exponer la marca entera."
+        },
+        {
+          "id": "C",
+          "label": "No mezclarte con eso",
+          "raw": "sin costo · cuidar dónde aparece tu nombre",
+          "linea": "sin costo · cuidar dónde aparece tu nombre",
+          "efectos": {
+            "ovr": 1,
+            "tend": -1
+          },
+          "reveal": "Tu marca no apareció al lado de nada raro. Tampoco apareció donde la gente estaba mirando."
+        }
+      ],
+      "tono": "neutro"
+    },
+    {
+      "id": "S-13",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El chico que sabe de computadoras",
+      "flavor": "Tiene diecinueve años, entiende todo y cobra poco. También desaparece tres días cuando rinde finales.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1999,
+          1999
+        ]
+      },
+      "tePaso": {
+        "rubros": [
+          "tecno"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Tomarlo part time y bancarle los finales",
+          "raw": "2 meses menos de caja · apostar a alguien que todavía no es nadie",
+          "linea": "2 meses menos de caja · apostar a alguien que todavía no es nadie",
+          "efectos": {
+            "rw": -2,
+            "tend": 2
+          },
+          "reveal": "Le bancaste los finales. Se quedó seis años y armó todo lo que hoy funciona solo."
+        },
+        {
+          "id": "B",
+          "label": "Contratarlo por trabajo, sin relación fija",
+          "raw": "1 mes menos de caja · pagar por resultado y no por presencia",
+          "linea": "1 mes menos de caja · pagar por resultado y no por presencia",
+          "efectos": {
+            "rw": -1,
+            "tend": 1
+          },
+          "reveal": "Le pagaste por trabajo hecho. Salió barato y nadie se comprometió con nadie."
+        },
+        {
+          "id": "C",
+          "label": "Aprender vos a la noche",
+          "raw": "sin costo en plata · pagarlo con tus horas",
+          "linea": "sin costo en plata · pagarlo con tus horas",
+          "efectos": {
+            "ovr": 1,
+            "tend": -1
+          },
+          "reveal": "Aprendiste solo, a las once de la noche. Sabés cómo funciona todo. También estás cada vez más cansado."
+        }
+      ],
+      "tono": "neutro"
+    },
+    {
+      "id": "S-14",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El proveedor te suelta la mano",
+      "flavor": "Tu proveedor de siempre te avisa que no entrega más a plazo. O pagás por adelantado, o no hay mercadería.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2002,
+          2002
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pagar por adelantado y asegurar stock",
+          "raw": "6 meses menos de caja · quedarte sin colchón para tener con qué vender",
+          "linea": "6 meses menos de caja · quedarte sin colchón para tener qué vender",
+          "efectos": {
+            "rw": -6,
+            "arrMul": 1.2
+          },
+          "reveal": "Tenés mercadería cuando nadie tiene. También tenés la caja en los huesos."
+        },
+        {
+          "id": "B",
+          "label": "Buscar tres proveedores nuevos",
+          "raw": "3 meses menos de caja · empezar relaciones desde cero en el peor momento",
+          "linea": "3 meses menos de caja · empezar de cero en el peor momento",
+          "efectos": {
+            "rw": -3,
+            "ovr": 1,
+            "tend": 1
+          },
+          "reveal": "Tardaste meses en armar la red nueva. Cuando el de siempre volvió a llamarte, ya no lo necesitabas."
+        },
+        {
+          "id": "C",
+          "label": "Vender lo que te queda y esperar",
+          "raw": "sin gastar nada · aguantar con lo puesto",
+          "linea": "sin gastar nada · aguantar con lo puesto",
+          "efectos": {
+            "arrMul": 0.75,
+            "rw": 2
+          },
+          "reveal": "Vendiste hasta la última caja del depósito. Después vinieron dos meses de mirar las estanterías vacías."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-15",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Los precios cambian todos los días",
+      "flavor": "Ponés un precio a la mañana y a la tarde ya perdiste plata. Los clientes preguntan y vos no sabés qué contestar.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2002,
+          2002
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Remarcar todos los días",
+          "raw": "sin costo · quedar como el que aprovecha",
+          "linea": "sin costo · quedar como el que se aprovecha",
+          "efectos": {
+            "arrMul": 1.1,
+            "ovr": -2
+          },
+          "reveal": "No perdiste plata con la inflación. Perdiste a los clientes que sentían que les cambiabas el precio en la cara."
+        },
+        {
+          "id": "B",
+          "label": "Sostener el precio una semana entera",
+          "raw": "3 meses menos de caja · comerte la diferencia para que confíen",
+          "linea": "3 meses menos de caja · comerte la diferencia para que confíen",
+          "efectos": {
+            "rw": -3,
+            "ovr": 3,
+            "tend": 1
+          },
+          "reveal": "Perdiste plata en cada venta de esa semana. Y te ganaste una fama que después no se compra con publicidad."
+        },
+        {
+          "id": "C",
+          "label": "Vender solo con precio a confirmar",
+          "raw": "sin costo · sacarte el problema de encima",
+          "linea": "sin costo · sacarte el problema de encima",
+          "efectos": {
+            "arrMul": 0.85,
+            "ovr": -1
+          },
+          "reveal": "El que preguntaba precio se iba sin respuesta. Varios no volvieron."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-16",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Exportar por necesidad",
+      "flavor": "Acá no compra nadie, pero afuera lo tuyo salió a valer monedas. Un contacto te ofrece mandar un contenedor de prueba.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2002,
+          2002
+        ]
+      },
+      "tePaso": {
+        "rubros": [
+          "mate",
+          "alimentos"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Mandar el contenedor",
+          "raw": "5 meses menos de caja · aprender de golpe un negocio que no conocés",
+          "linea": "5 meses menos de caja · aprender de golpe un negocio que no conocés",
+          "efectos": {
+            "rw": -5,
+            "arrMul": 1.35,
+            "tend": 1
+          },
+          "reveal": "Papeles, aduana, tres meses de espera. Cobraste en otra moneda por primera vez en tu vida."
+        },
+        {
+          "id": "B",
+          "label": "Mandar una muestra chica primero",
+          "raw": "2 meses menos de caja · meter la punta del pie",
+          "linea": "2 meses menos de caja · meter la punta del pie",
+          "efectos": {
+            "rw": -2,
+            "tend": 2
+          },
+          "reveal": "Mandaste una caja de muestra. Volvió un pedido tres veces más grande."
+        },
+        {
+          "id": "C",
+          "label": "Concentrarte en aguantar acá",
+          "raw": "sin gastar nada · pelear la única cancha que conocés",
+          "linea": "sin gastar nada · pelear la única cancha que conocés",
+          "efectos": {
+            "ovr": 1,
+            "tend": -1
+          },
+          "reveal": "Te quedaste peleando el mercado local. Sobreviviste. Otros se hicieron exportadores."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-17",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Contador y papeles en orden",
+      "flavor": "Venís anotando todo en un cuaderno y en la memoria. Un contador te dice que así no se puede seguir, y tiene razón.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2005,
+          2005
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Poner todo en regla, cueste lo que cueste",
+          "raw": "5 meses menos de caja · dejar de dormir con un ojo abierto",
+          "linea": "5 meses menos de caja · dejar de dormir con un ojo abierto",
+          "efectos": {
+            "rw": -5,
+            "ovr": 3,
+            "tend": 1,
+            "quitaFlags": [
+              "informal"
+            ]
+          },
+          "reveal": "Tres meses de ordenar papeles viejos. Ahora sabés cuánto ganás de verdad, que no es lo que creías."
+        },
+        {
+          "id": "B",
+          "label": "Ordenar solo lo que se ve",
+          "raw": "2 meses menos de caja · quedar prolijo por fuera",
+          "linea": "2 meses menos de caja · quedar prolijo por fuera",
+          "efectos": {
+            "rw": -2,
+            "ovr": 1
+          },
+          "reveal": "Los papeles del frente están impecables. El resto sigue en el cuaderno."
+        },
+        {
+          "id": "C",
+          "label": "Seguir con el cuaderno",
+          "raw": "sin gastar nada · el orden es un lujo de los que ya llegaron",
+          "linea": "sin gastar nada · el orden como lujo de los que ya llegaron",
+          "efectos": {
+            "ovr": -2,
+            "flags": [
+              "informal"
+            ]
+          },
+          "reveal": "El cuaderno sigue funcionando. Hasta el día que alguien pida ver los números en serio."
+        }
+      ],
+      "tono": "neutro"
+    },
+    {
+      "id": "S-18",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El primer gerente",
+      "flavor": "Ya son doce personas y todas te preguntan todo a vos. Podrías traer a alguien que maneje el día a día.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2005,
+          2005
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Traer a alguien con experiencia de afuera",
+          "raw": "6 meses menos de caja · que otro tome decisiones que hoy tomás vos",
+          "linea": "6 meses menos de caja · que otro tome decisiones que hoy tomás vos",
+          "efectos": {
+            "rw": -6,
+            "ovr": 2,
+            "tend": 2
+          },
+          "reveal": "Los primeros meses chocaron. Después dejaste de estar en cada detalle y el negocio siguió andando igual."
+        },
+        {
+          "id": "B",
+          "label": "Ascender al que ya está",
+          "raw": "2 meses menos de caja · premiar a alguien que quizás no esté listo",
+          "linea": "2 meses menos de caja · premiar a alguien que quizás no esté listo",
+          "efectos": {
+            "rw": -2,
+            "ovr": 1,
+            "tend": 1
+          },
+          "reveal": "Ascendiste al que más sabía del negocio. Le costó mandar a los que eran sus compañeros."
+        },
+        {
+          "id": "C",
+          "label": "Seguir decidiendo todo vos",
+          "raw": "sin gastar nada · ser el cuello de botella con orgullo",
+          "linea": "sin gastar nada · ser el cuello de botella con orgullo",
+          "efectos": {
+            "ovr": -1,
+            "tend": -2
+          },
+          "reveal": "Seguís aprobando hasta las compras de cien pesos. Nada se hace mal. Tampoco se hace rápido."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-19",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Sistema de stock",
+      "flavor": "Vendiste tres veces algo que no tenías. Un sistema cuesta plata y obliga a cargar todo, todos los días.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2005,
+          2005
+        ]
+      },
+      "tePaso": {
+        "rubros": [
+          "deco",
+          "tecno"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Un sistema en serio, con capacitación",
+          "raw": "4 meses menos de caja · pelearte con tu propia gente tres meses",
+          "linea": "4 meses menos de caja · pelearte con tu propia gente tres meses",
+          "efectos": {
+            "rw": -4,
+            "ovr": 2,
+            "tend": 2
+          },
+          "reveal": "Odiaron cargar los datos. Al cuarto mes nadie quería volver al cuaderno."
+        },
+        {
+          "id": "B",
+          "label": "Una planilla bien hecha",
+          "raw": "1 mes menos de caja · una solución que aguanta hasta cierto tamaño",
+          "linea": "1 mes menos de caja · una solución que aguanta hasta cierto tamaño",
+          "efectos": {
+            "rw": -1,
+            "ovr": 1
+          },
+          "reveal": "La planilla ordenó bastante. Funciona muy bien hasta el día que seas el doble de grande."
+        },
+        {
+          "id": "C",
+          "label": "Contar a ojo, como siempre",
+          "raw": "sin gastar nada · confiar en la memoria del depósito",
+          "linea": "sin gastar nada · confiar en la memoria del depósito",
+          "efectos": {
+            "ovr": -1,
+            "arrMul": 0.95
+          },
+          "reveal": "Seguiste contando a ojo. Cada tanto vendés algo que no está y perdés un cliente para siempre."
+        }
+      ],
+      "tono": "neutro"
+    },
+    {
+      "id": "S-20",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El competidor que vende más barato",
+      "flavor": "Abrió uno nuevo y vende lo mismo un treinta por ciento más barato. No sabés cómo hace los números, pero la gente cruza la vereda.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2008,
+          2008
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Igualarle el precio",
+          "raw": "sin inversión · pelear en la única cancha donde él es mejor",
+          "linea": "sin inversión · pelear en la única cancha donde él es mejor",
+          "efectos": {
+            "arrMul": 1.1,
+            "tend": -2
+          },
+          "reveal": "Retuviste a los clientes que solo miran el precio. Son los primeros que se van cuando aparezca uno más barato todavía."
+        },
+        {
+          "id": "B",
+          "label": "Subir la calidad y contarlo",
+          "raw": "3 meses menos de caja · apostar a que el precio no es lo único",
+          "linea": "3 meses menos de caja · apostar a que el precio no es lo único",
+          "efectos": {
+            "rw": -3,
+            "ovr": 2,
+            "tend": 2
+          },
+          "reveal": "Perdiste a los cazadores de ofertas. Te quedaste con los que vuelven."
+        },
+        {
+          "id": "C",
+          "label": "Esperar a que se funda",
+          "raw": "sin gastar nada · confiar en que esos números no cierran",
+          "linea": "sin gastar nada · confiar en que esos números no cierran",
+          "efectos": {
+            "arrMul": 0.85,
+            "ovr": 1
+          },
+          "reveal": "Aguantaste el año sin bajar un peso. Él seguía abierto, y vos con menos caja."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-21",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El cliente grande que no paga",
+      "flavor": "Te deben tres meses de facturas. Cada vez que llamás, te pasan con otra persona que promete llamarte mañana.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2008,
+          2008
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Cortarle la entrega hasta que pague",
+          "raw": "sin costo · perder al cliente más grande que tenés",
+          "linea": "sin costo directo · perder al cliente más grande que tenés",
+          "efectos": {
+            "arrMul": 0.8,
+            "ovr": 2,
+            "tend": 1
+          },
+          "reveal": "Le cortaste. Perdiste la facturación y ganaste algo que se nota en la calle: con vos no se jode."
+        },
+        {
+          "id": "B",
+          "label": "Seguir entregando y esperar",
+          "raw": "4 meses menos de caja · financiar a alguien más grande que vos",
+          "linea": "4 meses menos de caja · financiarle el negocio a alguien más grande que vos",
+          "efectos": {
+            "rw": -4,
+            "tend": -1
+          },
+          "reveal": "Seguiste entregando. Te pagaron a los ocho meses, sin intereses y sin pedir disculpas."
+        },
+        {
+          "id": "C",
+          "label": "Negociar un plan de pago con descuento",
+          "raw": "sin costo de caja · cobrar menos, pero cobrar",
+          "linea": "sin tocar la caja · cobrar menos, pero cobrar",
+          "efectos": {
+            "arrMul": 0.92,
+            "ovr": 1,
+            "tend": 1
+          },
+          "reveal": "Aceptaste cobrar menos a cambio de fechas ciertas. Cumplieron. Fue la decisión aburrida y correcta."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-22",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Se acabó el stock justo ahora",
+      "flavor": "Se vendió todo y el proveedor tiene entrega para dentro de tres meses. La gente sigue preguntando por lo que no tenés.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2008,
+          2008
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Comprarle al importador caro",
+          "raw": "5 meses menos de caja · no dejar de vender ni una semana",
+          "linea": "5 meses menos de caja · no dejar de vender ni una semana",
+          "efectos": {
+            "rw": -5,
+            "arrMul": 1.15
+          },
+          "reveal": "Pagaste el doble por la mercadería. Seguiste vendiendo mientras los otros tenían las góndolas vacías."
+        },
+        {
+          "id": "B",
+          "label": "Tomar pedidos con entrega a plazo",
+          "raw": "sin costo · pedirle paciencia a la gente",
+          "linea": "sin costo · pedirle paciencia a la gente",
+          "efectos": {
+            "arrMul": 0.95,
+            "ovr": 1,
+            "tend": 1
+          },
+          "reveal": "La mitad esperó tres meses. La otra mitad compró en otro lado. Los que esperaron ahora compran siempre."
+        },
+        {
+          "id": "C",
+          "label": "Vender otra cosa mientras tanto",
+          "raw": "2 meses menos de caja · improvisar un catálogo nuevo",
+          "linea": "2 meses menos de caja · improvisar un catálogo nuevo",
+          "efectos": {
+            "rw": -2,
+            "tend": 1,
+            "ovr": -1
+          },
+          "reveal": "Saliste a vender lo que conseguiste. Descubriste dos productos que se quedaron para siempre."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-23",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "La app que te vienen a vender",
+      "flavor": "Una agencia te ofrece hacerte una aplicación propia. Muestran una presentación con gráficos que suben.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2011,
+          2011
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Encargar la aplicación",
+          "raw": "8 meses menos de caja · construir algo que la gente tiene que decidir instalar",
+          "linea": "8 meses menos de caja · construir algo que la gente tiene que decidir instalar",
+          "efectos": {
+            "rw": -8,
+            "tend": 1,
+            "ovr": -1
+          },
+          "reveal": "Salió carísima. La descargaron sesenta personas, y cuarenta la borraron el mismo mes."
+        },
+        {
+          "id": "B",
+          "label": "Arreglar que tu sitio ande bien en el celular",
+          "raw": "2 meses menos de caja · resolver lo que la gente ya está intentando hacer",
+          "linea": "2 meses menos de caja · resolver lo que la gente ya intenta hacer",
+          "efectos": {
+            "rw": -2,
+            "arrMul": 1.25,
+            "tend": 2
+          },
+          "reveal": "Nadie te felicitó por eso. Simplemente, la gente que entraba desde el teléfono dejó de irse a los diez segundos."
+        },
+        {
+          "id": "C",
+          "label": "Dejarlo para cuando sea necesario",
+          "raw": "sin gastar nada · esperar a que el mundo se decida",
+          "linea": "sin gastar nada · esperar a que el mundo se decida",
+          "efectos": {
+            "tend": -2
+          },
+          "reveal": "Nada cambió este año. La gente que entra desde el celular sigue yéndose sin comprar."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-24",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El delivery propio",
+      "flavor": "Los envíos llegan tarde y la culpa te la comés vos. Podrías tener tu propia moto y tu propia gente.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2011,
+          2011
+        ]
+      },
+      "tePaso": {
+        "rubros": [
+          "alimentos",
+          "moda"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Moto propia y repartidor tuyo",
+          "raw": "5 meses menos de caja · hacerte cargo de la última cuadra",
+          "linea": "5 meses menos de caja · hacerte cargo de la última cuadra",
+          "efectos": {
+            "rw": -5,
+            "ovr": 2,
+            "tend": 2
+          },
+          "reveal": "Ahora el que toca el timbre lleva tu remera. Las quejas bajaron y las repeticiones subieron."
+        },
+        {
+          "id": "B",
+          "label": "Seguir con el correo y reclamar mejor",
+          "raw": "1 mes menos de caja · pelearla con el que te falla",
+          "linea": "1 mes menos de caja · pelearla con el que te falla",
+          "efectos": {
+            "rw": -1,
+            "ovr": 1
+          },
+          "reveal": "Armaste un sistema de reclamos que funciona. El correo sigue llegando tarde igual."
+        },
+        {
+          "id": "C",
+          "label": "Envíos solo para pedidos grandes",
+          "raw": "sin costo · achicar la promesa a lo que podés cumplir",
+          "linea": "sin costo · achicar la promesa a lo que podés cumplir",
+          "efectos": {
+            "arrMul": 0.9,
+            "ovr": 2
+          },
+          "reveal": "Vendés menos, pero no volvés a prometer algo que no controlás."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-25",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Las comisiones suben otra vez",
+      "flavor": "El gigante donde vendés la mitad de tu mercadería sube la comisión por tercera vez en dos años. Nadie te preguntó.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2014,
+          2014
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aceptar y subir tus precios ahí",
+          "raw": "sin costo · que el aumento lo pague el cliente",
+          "linea": "sin costo · que el aumento lo pague el cliente",
+          "efectos": {
+            "arrMul": 0.95,
+            "ovr": -1
+          },
+          "reveal": "Subiste el precio adentro del gigante. Vendés un poco menos y seguís entregando la misma comisión."
+        },
+        {
+          "id": "B",
+          "label": "Empujar a tus clientes a tu tienda",
+          "raw": "3 meses menos de caja · construir la salida antes de necesitarla",
+          "linea": "3 meses menos de caja · construir la salida antes de necesitarla",
+          "efectos": {
+            "rw": -3,
+            "tend": 3,
+            "ovr": 1
+          },
+          "reveal": "Metiste un folleto en cada paquete. Al principio se pasaron cuatro personas. Un año después, un tercio de tus ventas no paga comisión."
+        },
+        {
+          "id": "C",
+          "label": "Bajarte del gigante de una",
+          "raw": "sin costo directo · resignar la vidriera más grande del país",
+          "linea": "sin costo directo · resignar la vidriera más grande del país",
+          "efectos": {
+            "arrMul": 0.65,
+            "ovr": 2,
+            "tend": 2
+          },
+          "reveal": "Cerraste la cuenta. Se te cayeron las ventas de golpe, y cada cliente que quedó es tuyo de verdad."
+        }
+      ],
+      "tono": "neutro"
+    },
+    {
+      "id": "S-26",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Alguien te copia la publicación",
+      "flavor": "Un vendedor nuevo copió tus fotos, tu título y tu descripción, palabra por palabra. Y vende diez pesos más barato.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2014,
+          2014
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Denunciarlo y pelearla por el sistema",
+          "raw": "sin costo en plata · semanas de mails con un formulario",
+          "linea": "sin costo en plata · semanas de mails con un formulario",
+          "efectos": {
+            "ovr": 1,
+            "tend": -1
+          },
+          "reveal": "Le dieron de baja las publicaciones a los dos meses. Volvió con otro usuario a la semana siguiente."
+        },
+        {
+          "id": "B",
+          "label": "Hacer fotos que no se puedan copiar",
+          "raw": "3 meses menos de caja · poner la marca en cada imagen",
+          "linea": "3 meses menos de caja · poner tu marca en cada imagen",
+          "efectos": {
+            "rw": -3,
+            "ovr": 2,
+            "tend": 2
+          },
+          "reveal": "Producción propia, con tu marca en cada foto. Copiarte pasó a ser trabajo, y el vivo se fue a copiar a otro."
+        },
+        {
+          "id": "C",
+          "label": "Ignorarlo y seguir vendiendo",
+          "raw": "sin costo · confiar en que el que compra sabe",
+          "linea": "sin costo · confiar en que el que compra sabe distinguir",
+          "efectos": {
+            "arrMul": 0.92
+          },
+          "reveal": "Perdiste algunas ventas contra el copión. La mayoría de la gente ni se enteró de que había dos."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-27",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El primer Hot Sale",
+      "flavor": "Tres días en que el país entero compra online. Todos tus competidores van a estar ahí con descuentos que dan miedo.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2014,
+          2014
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Entrar con descuentos agresivos",
+          "raw": "4 meses menos de caja · vender mucho ganando poco",
+          "linea": "4 meses menos de caja · vender mucho ganando poco",
+          "efectos": {
+            "rw": -4,
+            "arrMul": 1.45,
+            "ovr": -1
+          },
+          "reveal": "Tres días de locura, el depósito vacío y el equipo muerto. La ganancia por venta fue una miseria; la cantidad de clientes nuevos, enorme."
+        },
+        {
+          "id": "B",
+          "label": "Entrar con descuentos moderados",
+          "raw": "1 mes menos de caja · aprovechar el movimiento sin regalar nada",
+          "linea": "1 mes menos de caja · aprovechar el movimiento sin regalar nada",
+          "efectos": {
+            "rw": -1,
+            "arrMul": 1.2,
+            "ovr": 1
+          },
+          "reveal": "Descuentos razonables. Vendiste bien y no tuviste que explicarle a nadie por qué la semana siguiente todo valía más."
+        },
+        {
+          "id": "C",
+          "label": "No entrar y decirlo fuerte",
+          "raw": "sin costo · plantarte contra la corriente",
+          "linea": "sin costo · plantarte contra la corriente",
+          "efectos": {
+            "ovr": 2,
+            "arrMul": 0.9,
+            "tend": 1
+          },
+          "reveal": "Publicaste que tus precios son los mismos todo el año. Vendiste menos esa semana y te escribieron para felicitarte."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-28",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "La reseña de una estrella",
+      "flavor": "Un cliente dejó una reseña larga, detallada y furiosa. Tiene parte de razón. Está primera en tu perfil.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2017,
+          2017
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Contestarle en público y resolverle todo",
+          "raw": "1 mes menos de caja · exponerte a que siga la discusión a la vista",
+          "linea": "1 mes menos de caja · exponerte a que la discusión siga a la vista de todos",
+          "efectos": {
+            "rw": -1,
+            "ovr": 3,
+            "tend": 1
+          },
+          "reveal": "Le contestaste sin excusas y le resolviste el problema. Editó la reseña. Ahora es lo primero que lee el que duda."
+        },
+        {
+          "id": "B",
+          "label": "Escribirle por privado y no contestar ahí",
+          "raw": "sin costo · resolverlo sin que se vea",
+          "linea": "sin costo · resolverlo sin que se vea",
+          "efectos": {
+            "ovr": 1
+          },
+          "reveal": "Lo arreglaste por privado. Él quedó contento y la reseña de una estrella sigue arriba de todo."
+        },
+        {
+          "id": "C",
+          "label": "Enterrarla pidiendo reseñas buenas",
+          "raw": "sin costo · tapar en vez de arreglar",
+          "linea": "sin costo · tapar en vez de arreglar",
+          "efectos": {
+            "ovr": -1,
+            "tend": -1
+          },
+          "reveal": "Juntaste veinte reseñas buenas y la mala quedó abajo. El problema que ella señalaba sigue igual."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-29",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "La publicidad se puso cara",
+      "flavor": "Lo que hace dos años te costaba un peso ahora cuesta cuatro. Y si dejás de pagar, dejás de existir.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2017,
+          2017
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Pagar lo que haya que pagar",
+          "raw": "6 meses menos de caja · alquilar clientes todos los meses",
+          "linea": "6 meses menos de caja · alquilar clientes todos los meses",
+          "efectos": {
+            "rw": -6,
+            "arrMul": 1.3,
+            "tend": -1
+          },
+          "reveal": "Las ventas acompañaron mientras pagabas. El mes que frenaste, se frenó todo."
+        },
+        {
+          "id": "B",
+          "label": "Armar tu propia comunidad",
+          "raw": "3 meses menos de caja · sembrar algo que tarda en dar",
+          "linea": "3 meses menos de caja · sembrar algo que tarda en dar",
+          "efectos": {
+            "rw": -3,
+            "tend": 3,
+            "ovr": 1
+          },
+          "reveal": "Al principio eran cuarenta personas en un grupo. Tardó dos años en rendir, y no se lo podés alquilar a nadie."
+        },
+        {
+          "id": "C",
+          "label": "Bajar la publicidad al mínimo",
+          "raw": "+3 meses de caja · resignar visibilidad para respirar",
+          "linea": "+3 meses de caja · resignar visibilidad para respirar",
+          "efectos": {
+            "rw": 3,
+            "arrMul": 0.85
+          },
+          "reveal": "Cortaste casi toda la pauta. La caja mejoró y el teléfono sonó bastante menos."
+        }
+      ],
+      "tono": "neutro"
+    },
+    {
+      "id": "S-30",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "La competencia automatizó todo",
+      "flavor": "El de al lado contesta en dos segundos a cualquier hora. Vos seguís contestando vos, y se nota en los tiempos.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2023,
+          2023
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Igualarlos como sea",
+          "raw": "4 meses menos de caja · correr detrás de algo que ya te sacó ventaja",
+          "linea": "4 meses menos de caja · correr detrás de algo que ya te sacó ventaja",
+          "efectos": {
+            "rw": -4,
+            "arrMul": 1.15,
+            "tend": 1
+          },
+          "reveal": "Los alcanzaste en tiempo de respuesta. Ellos ya estaban un paso más adelante."
+        },
+        {
+          "id": "B",
+          "label": "Competir por atención humana",
+          "raw": "2 meses menos de caja · apostar a que todavía importa que atienda una persona",
+          "linea": "2 meses menos de caja · apostar a que todavía importa que atienda una persona",
+          "efectos": {
+            "rw": -2,
+            "ovr": 2,
+            "tend": 1
+          },
+          "reveal": "Te quedaste con los clientes que querían hablar con alguien. Son menos y compran más."
+        },
+        {
+          "id": "C",
+          "label": "No hacer nada por ahora",
+          "raw": "sin gastar nada · mirar cómo les va a los demás",
+          "linea": "sin gastar nada · mirar cómo les va a los demás",
+          "efectos": {
+            "arrMul": 0.9,
+            "tend": -1
+          },
+          "reveal": "Este año casi no se notó. La diferencia de tiempos de respuesta se sigue acumulando."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-31",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Franquiciar la marca",
+      "flavor": "Tres personas de distintas provincias te escribieron lo mismo: quieren abrir uno igual al tuyo, con tu nombre.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2023,
+          2023
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Armar el sistema de franquicias en serio",
+          "raw": "6 meses menos de caja · confiarle tu nombre a gente que no conocés",
+          "linea": "6 meses menos de caja · confiarle tu nombre a gente que no conocés",
+          "efectos": {
+            "rw": -6,
+            "arrMul": 1.35,
+            "tend": 2,
+            "ovr": -1
+          },
+          "reveal": "Abrieron tres en un año. Dos son mejores que el original y uno te hace quedar mal cada fin de semana."
+        },
+        {
+          "id": "B",
+          "label": "Una sola, de prueba, con alguien de confianza",
+          "raw": "2 meses menos de caja · aprender con el menor daño posible",
+          "linea": "2 meses menos de caja · aprender con el menor daño posible",
+          "efectos": {
+            "rw": -2,
+            "tend": 2,
+            "ovr": 1
+          },
+          "reveal": "Abriste una sola, con alguien que conocés. Descubriste todo lo que faltaba escribir antes de abrir diez."
+        },
+        {
+          "id": "C",
+          "label": "No franquiciar: la marca es tuya",
+          "raw": "sin costo · crecer más despacio y no soltar el volante",
+          "linea": "sin costo · crecer más despacio y no soltar el volante",
+          "efectos": {
+            "ovr": 2,
+            "tend": -1
+          },
+          "reveal": "Dijiste que no a los tres. Tu marca sigue significando exactamente lo que vos querés que signifique."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-32",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Tu hijo quiere entrar al negocio",
+      "flavor": "Tiene veintitrés años, estudió algo que vos no entendés del todo, y quiere meterse. Con ideas.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2023,
+          2023
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Que entre y arranque desde abajo",
+          "raw": "sin costo extra · mezclar la mesa familiar con el depósito",
+          "linea": "sin costo extra · mezclar la mesa familiar con el depósito",
+          "efectos": {
+            "ovr": 1,
+            "tend": 2
+          },
+          "reveal": "Empezó cargando pedidos. A los seis meses cambió dos cosas que vos defendías hace veinte años, y tenía razón."
+        },
+        {
+          "id": "B",
+          "label": "Que entre a manejar lo digital",
+          "raw": "2 meses menos de caja · darle una cancha propia donde no compitan",
+          "linea": "2 meses menos de caja · darle una cancha propia donde no compitan",
+          "efectos": {
+            "rw": -2,
+            "arrMul": 1.2,
+            "tend": 1
+          },
+          "reveal": "Le diste un área entera. La hizo crecer sin pedirte permiso, que era exactamente el punto."
+        },
+        {
+          "id": "C",
+          "label": "Decirle que trabaje afuera primero",
+          "raw": "sin costo · pedirle que se gane el lugar en otro lado",
+          "linea": "sin costo · pedirle que se gane el lugar en otro lado",
+          "efectos": {
+            "ovr": 1,
+            "tend": -1
+          },
+          "reveal": "Se fue a trabajar a otra empresa. Vuelve en unos años, con oficio propio o sin ganas de volver."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-33",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El préstamo del banco",
+      "flavor": "Por primera vez un banco te ofrece plata sin pedirte la casa de garantía. La tasa es alta pero la plata está.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1996,
+          1996
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Tomar el préstamo entero",
+          "raw": "+10 meses de caja · una cuota fija que no espera a que vendas",
+          "linea": "+10 meses de caja · una cuota fija que no espera a que vendas",
+          "efectos": {
+            "rw": 10,
+            "tend": 1,
+            "flags": [
+              "deuda_banco"
+            ]
+          },
+          "reveal": "La plata entró y te dio aire. La cuota llega igual los meses en que no vendés nada."
+        },
+        {
+          "id": "B",
+          "label": "Tomar la mitad",
+          "raw": "+5 meses de caja · endeudarte hasta donde podés dormir",
+          "linea": "+5 meses de caja · endeudarte hasta donde podés dormir",
+          "efectos": {
+            "rw": 5,
+            "ovr": 1
+          },
+          "reveal": "Pediste la mitad de lo que te ofrecían. El gerente no entendió. Vos sí."
+        },
+        {
+          "id": "C",
+          "label": "No pedir nada",
+          "raw": "sin deuda · crecer al ritmo que da la caja",
+          "linea": "sin deuda · crecer al ritmo que da la caja",
+          "efectos": {
+            "ovr": 1,
+            "tend": -1
+          },
+          "reveal": "Sin deuda y sin apuro. También sin la mercadería que hubieras comprado con esa plata."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-34",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "La computadora del local",
+      "flavor": "Comprar una computadora para el mostrador cuesta como tres meses de alquiler. Todavía no sabés bien para qué la usarías.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          1999,
+          1999
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Comprarla y aprender sobre la marcha",
+          "raw": "3 meses menos de caja · pagar por algo cuyo uso todavía no ves",
+          "linea": "3 meses menos de caja · pagar por algo cuyo uso todavía no ves",
+          "efectos": {
+            "rw": -3,
+            "ovr": 1,
+            "tend": 2
+          },
+          "reveal": "Estuvo dos meses juntando polvo. Después no supiste cómo hacías antes sin ella."
+        },
+        {
+          "id": "B",
+          "label": "Comprar una usada",
+          "raw": "1 mes menos de caja · entrar por la puerta de atrás",
+          "linea": "1 mes menos de caja · entrar por la puerta de atrás",
+          "efectos": {
+            "rw": -1,
+            "tend": 1
+          },
+          "reveal": "Andaba lento y se colgaba. Alcanzó para empezar."
+        },
+        {
+          "id": "C",
+          "label": "Seguir con papel y calculadora",
+          "raw": "sin gastar nada · lo que funciona no se toca",
+          "linea": "sin gastar nada · lo que funciona no se toca",
+          "efectos": {
+            "tend": -1
+          },
+          "reveal": "El cuaderno y la calculadora siguen funcionando perfecto. Y cada año que pasa, la distancia se agranda."
+        }
+      ],
+      "tono": "neutro"
+    },
+    {
+      "id": "S-35",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El empleado que se va con la cartera",
+      "flavor": "El que atendía a tus mejores clientes renuncia. Se va a lo del competidor y conoce a cada uno por su nombre.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2005,
+          2005
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Mejorarle la oferta para que se quede",
+          "raw": "4 meses menos de caja · pagar por retener a alguien que ya se fue en la cabeza",
+          "linea": "4 meses menos de caja · pagar por retener a alguien que ya se fue en la cabeza",
+          "efectos": {
+            "rw": -4,
+            "ovr": -1,
+            "tend": 1
+          },
+          "reveal": "Se quedó seis meses más y se fue igual. Los otros se enteraron de que renunciar hace subir el sueldo."
+        },
+        {
+          "id": "B",
+          "label": "Dejarlo ir y llamar vos a cada cliente",
+          "raw": "2 meses menos de caja · recuperar de a uno lo que se llevó de golpe",
+          "linea": "2 meses menos de caja · recuperar de a uno lo que se llevó de golpe",
+          "efectos": {
+            "rw": -2,
+            "ovr": 2,
+            "tend": 1
+          },
+          "reveal": "Llamaste a los cuarenta clientes, uno por uno. Se quedaron treinta y dos, y ahora te conocen a vos."
+        },
+        {
+          "id": "C",
+          "label": "Dejarlo ir y no hacer nada",
+          "raw": "sin costo · confiar en que la marca pesa más que la persona",
+          "linea": "sin costo · confiar en que la marca pesa más que la persona",
+          "efectos": {
+            "arrMul": 0.85,
+            "ovr": -1
+          },
+          "reveal": "Se llevó a la mitad de su cartera. Aprendiste cuánto de tu negocio estaba en la agenda de un empleado."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-36",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El local que cierra al lado",
+      "flavor": "El de al lado baja la persiana después de veinte años. El dueño te ofrece el espacio y lo que quede adentro.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2008,
+          2008
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Quedarte con el local y tirar la pared",
+          "raw": "6 meses menos de caja · crecer justo cuando todos se achican",
+          "linea": "6 meses menos de caja · crecer justo cuando todos se achican",
+          "efectos": {
+            "rw": -6,
+            "arrMul": 1.25,
+            "tend": 2
+          },
+          "reveal": "Duplicaste el espacio en el peor año del mercado. Cuando volvió la gente, eras el más grande de la cuadra."
+        },
+        {
+          "id": "B",
+          "label": "Comprarle solo la mercadería barata",
+          "raw": "2 meses menos de caja · aprovechar sin comprometerte",
+          "linea": "2 meses menos de caja · aprovechar sin comprometerte",
+          "efectos": {
+            "rw": -2,
+            "arrMul": 1.12
+          },
+          "reveal": "Compraste su stock a precio de remate y lo vendiste todo el año."
+        },
+        {
+          "id": "C",
+          "label": "No meterte: no es momento",
+          "raw": "sin gastar nada · cuidar la caja por sobre todo",
+          "linea": "sin gastar nada · cuidar la caja por sobre todas las cosas",
+          "efectos": {
+            "rw": 2,
+            "tend": -1
+          },
+          "reveal": "No te moviste. Seis meses después abrió una cadena en ese local."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-37",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Los mensajes empiezan a llegar de noche",
+      "flavor": "La gente te escribe a las once de la noche esperando respuesta. Al principio eran dos por semana; ahora son veinte por día.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2017,
+          2017
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Contestar vos hasta la última",
+          "raw": "sin costo en plata · pagarlo con tus noches",
+          "linea": "sin costo en plata · pagarlo con tus noches",
+          "efectos": {
+            "arrMul": 1.15,
+            "ovr": -2
+          },
+          "reveal": "No dejaste un mensaje sin responder. Tampoco cenaste tranquilo en todo el año."
+        },
+        {
+          "id": "B",
+          "label": "Poner horario de atención y avisarlo",
+          "raw": "sin costo · perder al que no quiere esperar",
+          "linea": "sin costo · perder al que no quiere esperar",
+          "efectos": {
+            "arrMul": 0.95,
+            "ovr": 2,
+            "tend": 1
+          },
+          "reveal": "Pusiste horario y lo avisaste en todos lados. Algunos se quejaron. Vos volviste a dormir."
+        },
+        {
+          "id": "C",
+          "label": "Contratar a alguien para que atienda",
+          "raw": "4 meses menos de caja · que otro sea la voz de tu marca",
+          "linea": "4 meses menos de caja · que otro sea la voz de tu marca",
+          "efectos": {
+            "rw": -4,
+            "arrMul": 1.2,
+            "tend": 1
+          },
+          "reveal": "Contrataste a alguien para los mensajes. Tardó en agarrarle el tono. Cuando lo agarró, no volviste a mirar el teléfono a la madrugada."
+        }
+      ],
+      "tono": "resistencia"
+    },
+    {
+      "id": "S-38",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El pedido que viene de afuera",
+      "flavor": "Te escribe alguien de otro país pidiendo veinte unidades. Nunca enviaste nada más lejos que la provincia de al lado.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2011,
+          2011
+        ]
+      },
+      "tePaso": {
+        "rubros": [
+          "mate",
+          "belleza"
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Aprender a exportar en serio",
+          "raw": "4 meses menos de caja · pelearte con papeles que no entendés",
+          "linea": "4 meses menos de caja · pelearte con papeles que no entendés",
+          "efectos": {
+            "rw": -4,
+            "tend": 3
+          },
+          "reveal": "Tres meses de trámites por veinte unidades. Pero ahora sabés hacerlo, y el segundo pedido tardó una semana."
+        },
+        {
+          "id": "B",
+          "label": "Mandarlo por correo y ver qué pasa",
+          "raw": "1 mes menos de caja · improvisar y cruzar los dedos",
+          "linea": "1 mes menos de caja · improvisar y cruzar los dedos",
+          "efectos": {
+            "rw": -1,
+            "tend": 1,
+            "ovr": -1
+          },
+          "reveal": "Llegó a los dos meses, con la caja golpeada. El cliente igual volvió a pedir."
+        },
+        {
+          "id": "C",
+          "label": "Decirle que no enviás afuera",
+          "raw": "sin costo · quedarte donde sabés moverte",
+          "linea": "sin costo · quedarte donde sabés moverte",
+          "efectos": {
+            "ovr": 1,
+            "tend": -1
+          },
+          "reveal": "Le dijiste que no. Siguieron escribiendo de afuera un tiempo, después dejaron."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-39",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "El galpón propio",
+      "flavor": "Venís alquilando depósito hace años. Aparece uno en venta, con crédito, a media hora del local.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2014,
+          2014
+        ]
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Comprarlo con crédito",
+          "raw": "9 meses menos de caja · atarte a una cuota por muchos años",
+          "linea": "9 meses menos de caja · atarte a una cuota por muchos años",
+          "efectos": {
+            "rw": -9,
+            "ovr": 2,
+            "tend": 2
+          },
+          "reveal": "Tenés depósito propio y una deuda larga. El alquiler que pagabas ahora construye algo tuyo."
+        },
+        {
+          "id": "B",
+          "label": "Seguir alquilando, más grande",
+          "raw": "3 meses menos de caja · más espacio sin atarte",
+          "linea": "3 meses menos de caja · más espacio sin atarte",
+          "efectos": {
+            "rw": -3,
+            "arrMul": 1.1
+          },
+          "reveal": "Alquilaste el doble de metros. Podés irte cuando quieras, que a veces vale más que un título."
+        },
+        {
+          "id": "C",
+          "label": "Achicar el stock y quedarte chico",
+          "raw": "+2 meses de caja · vender menos cosas, mejor elegidas",
+          "linea": "+2 meses de caja · vender menos cosas, mejor elegidas",
+          "efectos": {
+            "rw": 2,
+            "arrMul": 0.92,
+            "ovr": 1
+          },
+          "reveal": "Cortaste la mitad del catálogo. Menos plata inmovilizada y un depósito que se entiende de un vistazo."
+        }
+      ],
+      "tono": "crecimiento"
+    },
+    {
+      "id": "S-40",
+      "bloque": "slots",
+      "tipo": "T3",
+      "titulo": "Te ofrecen comprarte la marca",
+      "flavor": "Un grupo que compra marcas chicas te hace una oferta por la tuya. No es una fortuna, pero es plata que no viste junta nunca.",
+      "elegibilidad": {
+        "modos": [
+          "founder"
+        ],
+        "ventana": [
+          2023,
+          2023
+        ],
+        "etapaMin": 1
+      },
+      "opciones": [
+        {
+          "id": "A",
+          "label": "Vender y salir",
+          "raw": "cobrás y dejás de ser dueño · treinta años en una transferencia",
+          "linea": "cobrás y dejás de ser dueño · treinta años en una transferencia",
+          "efectos": {
+            "special": "sellNow"
+          },
+          "reveal": "Firmaste. El lunes siguiente no tenías que abrir nada, y no supiste qué hacer con la mañana."
+        },
+        {
+          "id": "B",
+          "label": "Pedir el doble",
+          "raw": "sin costo · arriesgarte a que se levanten de la mesa",
+          "linea": "sin costo · arriesgarte a que se levanten de la mesa",
+          "apuesta": {
+            "p": 0.4,
+            "gana": {
+              "texto": "Aceptaron sin discutir. Firmaron a la semana.",
+              "efectos": {
+                "special": "sellPeak"
+              }
+            },
+            "pierde": {
+              "texto": "Se levantaron de la mesa y no volvieron a llamar.",
+              "efectos": {
+                "ovr": -1,
+                "tend": -1
+              }
+            }
+          }
+        },
+        {
+          "id": "C",
+          "label": "No vender: esto no se vende",
+          "raw": "sin costo · quedarte con algo que no cotiza",
+          "linea": "sin costo · quedarte con algo que no cotiza",
+          "efectos": {
+            "ovr": 2,
+            "tend": 1
+          },
+          "reveal": "Dijiste que no. Nadie te va a aplaudir por eso, y vos sabés por qué lo hiciste."
+        }
+      ],
+      "tono": "neutro"
+    }
+  ]
+}

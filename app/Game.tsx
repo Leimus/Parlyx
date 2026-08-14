@@ -18,7 +18,8 @@ import { humanizar } from "@/lib/game/humano.js";
 import { track } from "@/lib/game/analytics.js";
 import { etapaIdx } from "@/lib/engine/index.js";
 import { TODOS_ARQUETIPOS } from "@/lib/game/arquetipos.js";
-import { COPAS, copasDePartida, actualizarVitrina, cargarVitrina } from "@/lib/game/vitrina.js";
+import { COPAS, copasDePartida, actualizarVitrina, cargarVitrina, cartasRecientes } from "@/lib/game/vitrina.js";
+import { APRENDIZAJES, TOTAL_APRENDIZAJES } from "@/lib/game/aprendizajes.js";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type GS = any;
@@ -355,7 +356,8 @@ export default function Game() {
   const [seedAbierto, setSeedAbierto] = useState(false); // CTA secundario colapsado (§4.6)
   const [saliendo, setSaliendo] = useState(false); // la tapa se abre hacia el setup (§4.8)
   const [formato, setFormato] = useState<"45" | "916">("45");
-  const [vitrina, setVitrina] = useState<{ copas: string[]; arquetipos: string[]; partidas: number }>({ copas: [], arquetipos: [], partidas: 0 });
+  const [vitrina, setVitrina] = useState<{ copas: string[]; arquetipos: string[]; partidas: number; aprendizajes: string[] }>({ copas: [], arquetipos: [], partidas: 0, aprendizajes: [] });
+  const [nuevosAp, setNuevosAp] = useState<any[]>([]); // §3: lo que dejó ESTA partida
   const gsRef = useRef<GS>(null);
   const esDesafio = useRef(false);
   const [, bump] = useReducer((x: number) => x + 1, 0);
@@ -372,7 +374,7 @@ export default function Game() {
       esDesafio.current = true;
     }
     const v = cargarVitrina();
-    setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas });
+    setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas, aprendizajes: v.aprendizajes || [] });
     if (v.setup?.empresa) setSetup({ ...SETUP_DEFAULT, ...v.setup });
     const t = setInterval(() => setPhIdx((i) => i + 1), 2400);
     return () => clearInterval(t);
@@ -388,7 +390,9 @@ export default function Game() {
   const gs: GS = gsRef.current;
 
   const startGame = (sd: string, origen = "nueva", s = setup) => {
-    gsRef.current = createGame(sd, s);
+    // §2.3: las cartas de las últimas 2 partidas se despriorizan, para que la
+    // segunda partida se sienta nueva sí o sí.
+    gsRef.current = createGame(sd, s, cartasRecientes());
     try { window.history.replaceState(null, "", "?s=" + sd); } catch { /* sandbox */ }
     track("game_start", { seed: sd, origen, rubro: s.rubro, capital: s.capital });
     if (origen === "desafio" || origen === "revancha") track("seed_replay", { seed: sd, origen });
@@ -421,7 +425,8 @@ export default function Game() {
     if (gs.phase === "end") {
       track("game_end", { final: gs.endInfo.key, arquetipo: gs.mote.id });
       const v = actualizarVitrina(gs);
-      setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas });
+      setVitrina({ copas: v.copas, arquetipos: v.arquetipos, partidas: v.partidas, aprendizajes: v.aprendizajes || [] });
+      setNuevosAp(v.nuevosAprendizajes || []);
       setScreen("end");
     }
     bump();
@@ -940,6 +945,35 @@ export default function Game() {
               );
             })}
           </div>
+        </div>
+
+        {/* §3 — Lo que aprendiste: la razón honesta para jugar la tercera.
+            Cero mecánica: no dan ventaja, solo conocimiento tuyo. */}
+        <div className="diario">
+          <h3>Lo que aprendiste · <span className="cnt">{vitrina.aprendizajes.length}/{TOTAL_APRENDIZAJES}</span></h3>
+          {nuevosAp.length > 0 && (
+            <div className="ap-nuevos">
+              {nuevosAp.map((a: any, i: number) => (
+                <motion.p
+                  className={"ap" + (a.nuevo ? " es-nuevo" : "")}
+                  key={a.id}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: reduced ? 0 : 0.4 + i * 0.5, duration: 0.45 }}
+                >
+                  {a.nuevo && <b>Ahora sabés:</b>} {a.texto}
+                </motion.p>
+              ))}
+            </div>
+          )}
+          {vitrina.aprendizajes.length > nuevosAp.length && (
+            <details className="ap-todos">
+              <summary>Ver los {vitrina.aprendizajes.length} que ya sabés</summary>
+              {APRENDIZAJES.filter((a) => vitrina.aprendizajes.includes(a.id)).map((a) => (
+                <p className="ap viejo" key={a.id}>{a.texto}</p>
+              ))}
+            </details>
+          )}
         </div>
 
         <div className="casi">{gs.casi}</div>

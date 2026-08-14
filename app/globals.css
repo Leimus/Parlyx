@@ -409,3 +409,16 @@ button { font-family: inherit; }
 }
 .pt-pie { margin-top: 20px; padding-top: 10px; border-top: 3px double #4a4136; text-align: center; color: var(--dim); font-size: 13px; }
 .pt-vitrina { font-family: var(--font-mono), monospace; font-size: 13px; margin-bottom: 6px; }
+
+/* ---------- Diario de aprendizajes (SPEC v4 §3) ----------
+   Progresión de conocimiento entre partidas: es lo que hace justa la
+   información oculta del §1. Cero ventaja mecánica. */
+.diario { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-top: 12px; }
+.diario h3 { font-size: 13px; letter-spacing: 0.16em; color: var(--dim); text-transform: uppercase; text-align: center; }
+.diario .cnt { color: var(--ink); }
+.ap-nuevos { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+.ap { font-size: 14px; line-height: 1.45; color: var(--ink); background: var(--panel2); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 10px; padding: 9px 12px; }
+.ap b { color: var(--gold); }
+.ap.viejo { color: var(--dim); border-left-color: var(--line); background: transparent; padding: 7px 0 7px 12px; border-top: none; border-right: none; border-bottom: none; border-radius: 0; }
+.ap-todos { margin-top: 10px; }
+.ap-todos summary { font-size: 13px; color: var(--dim); cursor: pointer; text-align: center; }

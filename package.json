@@ -14,8 +14,10 @@
     "smoke": "node scripts/smoke-game.mjs",
     "test:beat": "node scripts/test-beat-parlyx.mjs 10000",
     "test:legibilidad": "node scripts/check-legibilidad.mjs",
+    "test:informacion": "node scripts/check-informacion.mjs",
+    "test:cobertura": "node scripts/test-cobertura.mjs 200",
     "test:info": "node scripts/check-informacion.mjs",
-    "test": "node scripts/validate-cards.mjs && node scripts/check-lenguaje.mjs && node scripts/check-legibilidad.mjs && node scripts/check-informacion.mjs && node scripts/sim.mjs 10000 --check && node scripts/test-parlyx-invariante.mjs && node scripts/test-beat-parlyx.mjs 10000 && node scripts/smoke-game.mjs 300"
+    "test": "node scripts/validate-cards.mjs && node scripts/check-lenguaje.mjs && node scripts/check-legibilidad.mjs && node scripts/check-informacion.mjs && node scripts/sim.mjs 10000 --check && node scripts/test-parlyx-invariante.mjs && node scripts/test-beat-parlyx.mjs 10000 && node scripts/test-cobertura.mjs 200 && node scripts/smoke-game.mjs 300"
   },
   "dependencies": {
     "framer-motion": "^12.43.0",

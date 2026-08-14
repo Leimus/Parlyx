@@ -31,7 +31,11 @@ Principio rector v0.3 §0 sigue: el juego primero.
 | `docs/SPEC-v3-legibilidad-sillas-epocas-portada.md` | Legibilidad · tres sillas · marcos de época · portada | **Manda sobre UI-SPEC v2 en tipografía y densidad** |
 | `docs/UI-SPEC-v2-densidad-copero.md` | Spec de UI (tabla siempre visible, píldora OVR, Framer Motion) | Vigente salvo donde v3 contradiga |
 | `scripts/check-legibilidad.mjs` | Contraste WCAG + piso de 13px (SPEC v3 §1) | Traba de CI |
-| `scripts/test-beat-parlyx.mjs` | 100% de partidas ven el beat 2020 + distribución de sillas | Traba de CI (SPEC v3 §2.5) |
+| `scripts/test-beat-parlyx.mjs` | 100% de partidas ven el beat 2020 + distribución de sillas + toda carta de 2020 ofrece activar Parlyx | Traba de CI (SPEC v3 §2.5) |
+| `docs/SPEC-v4-misterio-y-variantes.md` | Regla de información · variantes por turno · diario | **Manda sobre el contenido de las opciones** |
+| `scripts/check-informacion.mjs` | Ninguna opción anuncia lo que ganás (SPEC v4 §1) | Traba de CI |
+| `scripts/test-cobertura.mjs` | Pools por turno: nadie domina, dos partidas no se parecen | Traba de CI (SPEC v4 §2.4) |
+| `lib/game/aprendizajes.js` | Los 24 aprendizajes del diario (SPEC v4 §3) | Contenido del diario acá |
 | `data/arcos.json` | Arcos narrativos (sesgos de momentum por fase, PRD v0.3 §5) | Tuneo de arcos acá |
 | `data/tags-ejes.json` | Tags de eje por opción → arquetipos (PRD v0.3 §2) | Tuneo del perfil acá |
 | `reference/engine-v1.original.js` | El motor original INTACTO (validado 20.000 sims) | Referencia para diff |
@@ -171,11 +175,31 @@ npm run build          # build estático (out/)
    **Bugs encontrados de paso:** `check-lenguaje` validaba el flavor HUMANIZADO pero la UI
    lo pintaba crudo → 7 fugas reales en pantalla ("term sheets", "ARR", "⚑"), corregidas en
    JSON y en los `.md`; el checker ahora audita la prosa tal como se renderiza.
-9. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
+9. ✅ **SPEC v4 "Misterio y variantes"** — `docs/SPEC-v4-misterio-y-variantes.md`:
+   §1 **regla de información**: se muestra lo que PAGÁS, se esconde lo que GANÁS.
+   Campo `linea` por opción (costo duro literal + frase de carácter); 140 opciones
+   reescritas; `scripts/check-informacion.mjs` traba en CI cualquier número de
+   resultado o adjetivo que ordene. Las apuestas conservan sus % (excepción del §1) ·
+   §1.3 **varianza silenciosa** ±35% sobre efectos ocultos con 12% de colas — los
+   COSTOS declarados nunca varían (son un contrato); la cola es DIRECCIÓN a favor o
+   en contra, no magnitud · §1.4 **reveal en toda decisión**, no solo en apuestas ·
+   §2 **variantes por turno**: 10 slots temáticos (`SLOTS` en deck.js) con núcleo
+   temático + resto del deck viejo, la seed elige, sesgo por arco (`tono`) y rubro,
+   anti-repetición contra las últimas 2 partidas (`cartasRecientes()`). 40 cartas
+   nuevas (`data/cards/11-slots.json`, bloque `slots`, deck 162) ·
+   §2.4 `scripts/test-cobertura.mjs` en CI · §3 **diario de aprendizajes**
+   (`lib/game/aprendizajes.js`, 24 en lenguaje humano, cero ventaja mecánica).
+   **Verificado:** golden idéntico · sillas 69.6/18.9/11.5 · beat 100% · regla de oro
+   62.3% · 141 de 162 cartas aparecen en juego · solapamiento 0.85 cartas entre
+   partidas · 1996 da 3 cartas distintas en 3 seeds.
+   **Bugs encontrados de paso:** los 11 turnos planificados dejaban ~70 cartas del
+   deck viejo sin sortearse nunca (de ahí el `resto` por slot) y mataban las rampas
+   entre sillas (la silla C cayó a 1.8% hasta recalibrar sus pesos).
+10. 🔲 **v1.1 "El juego que vende"** (NO empezar sin OK): Seed del Día + share Wordle +
    racha · email/informe por arquetipo · tienda/powerups (4 items) · HubSpot.
-10. 🔲 F3 motor: modo ejecutivo D6 completo (el corpo de DD-01 es la versión light),
+11. 🔲 F3 motor: modo ejecutivo D6 completo (el corpo de DD-01 es la versión light),
    condiciones en prosa, retiro standalone, recalibrar `BAL` contra §17.
-11. 🔲 F4: og:image dinámica + arte final de tarjeta.
+12. 🔲 F4: og:image dinámica + arte final de tarjeta.
 
 ## Contexto de negocio
 
